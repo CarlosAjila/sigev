@@ -1,0 +1,96 @@
+/* Estilo para el archivo Registrar de la carpeta Vista-Usuario */
+*{
+	margin:0px auto;
+	padding:0px;
+	box-sizing:border-box;/*Para que todo se contenga dentro del mismo modelo de caja*/
+}
+
+#cabecera
+{
+	width:100%;
+	height:90px;
+	color:#FFF;
+	position:absolute;/*Permite que el elemeto se desplace junto con la pantalla*/
+	top:0px;
+	left:0px;
+	text-align:center;
+	border-bottom:#036 5px solid;
+	background-color:#FFF;
+}
+
+#titulo
+{
+	width:100%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:24px;
+	font-weight:bold;
+	text-align:center;
+	margin-bottom:15px;
+	position:absolute;
+	top:105px;
+}
+
+#campos
+{
+	width:100%;
+	margin:auto;
+	border-radius:4px;
+	position:absolute;
+	text-align:center;
+	top:150px;
+}
+
+.contenedor 
+{
+	width:50%;
+	background-color:#999;
+}
+
+.etiqueta
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	text-align:right;
+	alignment-adjust:middle;
+	margin-bottom:10px;
+}
+
+.cajatexto
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	width:240px;
+	height:33px;
+	text-align:left;
+	margin:7px;
+	border-radius:4px;
+	border:#036 solid 0.1px;
+}
+
+.email
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	width:510px;
+	height:33px;
+	text-align:left;
+	margin:7px;
+	border-radius:4px;
+	border:#036 solid 0.1px;
+}
+
+.bordefoto
+{
+	border:#036 solid 0.1px;
+	border-radius:4px;
+	margin-top:10px;
+}
+.imagensi
+{
+	visibility:visible;
+}
+.imagenno
+{
+	visibility:hidden;
+}
+

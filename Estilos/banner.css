@@ -1,0 +1,11 @@
+.logo{
+	background-image:url(../imagenes/gis.png);
+	background-repeat:no-repeat;
+}
+.icono-menu
+{
+	background-image:url(../imagenes/gis.png);
+	background-repeat:no-repeat;
+	display:inline-block;
+}
+

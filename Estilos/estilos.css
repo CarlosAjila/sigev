@@ -1,0 +1,324 @@
+*{
+	margin:0px auto;
+	padding:0px;
+	box-sizing:border-box;/*Para que todo se contenga dentro del mismo modelo de caja*/
+}
+
+/*Estilo para inicio.php*/
+#contenido
+{
+	background-color:#999;
+}
+
+#diviniciosesion
+{
+	margin-top:80px;
+	z-index:1;
+}
+
+.txt_login
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	height:32px;
+	width:240px;
+}
+
+.txt18
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	color:#FFF;
+}
+
+.imagenfondo
+{
+	background-color:#BCBCBC;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment:fixed;
+	background-position:center;
+}
+
+.tablainicio
+{
+	border-radius:4px;
+	background-color:#036;
+	opacity:0.9;
+	width:320px;
+}
+
+.tablainterna
+{
+	border-color:#666;
+	border:thick;
+	border-radius:4px;
+	background-color:#FFF;
+	width:270px;
+}
+
+.btiniciarsesion
+{
+	background-color:#990000;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	font-weight:bold;
+	border-radius:4px;
+	width:280px;
+	height:32px;
+	border:none;
+	color:#FFF;
+	cursor:pointer;
+}
+
+#divpiepagina
+{
+	color: #FFF;
+	background: #036;
+	opacity:0.9;
+	position:absolute; /*El div será ubicado con relación a la pantalla*/
+	left:0px; /*A la derecha deje un espacio de 0px*/
+	right:0px; /*A la izquierda deje un espacio de 0px*/
+	bottom:0px; /*Abajo deje un espacio de 0px*/
+	height:50px; /*alto del div*/
+}
+
+#crearcuenta
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	color:#FFF;
+	text-decoration:none;
+	text-align:center;
+	width:100%;
+	height:100%;
+	padding:15px;
+	position:relative;
+}
+
+#crearcuenta:hover
+{
+	text-decoration:underline;
+	color:#D3F1FA;
+}
+
+#banner
+{
+	width:100%;
+	height:65px;
+	background-color:#CCC;
+}
+.banner_rd
+{
+	width:100%;
+	height:65px;
+	background-color:#CCC;
+	overflow:hidden;
+}
+.titulo_banner
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:22px;
+}
+.imagen_pequenia
+{
+	width:80px;
+	height:60px;
+}
+.letra{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+}
+.a {
+	display:block; //Convertimos el vínculo en un bloque.
+	width:100px;
+	padding:4px 0;
+	text-decoration:none;
+	text-align:center;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#FFFFFF;
+	background-color:#000000;
+	border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	border: 0px solid #000000;
+}
+
+.a:hover {
+	color:#FFF;
+	background-color:#666;
+}
+#map
+{
+	top:50px;
+	left:0%;
+	width:100%;
+	height:92%;
+	position:absolute;
+	z-index:100;
+	z-index:1;
+}
+.ventana
+{
+	display: block;
+    position: fixed;
+    top: 89%;
+    left: 37%;
+    width: 25%;
+    height: 10%;
+	color:#FFF;
+    background-color: black;
+    z-index:1001;
+    -moz-opacity: 0.7;
+    opacity:.70;
+    filter: alpha(opacity=70);
+	border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	border: 0px solid #000000;
+	overflow:hidden;
+}
+
+/*RESPONSIVE DESIGN*/
+header{
+	width:100%;
+	height:50px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100;
+}
+h1{
+	float:left;
+	padding:15px;
+	height:50px;
+	padding:7px;
+}
+.contenedor{
+	width:100%;
+	margin:auto;
+}
+header .contenedor{
+	display:table;
+}
+header label{
+	float:right;
+	font-size:28px;
+	margin:6px 0;
+	cursor:pointer;
+}
+.menu{
+	position:absolute;
+	width:100%;
+	height:100vh;
+	top:50px;
+	left:0;
+	background-color: black;
+    -moz-opacity: 0.7;
+    opacity:.70;
+    filter: alpha(opacity=70);
+	transition:all 0.5s;
+	transform:translateX(-100%);
+	display:block;
+}
+.prueba
+{
+	top:50px;
+	left:0%;
+	width:100%;
+	height:90%;
+	position:absolute;
+	z-index:1;
+	background-image:url(../imagenes/banner.jpg);
+}
+.menu a{
+	display:block;
+	color:#FFF;
+	height:50px;
+	text-decoration:none;
+	padding:15px;
+	position:relative;
+	z-index:2;
+}
+.menu a:hover{
+	background-color:#666;
+}
+#menu-bar{
+	display:none;
+}
+#menu-bar:checked ~ .menu{
+	transform:translateX(0%);
+}
+
+/*no valen*/
+.foto
+{
+	display: block;
+    width: 157px;
+    height: 57px;
+    opacity: 0;
+    overflow: hidden;
+}
+.upload
+{
+	width: 157px;
+    height: 57px;
+    background-color:#333; 
+    overflow: hidden;
+	color:#FFF;
+}
+
+#upload{
+	margin:30px 200px; padding:15px;
+	font-weight:bold; font-size:1.3em;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:center;
+	background:#f2f2f2;
+	color:#3366cc;
+	border:1px solid #ccc;
+	width:150px;
+	cursor:pointer !important;
+	-moz-border-radius:5px; -webkit-border-radius:5px;
+}
+.darkbg{
+	background:#ddd !important;
+}
+#status{
+	font-family:Arial; padding:5px;
+}
+ul#files{ list-style:none; padding:0; margin:0; }
+ul#files li{ padding:10px; margin-bottom:2px; width:200px; float:left; margin-right:10px;}
+ul#files li img{ max-width:180px; max-height:150px; }
+.success{ background:#99f099; border:1px solid #339933; }
+.error{ background:#f0c6c3; border:1px solid #cc6622; }
+/*Aqui terminan no valen*/
+@media (min-width:1024px)
+{
+	.menu{
+		position:static;
+		width:auto;
+		height:auto;
+		transform:translateX(0%);
+		float:right;
+		display:flex;
+	}
+}
+@media (min-width:500px)
+{
+	.menu{
+		position:static;
+		width:auto;
+		height:auto;
+		transform:none;
+		float:right;
+		display:flex;
+	}
+	header label{
+		display:none;
+	}
+}
