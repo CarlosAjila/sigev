@@ -1,0 +1,179 @@
+<?php
+
+require_once("clsDatos.php");
+
+class clsPaciente
+{
+//Declarando datos
+    public $id_pac;
+    public $id_geo;
+    public $id_per;
+    public $oex_pac;
+    public $fre_pac;
+    public $cas_pac;
+    public $dir_pac;
+    public $ref_pac;
+    public $ofi_pac;
+    public $dof_pac;
+    public $emi_pac;
+    public $fet_pac;
+    public $fis_pac;
+    public $est_pac;
+
+    //Constructor
+    public function __construct($id_pac, $id_geo, $id_per, $oex_pac, $fre_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fet_pac, $fis_pac, $est_pac) {
+        $this->id_pac = $id_pac;
+        $this->id_geo = $id_geo;
+        $this->id_per = $id_per;
+        $this->oex_pac = $oex_pac;
+        $this->fre_pac = $fre_pac;
+        $this->cas_pac = $cas_pac;
+        $this->dir_pac = $dir_pac;
+        $this->ref_pac = $ref_pac;
+        $this->ofi_pac = $ofi_pac;
+        $this->dof_pac = $dof_pac;
+        $this->emi_pac = $emi_pac;
+        $this->fet_pac = $fet_pac;
+        $this->fis_pac = $fis_pac;
+        $this->est_pac = $est_pac;
+    }
+
+    //Destructor
+    public function __destruct() {
+        
+    }
+
+    //Getters
+    public function get_id_pac() {
+        return $this->id_pac;
+    }
+
+    public function get_id_geo() {
+        return $this->id_geo;
+    }
+
+    public function get_id_per() {
+        return $this->id_per;
+    }
+
+    public function get_oex_pac() {
+        return $this->oex_pac;
+    }
+
+    public function get_fre_pac() {
+        return $this->fre_pac;
+    }
+
+    public function get_cas_pac() {
+        return $this->cas_pac;
+    }
+
+    public function get_dir_pac() {
+        return $this->dir_pac;
+    }
+
+    public function get_ref_pac() {
+        return $this->ref_pac;
+    }
+
+    public function get_ofi_pac() {
+        return $this->ofi_pac;
+    }
+
+    public function get_dof_pac() {
+        return $this->dof_pac;
+    }
+
+    public function get_emi_pac() {
+        return $this->emi_pac;
+    }
+
+    public function get_fet_pac() {
+        return $this->fet_pac;
+    }
+
+    public function get_fis_pac() {
+        return $this->fis_pac;
+    }
+
+    public function get_est_pac() {
+        return $this->est_pac;
+    }
+
+    //Función para buscar usuarios
+    public function buscar() {
+        $encontro = false;
+        $objDatos = new clsDatos();
+        $sql = "SELECT * FROM usuario WHERE id_geo='$this->id_geo'";
+        $datos_desordenados = $objDatos->consulta($sql);
+
+        if ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->id_pac = $columna['id_pac'];
+            $this->id_geo = $columna['id_geo'];
+            $this->id_per = $columna['id_per'];
+            $this->oex_pac = $columna['oex_pac'];
+            $this->fre_pac = $columna['fre_pac'];
+            $this->cas_pac = $columna['cas_pac'];
+            $this->dir_pac = $columna['dir_pac'];
+            $this->ref_pac = $columna['ref_pac'];
+            $this->ofi_pac = $columna['ofi_pac'];
+            $this->dof_pac = $columna['dof_pac'];
+            $this->emi_pac = $columna['emi_pac'];
+            $this->fet_pac = $columna['fet_pac'];
+            $this->fis_pac = $columna['fis_pac'];
+            $this->est_pac = $columna['est_pac'];
+            $this->est_usu = $columna['est_usu'];
+            $encontro = true;
+        }
+
+        //Cerrar la consulta
+        $objDatos->cerrar_consulta($datos_desordenados);
+        $objDatos->crerrarconexion();
+        return $encontro;
+    }
+
+    //Insertar usuario
+    public function insertar() {
+        $objDatos = new clsDatos();
+        $sql = "INSERT INTO paciente(id_pac,id_geo,id_per,oex_pac,fre_pac,cas_pac,dir_pac,ref_pac,
+             ofi_pac,dof_pac,emi_pac,fat_pac,fis_pac,est_pac)
+			 VALUES ('$this->id_pac',$this->id_geo',$this->id_per',$this->oex_pac',$this->fre_pac',
+        '$this->cas_pac',$this->dir_pac',$this->ref_pac',$this->ofi_pac',$this->dof_pac',$this->emi_pac',
+        '$this->fat_pac',$this->fis_pac',$this->est_pac');";
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+    }
+
+    //Modificar datos de usuario
+    public function modificar() {
+        $objDatos = new clsDatos();
+        $sql = "UPDATE paciente
+			SET id_pac = '$this->id_pac',
+			  id_geo = '$this->id_geo',
+			  id_per = '$this->id_per',
+			  oex_pac = '$this->oex_pac',
+			  fre_pac = '$this->fre_pac',
+			  cas_pac = '$this->cas_pac',
+			  dir_pac = '$this->dir_pac',
+			  ref_pac = '$this->ref_pac',
+			  ofi_pac = '$this->ofi_pac',
+			  dof_pac = '$this->dof_pac',
+			  emi_pac = '$this->emi_pac',
+			  fat_pac = '$this->fat_pac',
+			  fis_pac = '$this->fis_pac',
+			  est_pac = '$this->est_pac'
+			WHERE id_pac = '$this->id_pac';";
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+    }
+
+    //Dar de baja a usuario
+    public function dar_baja() {
+        $objDatos = new clsDatos();
+        $sql = "DELETE FROM paciente WHERE (id_pac='$this->id_pac')";
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+    }
+
+}
+?>
