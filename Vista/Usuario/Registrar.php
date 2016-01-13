@@ -53,7 +53,7 @@ $(document).ready(function(e) {
 ﻿<script language="javascript">
 $(document).ready(function(){
 	$('#btguardar').click(function() {
-		//alert('hola');
+		alert($('input:radio[name=sex_per]:checked').val());
 		var ruta = "../../Contralador/Usuario.php";	
 		$.ajax({
 			url:ruta,
@@ -63,21 +63,8 @@ $(document).ready(function(){
 			success: function(data){
 				//alert('hola');
            		//Parseamos el array JSON
-				alert(data.cargo);
-				alert(data.cedula);
-				alert(data.pnombre);
-				alert(data.snombre);
-				alert(data.apaterno);
-				alert(data.amaterno);
-				alert(data.fecha_nacimiento);
-				alert(data.cel);
-				alert(data.tel);
-				alert(data.ruta_imagen);
-				alert(data.nusuario);
-				alert(data.pass);
-				alert(data.email);
-				alert(data.ffc);
-				alert(data.estado);
+				alert(data.mensaje);
+				
 			   //$('#resultado').html(datos); // Mostrar la respuestas del script PHP.
            	}
 		});
@@ -88,8 +75,11 @@ $(document).ready(function(){
 <script language="javascript">
 //Sección para el autocompletado
 $(document).ready(function(){
-	$('#txtcargo').autocomplete({
-		source:['Jose','Juan','Ojeda']
+	$('#txtlocalidad').autocomplete({
+		source:"../../Contralador/Localizacion.php",
+		select: function(event, ui){
+			$('#id_loc').val(ui.item.id_loc);
+		}
 	});
 });
 </script>
@@ -147,8 +137,14 @@ $(document).ready(function(){
             <td><input type="text" name="txtpass" id="txtpass" placeholder="Contraseña" class="cajatexto"/></td>
         </tr>
         <tr>
-            <td><input type="text" name="txtcargo" id="txtcargo" placeholder="Cargo" class="cajatexto"/></td>
-            <td><input type="text" name="txtffc" id="txtffc" placeholder="Fecha de fin de contrato" class="cajatexto"/></td>
+            <td>
+            	<input type="text" name="txtlocalidad" id="txtlocalidad" placeholder="Ingrese el nombre de su parroquia" class="cajatexto"/>
+            	<input type="hidden" name="id_loc" id="id_loc" value="" />
+            </td>
+            <td>
+				<input type="radio" name="sex_per" id="sex_per" value="M">M
+				<input type="radio" name="sex_per" id="sex_per" value="F">F
+            </td>
         </tr>
         <tr>
             <td colspan="3"><input type="button" name="btguardar" id="btguardar" value="GUARDAR"/></td>

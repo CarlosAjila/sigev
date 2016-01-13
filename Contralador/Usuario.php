@@ -1,44 +1,38 @@
 <?php
+require_once("../Modelo/clsPersona.php");
 require_once("../Modelo/clsUsuario.php");
 
 if(isset($_POST['save_usuario']))
 {
-	$ruta_imagen=$_POST['ruta_imagen'];
-	$cedula=$_POST['txtcedula'];
-	$fecha_nacimiento=$_POST['txtfn'];
-	$pnombre=$_POST['txtpnombre'];
-	$snombre=$_POST['txtsnombre'];
-	$apaterno=$_POST['txtapaterno'];
-	$amaterno=$_POST['txtamaterno'];
-	$cel=$_POST['txtcel'];
-	$tel=$_POST['txttel'];
-	$email=$_POST['txtemail'];
-	$nusuario=$_POST['txtnusuario'];
-	$pass=$_POST['txtpass'];
-	$cargo=$_POST['txtcargo'];
-	$ffc=$_POST['txtffc'];
+	/*Datos de persona*/
+	$id_loc=$_POST['id_loc'];
+	$ced_per=$_POST['txtcedula'];
+	$fna_per=$_POST['txtfn'];
+	$pno_per=$_POST['txtpnombre'];
+	$sno_per=$_POST['txtsnombre'];
+	$apa_per=$_POST['txtapaterno'];
+	$ama_per=$_POST['txtamaterno'];
+	$te1_per=$_POST['txtcel'];
+	$te2_per=$_POST['txttel'];
+	$sex_per=$_POST['sex_per'];
+	/*Datos de usuario*/
+	$fot_usu=$_POST['ruta_imagen'];
+	$ema_usu=$_POST['txtemail'];
+	$nus_usu=$_POST['txtnusuario'];
+	$con_usu=$_POST['txtpass'];
+	$id_car="1";
+	$ffc_usu="2080-12-31";
 	$estado="I";
 	
-	//echo "cedula".$cedula;
 	
-	$objusuario=new clsPersona($cargo,$cedula,$pnombre,$snombre,$apaterno,$amaterno,$fecha_nacimiento,$cel,$tel,$ruta_imagen,$nusuario,$pass,$email,$ffc,$estado);
-	//$objusuario = new clsPersona("2","0705212744","jose","lanier","ambulu","mar","2016-01-26","070","12","imagen","jose","123","gmail","2016-01-24","I");
+	$objpersona=new clsPersona($id_loc,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$fna_per,$te1_per,$te2_per,$sex_per,$estado);
+	$id_per=$objpersona->insertar();
+	
+	$objusuario=new clsUsuario($id_per,$id_car,$fot_usu,$nus_usu,$con_usu,$ema_usu,$ffc_usu,$estado);
 	$objusuario->insertar();
-	$salidaJson = array("cargo" => $cargo,
-						"cedula" => $cedula,
-						"pnombre" => $pnombre,
-						"snombre" => $snombre,
-						"apaterno" => $apaterno,
-						"amaterno" => $amaterno,
-						"fecha_nacimiento" => $fecha_nacimiento,
-						"cel" => $cel,
-						"tel" => $tel,
-						"ruta_imagen" => $ruta_imagen,
-						"nusuario" => $nusuario,
-						"pass" => $pass,
-						"email" => $email,
-						"ffc" => $ffc,
-						"estado" => $estado);
+	
+	$mensaje="Cuenta de usuario registrada con éxito";
+	$salidaJson = array("mensaje" => $mensaje);
 	echo json_encode($salidaJson);
 	
 }

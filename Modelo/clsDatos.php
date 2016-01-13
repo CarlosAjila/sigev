@@ -1,7 +1,7 @@
 <?php
 /*
-Tipo de archivo: php
-Descripción: Conexión a la base de datos
+Tipo de archivo: Clase
+Descripción: Clase para la conexión a la base de datos
 Desarrollado por: José Ambuludí
 Fecha de elaboración: 10 de Enero de 2016
 Fecha de modificación: 10 de Enero de 2016
@@ -9,7 +9,7 @@ Versión: 0.1
 */
 class clsDatos{
 public $conexion;
-
+public $id;
 	//Constructor
 	public function __construct(){
 		$servidor="localhost";
@@ -26,7 +26,7 @@ public $conexion;
 	
 	//Ejecutar query
 	public function consulta($sql){
-		$resultado=mysqli_query($sql, $this->conexion);
+		$resultado=mysqli_query($this->conexion,$sql);
 		return $resultado;
 	}
 	
@@ -44,7 +44,8 @@ public $conexion;
 	//Función para insertar, modificar y eliminar
 	public function ejecutar($sql){
 		mysqli_query($this->conexion, $sql);
-		
+		$id=mysqli_insert_id($this->conexion);
+		return($id);
 	}
 	
 	//Cerrar la conexion
