@@ -23,6 +23,9 @@ public $te2_per;
 public $sex_per;
 public $est_per;
 
+//Array para obtener el listado de personas
+public $arreglo = array();
+
 	//Constructor
 	public function __construct($id_loc,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$fna_per,$te1_per,$te2_per,$sex_per,$est_per){
 		$this->id_loc = $id_loc;
@@ -130,6 +133,31 @@ public $est_per;
 		$sql = "UPDATE persona SET(est_per='I')";
 		$objDatos->ejecutar($sql);
 		$objDatos->crerrarconexion();
+	}
+	
+	//Listar personas
+	public function listar_persona(){
+		$objDatos= new clsDatos();
+		$sql="SELECT persona.id_per,ced_per,pno_per,sno_per,apa_per,ama_per,sex_per,id_loc,id_usu,id_car,ffc_usu 
+		FROM persona,usuario 
+		WHERE (pno_per LIKE '%$this->pno_per%' OR sno_per LIKE '%$this->pno_per%' OR apa_per LIKE '%$this->pno_per%' OR ama_per LIKE '%$this->pno_per%') 
+		AND persona.id_per=usuario.id_per";
+		$datos_desordenados = $objDatos->consulta($sql);
+		while($columna = $objDatos->arreglos($datos_desordenados))
+		{
+			$this->arreglo [] = array("id_per"=>$columna['id_per'],
+									  "ced_per"=>$columna['ced_per'],
+									  "pno_per"=>$columna['pno_per'],
+									  "sno_per"=>$columna['sno_per'],
+									  "apa_per"=>$columna['apa_per'],
+									  "ama_per"=>$columna['ama_per'],
+									  "sex_per"=>$columna['sex_per'],
+									  "id_loc"=>$columna['id_loc'],
+									  "id_usu"=>$columna['id_usu'],
+									  "id_car"=>$columna['id_car'],
+									  "ffc_usu"=>$columna['ffc_usu']);
+		}
+		return($this->arreglo);
 	}
 }	
 

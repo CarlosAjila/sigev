@@ -34,6 +34,23 @@ if(isset($_POST['save_usuario']))
 	$mensaje="Cuenta de usuario registrada con éxito";
 	$salidaJson = array("mensaje" => $mensaje);
 	echo json_encode($salidaJson);
-	
 }
+
+/*Sección para listar usuarios registrados*/
+/*Datos de persona*/
+$id_loc="";
+$ced_per="";
+$fna_per="";
+$pno_per="J";
+$sno_per="";
+$apa_per="";
+$ama_per="";
+$te1_per="";
+$te2_per="";
+$sex_per="";
+
+$objpersona=new clsPersona($id_loc,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$fna_per,$te1_per,$te2_per,$sex_per,$estado);
+$arreglo=$objpersona->listar_persona();
+
+echo json_encode($arreglo);
 ?>
