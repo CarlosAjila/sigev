@@ -13,14 +13,12 @@ require_once("clsDatos.php");
 class clsGeoreferenciacion {
 
 //Declarando datos
-    public $id_geo;
     public $lat_geo;
     public $lon_geo;
     public $est_geo;
 
     //Constructor
-    public function __construct($id_geo, $lat_geo, $lon_geo, $est_geo ) {
-        $this->id_geo = $id_geo;
+    public function __construct( $lat_geo, $lon_geo, $est_geo ) {
         $this->lat_geo = $lat_geo;
         $this->lon_geo = $lon_geo;
         $this->est_geo = $est_geo;
@@ -32,9 +30,6 @@ class clsGeoreferenciacion {
     }
 
     //Getters
-    function get_id_geo() {
-        return $this->id_geo;
-    }
 
     function get_lat_geo() {
         return $this->lat_geo;
@@ -70,18 +65,18 @@ class clsGeoreferenciacion {
 
     //Insertar Georeferenciacion
     public function insertar() {
+        $id_geo="";
         $objDatos = new clsDatos();
         $sql = "INSERT INTO georeferenciacion
-            (id_geo,
-             lat_geo,
+            (lat_geo,
              lon_geo,
              est_geo)
-            VALUES ('$this->id_geo',
-                    '$this->lat_geo',
+            VALUES ('$this->lat_geo',
                     '$this->lon_geo',
                     '$this->est_geo');";
-        $objDatos->ejecutar($sql);
+        $id_geo=$objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
+        return $id_geo;
     }
 
     //Modificar datos de georeferenciacion

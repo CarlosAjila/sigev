@@ -5,7 +5,7 @@ require_once("clsDatos.php");
 class clsPaciente
 {
 //Declarando datos
-    public $id_pac;
+   
     public $id_geo;
     public $id_per;
     public $oex_pac;
@@ -16,13 +16,13 @@ class clsPaciente
     public $ofi_pac;
     public $dof_pac;
     public $emi_pac;
-    public $fet_pac;
+    public $fat_pac;
     public $fis_pac;
     public $est_pac;
 
     //Constructor
-    public function __construct($id_pac, $id_geo, $id_per, $oex_pac, $fre_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fet_pac, $fis_pac, $est_pac) {
-        $this->id_pac = $id_pac;
+    public function __construct($id_geo, $id_per, $oex_pac, $fre_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fat_pac, $fis_pac, $est_pac) {
+   
         $this->id_geo = $id_geo;
         $this->id_per = $id_per;
         $this->oex_pac = $oex_pac;
@@ -33,7 +33,7 @@ class clsPaciente
         $this->ofi_pac = $ofi_pac;
         $this->dof_pac = $dof_pac;
         $this->emi_pac = $emi_pac;
-        $this->fet_pac = $fet_pac;
+        $this->fat_pac = $fat_pac;
         $this->fis_pac = $fis_pac;
         $this->est_pac = $est_pac;
     }
@@ -44,10 +44,6 @@ class clsPaciente
     }
 
     //Getters
-    public function get_id_pac() {
-        return $this->id_pac;
-    }
-
     public function get_id_geo() {
         return $this->id_geo;
     }
@@ -88,8 +84,8 @@ class clsPaciente
         return $this->emi_pac;
     }
 
-    public function get_fet_pac() {
-        return $this->fet_pac;
+    public function get_fat_pac() {
+        return $this->fat_pac;
     }
 
     public function get_fis_pac() {
@@ -104,7 +100,7 @@ class clsPaciente
     public function buscar() {
         $encontro = false;
         $objDatos = new clsDatos();
-        $sql = "SELECT * FROM usuario WHERE id_geo='$this->id_geo'";
+        $sql = "SELECT * FROM usuario WHERE id_pac='$this->id_pac'";
         $datos_desordenados = $objDatos->consulta($sql);
 
         if ($columna = $objDatos->arreglos($datos_desordenados)) {
@@ -119,7 +115,7 @@ class clsPaciente
             $this->ofi_pac = $columna['ofi_pac'];
             $this->dof_pac = $columna['dof_pac'];
             $this->emi_pac = $columna['emi_pac'];
-            $this->fet_pac = $columna['fet_pac'];
+            $this->fat_pac = $columna['fat_pac'];
             $this->fis_pac = $columna['fis_pac'];
             $this->est_pac = $columna['est_pac'];
             $this->est_usu = $columna['est_usu'];
@@ -132,24 +128,33 @@ class clsPaciente
         return $encontro;
     }
 
-    //Insertar usuario
+    //Insertar Paciente
     public function insertar() {
         $objDatos = new clsDatos();
-        $sql = "INSERT INTO paciente(id_pac,id_geo,id_per,oex_pac,fre_pac,cas_pac,dir_pac,ref_pac,
-             ofi_pac,dof_pac,emi_pac,fat_pac,fis_pac,est_pac)
-			 VALUES ('$this->id_pac',$this->id_geo',$this->id_per',$this->oex_pac',$this->fre_pac',
-        '$this->cas_pac',$this->dir_pac',$this->ref_pac',$this->ofi_pac',$this->dof_pac',$this->emi_pac',
-        '$this->fat_pac',$this->fis_pac',$this->est_pac');";
+        $sql = "INSERT INTO paciente (id_geo, id_per, oex_pac, fre_pac, cas_pac, 
+                dir_pac, ref_pac, ofi_pac, dof_pac, emi_pac, fat_pac, fis_pac, est_pac)
+                VALUES ('$this->id_geo',
+                        '$this->id_per',
+                        '$this->oex_pac',
+                        '$this->fre_pac',
+                        '$this->cas_pac',
+                        '$this->dir_pac',
+                        '$this->ref_pac',
+                        '$this->ofi_pac',
+                        '$this->dof_pac',
+                        '$this->emi_pac',
+                        '$this->fat_pac',
+                        '$this->fis_pac',
+                        '$this->est_pac');";
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }
 
-    //Modificar datos de usuario
+    //Modificar datos de Paciente
     public function modificar() {
         $objDatos = new clsDatos();
         $sql = "UPDATE paciente
-			SET id_pac = '$this->id_pac',
-			  id_geo = '$this->id_geo',
+			SET id_geo = '$this->id_geo',
 			  id_per = '$this->id_per',
 			  oex_pac = '$this->oex_pac',
 			  fre_pac = '$this->fre_pac',
@@ -161,8 +166,7 @@ class clsPaciente
 			  emi_pac = '$this->emi_pac',
 			  fat_pac = '$this->fat_pac',
 			  fis_pac = '$this->fis_pac',
-			  est_pac = '$this->est_pac'
-			WHERE id_pac = '$this->id_pac';";
+			  est_pac = '$this->est_pac';";
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }
@@ -170,9 +174,9 @@ class clsPaciente
     //Dar de baja a usuario
     public function dar_baja() {
         $objDatos = new clsDatos();
-        $sql = "DELETE FROM paciente WHERE (id_pac='$this->id_pac')";
-        $objDatos->ejecutar($sql);
-        $objDatos->crerrarconexion();
+		$sql = "UPDATE paciente SET(est_pac='I')";
+		$objDatos->ejecutar($sql);
+		$objDatos->crerrarconexion();
     }
 
 }
