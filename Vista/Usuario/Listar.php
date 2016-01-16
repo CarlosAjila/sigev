@@ -5,12 +5,71 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
 <link rel="stylesheet" type="text/css" href="../../Estilos/EstiloListarUsuario.css" />
 <link rel="stylesheet" href="../../Estilos/fontello.css" />
+<script src="../../jquery-1.11.3/jquery-1.11.3.js"></script>
+<script src="../../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+<script src="../../AjaxUpload.2.0.min.js"></script>
+
 <title>SIGEV - Listar Usuarios</title>
+<script language="javascript">
+$(document).ready(function(){
+	 $('#txtbuscar').keyup(function () {
+      var value = $(this).val();
+      $.ajax({
+		type:'POST',
+		url:'../../Contralador/Clistarusuario.php',
+		data:'dato='+value,
+		success: function(datos){
+			$('#lista').html(datos);
+		}
+	  })
+    }).keyup();
+});
+</script>
+<script language="javascript">
+function eliminar(id){
+	var url = '../../Contralador/Celiminarusuario.php';
+	var buscar=$('#txtbuscar').val();
+	var pregunta = confirm('¿Esta seguro de eliminar este USUARIO?');
+	if(pregunta==true){
+		$.ajax({
+		type:'POST',
+		url:url,
+		data:'id='+id+'&dato='+buscar,
+		success: function(registro){
+			$('#lista').html(registro);
+			return false;
+		}
+	});
+	return false;
+	}else{
+		return false;
+	}
+}
+
+function ver(id_per,id_car)
+{
+	var url = '../../Contralador/Ceditarusuario.php';
+	var buscar=$('#txtbuscar').val();
+		$.ajax({
+		type:'POST',
+		url:url,
+		data:'id_per='+id_per+'&id_car='+id_car+'&dato='+buscar,
+		success: function(registro){
+			$('#lista').html(registro);
+			return false;
+		}
+	});
+		return false;
+}
+</script>
 </head>
 
 <body>
+<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="form91" id="form91">
 	<header>
-	<div class="contenedor">
+	<div id="conte" class="contenedor">
+    
+
     	<h1><img src="../../imagenes/lbanner-05.png" class="logo" /></h1>
         <input type="checkbox" id="menu-bar" />
         <label class="icon-menu" for="menu-bar"></label>
@@ -26,9 +85,13 @@
             	<td>Ingrese Nombre o Apellido para iniciar la búsqueda</td>
             </tr>
             <tr>
-            	<td><input type="text" name="txtbuscar" id="txtbuscar" placeholder="Ingrese índice de búsqueda" /></td>
+            	<td>
+                <input type="text" name="txtbuscar" id="txtbuscar" placeholder="Ingrese índice de búsqueda"/>
+                </td>
             </tr>
         </table>
+        <div id="lista"></div>
     </section>
+</form>
 </body>
 </html>

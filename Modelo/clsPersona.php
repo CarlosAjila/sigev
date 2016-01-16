@@ -110,10 +110,10 @@ public $arreglo = array();
 	}
 	
 	//Insertar persona
-	public function insertar(){
+	public function insertar($id_loc,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$fna_per,$te1_per,$te2_per,$sex_per){
 		$id="";
 		$objDatos = new clsDatos();
-		$sql = "INSERT INTO persona(id_loc,ced_per,pno_per,sno_per,apa_per,ama_per,fna_per,te1_per,te2_per,sex_per,est_per) VALUES('$this->id_loc','$this->ced_per','$this->pno_per','$this->sno_per','$this->apa_per','$this->ama_per','$this->fna_per','$this->te1_per','$this->te2_per','$this->sex_per','$this->est_per')";
+		$sql = "INSERT INTO persona(id_loc,ced_per,pno_per,sno_per,apa_per,ama_per,fna_per,te1_per,te2_per,sex_per) VALUES('$id_loc','$ced_per','$pno_per','$sno_per','$apa_per','$ama_per','$fna_per','$te1_per','$te2_per','$sex_per')";
 		$id=$objDatos->ejecutar($sql);
 		$objDatos->crerrarconexion();
 		return($id);
@@ -128,34 +128,32 @@ public $arreglo = array();
 	}
 	
 	//Dar de baja a una persona
-	public function dar_baja(){
+	public function dar_baja($id_per){
 		$objDatos = new clsDatos();
-		$sql = "UPDATE persona SET(est_per='I')";
+		$sql = "UPDATE persona SET est_per='I' WHERE id_per='$id_per'";
 		$objDatos->ejecutar($sql);
 		$objDatos->crerrarconexion();
 	}
 	
 	//Listar personas
-	public function listar_persona(){
+	public function listar_persona($letra){
 		$objDatos= new clsDatos();
-		$sql="SELECT persona.id_per,ced_per,pno_per,sno_per,apa_per,ama_per,sex_per,id_loc,id_usu,id_car,ffc_usu 
-		FROM persona,usuario 
-		WHERE (pno_per LIKE '%$this->pno_per%' OR sno_per LIKE '%$this->pno_per%' OR apa_per LIKE '%$this->pno_per%' OR ama_per LIKE '%$this->pno_per%') 
-		AND persona.id_per=usuario.id_per";
+		$sql="SELECT persona.id_per,ced_per,pno_per,sno_per,apa_per,ama_per,sex_per,nom_loc,id_usu,id_car,ffc_usu
+FROM persona,usuario,localizacion
+WHERE (pno_per LIKE '%$letra%' OR sno_per LIKE '%$letra%' OR apa_per LIKE '%$letra%' OR ama_per LIKE '%$letra%') 
+AND persona.id_per=usuario.id_per AND persona.id_loc=localizacion.id_loc AND persona.est_per='A'";
 		$datos_desordenados = $objDatos->consulta($sql);
 		while($columna = $objDatos->arreglos($datos_desordenados))
 		{
 			$this->arreglo [] = array("id_per"=>$columna['id_per'],
 									  "ced_per"=>$columna['ced_per'],
-									  "pno_per"=>$columna['pno_per'],
-									  "sno_per"=>$columna['sno_per'],
-									  "apa_per"=>$columna['apa_per'],
-									  "ama_per"=>$columna['ama_per'],
+									  "nombre"=>$columna['pno_per']." ".$columna['sno_per'],
+									  "apellido"=>$columna['apa_per']." ".$columna['ama_per'],
 									  "sex_per"=>$columna['sex_per'],
-									  "id_loc"=>$columna['id_loc'],
+									  "nom_loc"=>$columna['nom_loc'],
 									  "id_usu"=>$columna['id_usu'],
 									  "id_car"=>$columna['id_car'],
-									  "ffc_usu"=>$columna['ffc_usu']);
+									  "ffc_usu"=>$columna['ffc_usu'],);
 		}
 		return($this->arreglo);
 	}

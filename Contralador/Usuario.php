@@ -26,31 +26,13 @@ if(isset($_POST['save_usuario']))
 	
 	
 	$objpersona=new clsPersona($id_loc,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$fna_per,$te1_per,$te2_per,$sex_per,$estado);
-	$id_per=$objpersona->insertar();
+	$id_per=$objpersona->insertar($id_loc,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$fna_per,$te1_per,$te2_per,$sex_per);
 	
 	$objusuario=new clsUsuario($id_per,$id_car,$fot_usu,$nus_usu,$con_usu,$ema_usu,$ffc_usu,$estado);
-	$objusuario->insertar();
+	$objusuario->insertar($id_per,$id_car,$fot_usu,$nus_usu,$con_usu,$ema_usu,$ffc_usu,$estado);
 	
-	$mensaje="Cuenta de usuario registrada con éxito";
+	$mensaje="Cuenta de usuario registrada con éxito11";
 	$salidaJson = array("mensaje" => $mensaje);
 	echo json_encode($salidaJson);
 }
-
-/*Sección para listar usuarios registrados*/
-/*Datos de persona*/
-$id_loc="";
-$ced_per="";
-$fna_per="";
-$pno_per="J";
-$sno_per="";
-$apa_per="";
-$ama_per="";
-$te1_per="";
-$te2_per="";
-$sex_per="";
-
-$objpersona=new clsPersona($id_loc,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$fna_per,$te1_per,$te2_per,$sex_per,$estado);
-$arreglo=$objpersona->listar_persona();
-
-echo json_encode($arreglo);
 ?>

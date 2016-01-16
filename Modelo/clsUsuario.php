@@ -20,6 +20,9 @@ public $ema_usu;
 public $ffc_usu;
 public $est_usu;
 
+//Array para obtener el listado de cargos
+public $arreglo = array();
+
 	//Constructor
 	public function __construct($id_per,$id_car,$fot_usu,$nus_usu,$con_usu,$ema_usu,$ffc_usu,$est_usu){
 		$this->id_per = $id_per;
@@ -88,15 +91,15 @@ public $est_usu;
 		return $encontro;
 	}
 	
-	//Insertar persona
-	public function insertar(){
+	//Insertar usuario
+	public function insertar($id_per,$id_car,$fot_usu,$nus_usu,$con_usu,$ema_usu,$ffc_usu,$est_usu){
 		$objDatos = new clsDatos();
-		$sql = "INSERT INTO usuario(id_per,id_car,fot_usu,nus_usu,con_usu,ema_usu,ffc_usu,est_usu) VALUES('$this->id_per','$this->id_car','$this->fot_usu','$this->nus_usu','$this->con_usu','$this->ema_usu','$this->ffc_usu','$this->est_usu')";
+		$sql = "INSERT INTO usuario(id_per,id_car,fot_usu,nus_usu,con_usu,ema_usu,ffc_usu,est_usu) VALUES('$id_per','$id_car','$fot_usu','$nus_usu','$con_usu','$ema_usu','$ffc_usu','$est_usu')";
 		$objDatos->ejecutar($sql);
 		$objDatos->crerrarconexion();
 	}
 	
-	//Modificar datos de persona
+	//Modificar datos de usuario
 	public function modificar(){
 		$objDatos = new clsDatos();
 		$sql = "UPDATE usuario SET(id_per='$this->id_per',id_car='$this->id_car',fot_usu='$this->fot_usu',nus_usu='$this->nus_usu',con_usu='$this->con_usu',ema_usu='$this->ema_usu',ffc_usu='$this->ffc_usu',est_usu='$this->est_usu')";
@@ -104,12 +107,34 @@ public $est_usu;
 		$objDatos->crerrarconexion();
 	}
 	
-	//Dar de baja a una persona
-	public function dar_baja(){
+	//Dar de baja a un usuario
+	public function dar_baja($id_per){
 		$objDatos = new clsDatos();
-		$sql = "UPDATE usuario SET(est_usu='I')";
+		$sql = "UPDATE usuario SET est_usu='I' WHERE id_per='$id_per'";
 		$objDatos->ejecutar($sql);
 		$objDatos->crerrarconexion();
+	}
+	
+	/****Sección del administrador****/
+	//Modificar cargo y fecha de fin de contrato de usuario
+	public function modificar_usuario($id_car,$id_per){
+		$objDatos = new clsDatos();
+		$sql = "UPDATE usuario SET id_car='$id_car' WHERE id_per='$id_per'";
+		$objDatos->ejecutar($sql);
+		$objDatos->crerrarconexion();
+	}
+	
+	//Listar cargos
+	public function listar_cargo(){
+		$objDatos= new clsDatos();
+		$sql="SELECT * FROM cargo WHERE est_car='A'";
+		$datos_desordenados = $objDatos->consulta($sql);
+		while($columna = $objDatos->arreglos($datos_desordenados))
+		{
+			$this->arreglo [] = array("id_car"=>$columna['id_car'],
+									  "nom_car"=>$columna['nom_car']);
+		}
+		return($this->arreglo);
 	}
 }	
 ?>

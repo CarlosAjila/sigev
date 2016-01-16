@@ -10,7 +10,7 @@
 <script src="../../AjaxUpload.2.0.min.js"></script>
 <title>SIGEV-Registro Cuenta Usuario</title>
 
-<script>
+<script language="javascript">
 //Evento que se disparará cuando se vaya a cargar una foto de perfil
 $(function(){
 	var btnUpload=$('#btimagen');
@@ -53,17 +53,18 @@ $(document).ready(function(e) {
 ﻿<script language="javascript">
 $(document).ready(function(){
 	$('#btguardar').click(function() {
-		alert($('input:radio[name=sex_per]:checked').val());
+		alert('Cuenta registrada con éxito');
+		$('input:radio[name=sex_per]:checked').val();
 		var ruta = "../../Contralador/Usuario.php";	
 		$.ajax({
 			url:ruta,
 			type:'POST',
 			dataType:'json',
 			data: $('#FormRegistro').serialize(),
-			success: function(data){
-				//alert('hola');
+			success: function(json){
+				alert('hola');
            		//Parseamos el array JSON
-				alert(data.mensaje);
+				alert(json.mensaje);
 				
 			   //$('#resultado').html(datos); // Mostrar la respuestas del script PHP.
            	}
