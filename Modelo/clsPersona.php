@@ -153,7 +153,7 @@ AND persona.id_per=usuario.id_per AND persona.id_loc=localizacion.id_loc AND per
 									  "nom_loc"=>$columna['nom_loc'],
 									  "id_usu"=>$columna['id_usu'],
 									  "id_car"=>$columna['id_car'],
-									  "ffc_usu"=>$columna['ffc_usu'],);
+									  "ffc_usu"=>$columna['ffc_usu']);
 		}
 		return($this->arreglo);
 	}

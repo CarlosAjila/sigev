@@ -1,3 +1,7 @@
+<link rel="stylesheet" type="text/css" href="../../jquery-ui-1.10.4.custom/css/smoothness/jquery-ui-1.10.4.custom.css" />
+<script src="../../jquery-1.11.3/jquery-1.11.3.js"></script>
+<script src="../../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+
 <script language="javascript">
 $(document).ready(function()
 {

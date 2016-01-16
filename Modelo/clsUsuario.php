@@ -117,9 +117,9 @@ public $arreglo = array();
 	
 	/****Sección del administrador****/
 	//Modificar cargo y fecha de fin de contrato de usuario
-	public function modificar_usuario($id_car,$id_per){
+	public function modificar_usuario($id_car,$id_per,$fecha){
 		$objDatos = new clsDatos();
-		$sql = "UPDATE usuario SET id_car='$id_car' WHERE id_per='$id_per'";
+		$sql = "UPDATE usuario SET id_car='$id_car', ffc_usu='$fecha' WHERE id_per='$id_per'";
 		$objDatos->ejecutar($sql);
 		$objDatos->crerrarconexion();
 	}

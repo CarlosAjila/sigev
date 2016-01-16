@@ -13,7 +13,7 @@
 <!--Librerias para el uso de Jquery 1.11.3-->
 <script src="jquery-1.11.3/jquery-1.11.3.js"></script>
 <script type="text/javascript">
-var longitu,latitu;
+var map,longitu,latitu;
 var osmLayer = new OpenLayers.Layer.OSM("OpenStreetMap");//Indicamos que capa queremos visualizar en este caso "OSM"
 function init()
 {
@@ -101,6 +101,28 @@ function leyenda_dialog()
 {
 	
 }
+
+//FUNCION PARA CALCULAR LA UBICACIÓN 
+function ubicacion()
+{
+	if (navigator.geolocation)
+			{
+                 navigator.geolocation.getCurrentPosition(function(position){
+				   longitud_enviar=position.coords.longitude;
+				   latitud_enviar=position.coords.latitude;
+				   //alert ('longitud: '+longitud_enviar+'  latitud: '+latitud_enviar);
+				   this.center = new OpenLayers.LonLat(longitud_enviar,latitud_enviar).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+				   markers = new OpenLayers.Layer.Markers( "Markers" );
+				  map.addLayer(markers);
+				  var icon = new OpenLayers.Icon('img/per.png');
+				  markers.addMarker(new OpenLayers.Marker(this.center.transform(map),icon));
+				  map.setCenter(this.center.transform(map.proj4326, map.projmerc), 16);
+				});
+			}
+			else
+			{alert ('Su navegador no soporta geolocalizacion.!!');}	
+			marcador(longiubi, latiubi, 1, 0);
+}
 </script>
 
 <body onload="init()">
@@ -112,6 +134,7 @@ function leyenda_dialog()
         <nav class="menu">
         	<a href="#" style="font-size:18px;" class="icon-inicio">Inicio</a>
             <a href="../Usuario/Listar.php" style="font-size:18px;" class="icon-iniciar-sesion">Usuarios</a>
+            <a href="#" onclick="ubicacion()" style="font-size:18px;">Ubicacion</a>
         </nav>
     </div>
 </header>

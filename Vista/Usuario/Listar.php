@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" charset="utf-8" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
 <link rel="stylesheet" type="text/css" href="../../Estilos/EstiloListarUsuario.css" />
+<link rel="stylesheet" type="text/css" href="../../jquery-ui-1.10.4.custom/css/smoothness/jquery-ui-1.10.4.custom.css" />
 <link rel="stylesheet" href="../../Estilos/fontello.css" />
 <script src="../../jquery-1.11.3/jquery-1.11.3.js"></script>
 <script src="../../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
@@ -16,7 +17,7 @@ $(document).ready(function(){
       var value = $(this).val();
       $.ajax({
 		type:'POST',
-		url:'../../Contralador/Clistarusuario.php',
+		url:'../../Contralador/prueba_listar.php',
 		data:'dato='+value,
 		success: function(datos){
 			$('#lista').html(datos);
@@ -26,10 +27,11 @@ $(document).ready(function(){
 });
 </script>
 <script language="javascript">
-function eliminar(id){
-	var url = '../../Contralador/Celiminarusuario.php';
+
+function eliminarProducto(id){
+	var url = '../../Contralador/Celiminar_usuario.php';
 	var buscar=$('#txtbuscar').val();
-	var pregunta = confirm('¿Esta seguro de eliminar este USUARIO?');
+	var pregunta = confirm('¿Esta seguro de eliminar este Producto?');
 	if(pregunta==true){
 		$.ajax({
 		type:'POST',
@@ -46,20 +48,18 @@ function eliminar(id){
 	}
 }
 
-function ver(id_per,id_car)
-{
-	var url = '../../Contralador/Ceditarusuario.php';
+function editar(id_per,id_car,fecha){
+	var url = '../../Contralador/Ceditar_usuario.php';
 	var buscar=$('#txtbuscar').val();
-		$.ajax({
-		type:'POST',
-		url:url,
-		data:'id_per='+id_per+'&id_car='+id_car+'&dato='+buscar,
-		success: function(registro){
-			$('#lista').html(registro);
-			return false;
+	$.ajax({
+	type:'POST',
+	url:url,
+	data:'id_per='+id_per+'&id_car='+id_car+'&fecha='+fecha+'&dato='+buscar,
+	success: function(registro){
+		$('#lista').html(registro);
+		return false;
 		}
 	});
-		return false;
 }
 </script>
 </head>

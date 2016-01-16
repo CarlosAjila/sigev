@@ -51,22 +51,13 @@ do{
 				<td>'.$arre[$i]['apellido'].'</td>
 				<td>'.$arre[$i]['sex_per'].'</td>
 				<td>'.$arre[$i]['nom_loc'].'</td>
-				<td>
-				<select id="cargo'.$i.'" name="cargo'.$i.'">';
-					do{
-					echo '<option value="'.$arreglo_cargo[$c]['id_car'].'">'.$arreglo_cargo[$c]['nom_car'].'</option>';
-						$c++;
-					}while($c<sizeof($arreglo_cargo));
-					echo '</select></td>
 				<td>'.$arre[$i]['ffc_usu'].'</td>
 				<td><input type="button" name="cod" id="cod" value="Editar"/><a href="javascript:eliminar('.$arre[$i]["id_per"].');">Eliminar</a></td>
 				<td><input type="hidden" name="txtidper'.$i.'" id="txtidper'.$i.'" value="'.$arre[$i]["id_per"].'"/></td>
-				';
+		 </tr>';
 $i++;
-$c=0;
 }while($i<sizeof($arre));
-$i=$i-1;
-echo '<td><input type="hidden" name="contador" id="contador" value="'.$i.'"/></td></tr></table>';
+echo '</table>';
 
 /*Sección para cargar la opción ya elegida en el combobox*/
 	$i=0;
