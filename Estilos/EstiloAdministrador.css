@@ -13,6 +13,11 @@ Versión: 0.1
 	box-sizing:border-box;/*Para que todo se contenga dentro del mismo modelo de caja*/
 }
 
+#contenedor
+{
+	width:100%;
+	height:100%
+}
 /*Estructura del mapa*/
 #map
 {
@@ -21,8 +26,21 @@ Versión: 0.1
 	width:100%;
 	height:92%;
 	position:absolute;
-	z-index:100;
-	z-index:1;
+	/*z-index:100;*/
+	z-index:2;
+}
+
+/*Sección para ventana modal*/
+.VentanaModal
+{
+	top:0px;
+	width:100%;
+	height:100%;
+	position:fixed;
+	color:#FFF;
+	background-image:url(../imagenes/lightbox.png);
+	display:none;
+	z-index:3;
 }
 
 /*RESPONSIVE DESIGN*/
@@ -34,7 +52,7 @@ header{
 	position:fixed;
 	top:0;
 	left:0;
-	z-index:100;
+	z-index:1;
 	background-color:#036;
 }
 h1{
@@ -46,11 +64,12 @@ h1{
 	width:180px;
 	height:50px;
 }
-.contenedor{
+.banner{
 	width:100%;
 	margin:auto;
 }
-header .contenedor{
+
+header .banner{
 	display:table;
 }
 header label{
@@ -76,7 +95,7 @@ header label{
 	text-decoration:none;
 	padding:15px;
 	position:relative;
-	z-index:2;
+	z-index:4;
 }
 
 .menu a:hover{

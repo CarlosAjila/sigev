@@ -1,5 +1,4 @@
 <?php
-
 /*
   Tipo de archivo: clase
   Descripción: Clase Ficha_paciente
@@ -15,13 +14,11 @@ class clsGeoreferenciacion {
 //Declarando datos
     public $lat_geo;
     public $lon_geo;
-    public $est_geo;
 
     //Constructor
-    public function __construct( $lat_geo, $lon_geo, $est_geo ) {
+    public function __construct( $lat_geo, $lon_geo) {
         $this->lat_geo = $lat_geo;
         $this->lon_geo = $lon_geo;
-        $this->est_geo = $est_geo;
     }
 
     //Destructor
@@ -30,7 +27,6 @@ class clsGeoreferenciacion {
     }
 
     //Getters
-
     function get_lat_geo() {
         return $this->lat_geo;
     }
@@ -39,11 +35,7 @@ class clsGeoreferenciacion {
         return $this->lon_geo;
     }
 
-    function get_est_geo() {
-        return $this->est_geo;
-    }
-
-        //Función para buscar un georeferenciacion
+    //Función para buscar un georeferenciacion
     public function buscar() {
         $encontro = false;
         $objDatos = new clsDatos();
@@ -64,16 +56,10 @@ class clsGeoreferenciacion {
     }
 
     //Insertar Georeferenciacion
-    public function insertar() {
+    public function insertar($lat_geo,$lon_geo) {
         $id_geo="";
         $objDatos = new clsDatos();
-        $sql = "INSERT INTO georeferenciacion
-            (lat_geo,
-             lon_geo,
-             est_geo)
-            VALUES ('$this->lat_geo',
-                    '$this->lon_geo',
-                    '$this->est_geo');";
+        $sql = "INSERT INTO georeferenciacion (lat_geo, lon_geo) VALUES ('$lat_geo','$lon_geo')";
         $id_geo=$objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
         return $id_geo;
