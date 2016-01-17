@@ -1,11 +1,10 @@
 <?php
 
-require_once("clsDatos.php");
+require_once "clsDatos.php";
+class clsPaciente extends clsDatos {
 
-class clsPaciente
-{
 //Declarando datos
-   
+
     public $id_geo;
     public $id_per;
     public $oex_pac;
@@ -22,7 +21,7 @@ class clsPaciente
 
     //Constructor
     public function __construct($id_geo, $id_per, $oex_pac, $fre_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fat_pac, $fis_pac, $est_pac) {
-   
+
         $this->id_geo = $id_geo;
         $this->id_per = $id_per;
         $this->oex_pac = $oex_pac;
@@ -174,10 +173,32 @@ class clsPaciente
     //Dar de baja a usuario
     public function dar_baja() {
         $objDatos = new clsDatos();
-		$sql = "UPDATE paciente SET(est_pac='I')";
-		$objDatos->ejecutar($sql);
-		$objDatos->crerrarconexion();
+        $sql = "UPDATE paciente SET(est_pac='I')";
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+    }
+
+    function listarPaciente($caso = NULL, $limit = 12) {
+        //conexion a la base de datos
+        $objDatos = new clsDatos();
+//        if ($casos == 'Todos')
+//            $sql = "SELECT * FROM persona per 
+//                 INNER JOIN paciente pac ON per.id_per = pac.id_per ORDER BY RAND() LIMIT $limit;";
+//        else
+            $sql = "SELECT * FROM persona per 
+                 INNER JOIN paciente pac ON per.id_per = pac.id_per WHERE carrera='$caso' ORDER BY RAND() LIMIT $limit;";
+         $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();;
+        if ($this->numero_de_filas($query) > 0) { // existe -> datos correctos
+            //se llenan los datos en un array
+            while ($tsArray = $objDatos->fetch_assoc($query))
+                $data[] = $tsArray;
+            return $data;
+        } else {
+            return '';
+        }
     }
 
 }
+
 ?>

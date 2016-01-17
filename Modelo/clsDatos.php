@@ -12,6 +12,7 @@ public $conexion;
 public $id;
 	//Constructor
 	public function __construct(){
+            
 		$servidor="localhost";
 		$usuario="root";
 		$clave="";
@@ -24,9 +25,17 @@ public $id;
 	public function __destruct(){
 	}
 	
-	//Ejecutar query
+	 /* METODO PARA REALIZAR UNA CONSULTA 
+		INPUT:
+		$sql | codigo sql para ejecutar  la consulta
+		OUTPUT: $result
+	*/
 	public function consulta($sql){
 		$resultado=mysqli_query($this->conexion,$sql);
+                 if(!$resultado){
+			  echo 'MySQL Error: ' . mysql_error();
+			  exit;
+		  }
 		return $resultado;
 	}
 	
@@ -48,10 +57,27 @@ public $id;
 		return($id);
 	}
 	
-	//Cerrar la conexion
+	
+	/*METODO PARA CONTAR EL NUMERO DE RESULTADOS
+		INPUT: $result
+		OUTPUT:  cantidad de registros encontrados
+	*/
+	function numero_de_filas($result){
+		if(!is_resource($result)) return false;
+		return mysql_num_rows($result);
+	}
+        /*METODO PARA CREAR ARRAY DESDE UNA CONSULTA
+		INPUT: $result
+		OUTPUT: array con los resultados de una consulta
+	*/
+	function fetch_assoc($result){
+		if(!is_resource($result)) return false;
+			return mysql_fetch_assoc($result);
+	}
+        
+        //Cerrar la conexion
 	public function crerrarconexion(){
 		mysqli_close($this->conexion);
 	}
-	
 }
 ?>
