@@ -254,7 +254,6 @@ class clsPaciente extends clsDatos {
 FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
 WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
 AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'";
-<<<<<<< HEAD
 		$datos_desordenados = $objDatos->consulta($sql);
 		while($columna = $objDatos->arreglos($datos_desordenados))
 		{
@@ -288,19 +287,6 @@ AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=en
 		}
 		return($this->arreglo);
 	}
-=======
-        $datos_desordenados = $objDatos->consulta($sql);
-        while ($columna = $objDatos->arreglos($datos_desordenados)) {
-            $this->arreglo [] = array("paciente" => $columna['pno_per'] . ' ' . $columna['apa_per'],
-                "enfermedad" => $columna['nom_enf'],
-                "longitud" => $columna['lat_geo'],
-                "latitud" => $columna['lon_geo'],
-                "id_pac" => $columna['id_pac']);
-        }
-        return($this->arreglo);
-    }
->>>>>>> origin/master
-
 }
 
 ?>
