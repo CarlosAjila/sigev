@@ -10,7 +10,7 @@
 <script src="../../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
 <script src="../../AjaxUpload.2.0.min.js"></script>
 
-<title>SIGEV - Listar Paciente</title>
+<title>SIGEV - Listar Pacientes</title>
 <script language="javascript">
 $(document).ready(function(){
 	 $('#txtbuscar').keyup(function () {
@@ -26,11 +26,32 @@ $(document).ready(function(){
     }).keyup();
 });
 </script>
+<script language="javascript">
 
+function eliminarPaciente(id){
+	var buscar=$('#txtbuscar').val();
+	var pregunta = confirm('¿Esta seguro de eliminar este Paciente?');
+	if(pregunta==true){
+		$.ajax({
+		type:'POST',
+		url:'../../Contralador/Celiminar_paciente.php',
+		data:'id='+id+'&dato='+buscar,
+		success: function(registro){
+			$('#lista').html(registro);
+			return false;
+		}
+	});
+	//return false;
+	}else{
+		return false;
+	}
+}
+
+</script>
 </head>
 
 <body>
-<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="formListar" id="form91">
+<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="form91" id="form91">
 	<header>
 	<div id="conte" class="contenedor">
     
