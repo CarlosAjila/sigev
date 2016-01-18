@@ -39,12 +39,10 @@ function eliminarProducto(id){
 		data:'id='+id+'&dato='+buscar,
 		success: function(registro){
 			$('#lista').html(registro);
-			return false;
+			//return false;
 		}
 	});
-	return false;
-	}else{
-		return false;
+	//return false;
 	}
 }
 

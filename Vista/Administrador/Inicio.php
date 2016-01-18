@@ -26,7 +26,6 @@
 		$('#flotante').load('../../Contralador/Clista_paciente.php');
 	});
 </script>
-
 <?php include("../../Contralador/mapa.php"); ?>
 
 <body onload="init()">
@@ -64,7 +63,7 @@
         	<table>
             	<tr>
                 	<td><input type="text" name="id_pac" id="id_pac"/></td>
-                    <td><input type="text" name="nombre_paciente" id="nombre_paciente"/></td>
+                    <td><input type="text" name="nom_paciente" id="nom_paciente"/></td>
                 </tr>
             </table>
         </form>

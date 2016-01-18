@@ -218,6 +218,28 @@ AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=en
 		}
 		return($this->arreglo);
 	}
+	
+	//Listar pacientes-popup
+	public function listar_paciente_popup(){
+		$objDatos= new clsDatos();
+		$sql="SELECT paciente.id_pac,paciente.oex_pac,paciente.fre_pac,paciente.cas_pac,paciente.dir_pac,paciente.ref_pac,paciente.ofi_pac,
+paciente.dof_pac,paciente.emi_pac,paciente.fat_pac,paciente.fis_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,enfemedad.nom_enf
+FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
+WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
+AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'";
+		$datos_desordenados = $objDatos->consulta($sql);
+		while($columna = $objDatos->arreglos($datos_desordenados))
+		{
+			$this->arreglo [] = array("oex_pac"=>$columna['oex_pac'],
+									  "fre_pac"=>$columna['fre_pac'],
+									  "cas_pac"=>$columna['cas_pac'],
+									  "dir_pac"=>$columna['dir_pac'],
+									  "ref_pac"=>$columna['ref_pac'],
+									  "lon_geo"=>$columna['lon_geo'],
+									  "lat_geo"=>$columna['lat_geo']);
+		}
+		return($this->arreglo);
+	}
 
 }
 

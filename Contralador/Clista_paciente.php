@@ -24,8 +24,9 @@ echo '<table class="tablaflotante">
 					<td>'.$arreglo_pacientes[$i]["paciente"].'</td>
 					<td>'.$arreglo_pacientes[$i]["enfermedad"].'</td>
 					<td>
+						<script type="text/javascript">var paciente="'.$arreglo_pacientes[$i]['paciente'].'"</script>
 						<a href="javascript:buscar('.$arreglo_pacientes[$i]['longitud'].','.$arreglo_pacientes[$i]['latitud'].');">Buscar</a>
-						<a href="javascript:trabajo_campo('.$arreglo_pacientes[$i]['longitud'].','.$arreglo_pacientes[$i]['latitud'].','.$arreglo_pacientes[$i]['id_pac'].');">Trabajo</a>
+						<a href="javascript:trabajo_campo('.$arreglo_pacientes[$i]['longitud'].','.$arreglo_pacientes[$i]['latitud'].','.$arreglo_pacientes[$i]['id_pac'].',paciente);">Trabajo</a>
 					</td>
 			 </tr>';
 		$i++;
