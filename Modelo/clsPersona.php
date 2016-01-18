@@ -156,12 +156,12 @@ WHERE (pno_per LIKE '%$letra%' OR sno_per LIKE '%$letra%' OR apa_per LIKE '%$let
 AND persona.est_per='A' ORDER BY RAND()";
         $datos_desordenados = $objDatos->consulta($sql);
         while ($columna = $objDatos->arreglos($datos_desordenados)) {
-            $this->arreglo [] = array("id_per" => $columna['id_per'],
+            $this->arreglo [] = array(
+                "id_per" => $columna['id_per'],
                 "ced_per" => $columna['ced_per'],
                 "nombre" => $columna['pno_per'] . " " . $columna['sno_per'],
                 "apellido" => $columna['apa_per'] . " " . $columna['ama_per'],
-                "sex_per" => $columna['sex_per'],
-                "nom_loc" => $columna['nom_loc']);
+                "sex_per" => $columna['sex_per']);
         }
         return($this->arreglo);
     }
