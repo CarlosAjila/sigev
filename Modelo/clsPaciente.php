@@ -172,9 +172,10 @@ class clsPaciente extends clsDatos {
     }
 
 //Dar de baja a usuario
-    public function dar_baja() {
+    //Dar de baja a un paciente
+    public function dar_baja($id_per) {
         $objDatos = new clsDatos();
-        $sql = "UPDATE paciente SET(est_pac='I')";
+        $sql = "UPDATE paciente SET est_pac='I' WHERE id_per='$id_per'";
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }

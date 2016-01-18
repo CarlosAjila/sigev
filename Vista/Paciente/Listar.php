@@ -10,7 +10,7 @@
 <script src="../../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
 <script src="../../AjaxUpload.2.0.min.js"></script>
 
-<title>SIGEV - Listar Paciente</title>
+<title>SIGEV - Listar Usuarios</title>
 <script language="javascript">
 $(document).ready(function(){
 	 $('#txtbuscar').keyup(function () {
@@ -26,11 +26,46 @@ $(document).ready(function(){
     }).keyup();
 });
 </script>
+<script language="javascript">
 
+function eliminarProducto(id){
+	var url = '../../Contralador/Celiminar_usuario.php';
+	var buscar=$('#txtbuscar').val();
+	var pregunta = confirm('¿Esta seguro de eliminar este Producto?');
+	if(pregunta==true){
+		$.ajax({
+		type:'POST',
+		url:url,
+		data:'id='+id+'&dato='+buscar,
+		success: function(registro){
+			$('#lista').html(registro);
+			return false;
+		}
+	});
+	return false;
+	}else{
+		return false;
+	}
+}
+
+function editar(id_per,id_car,fecha){
+	var url = '../../Contralador/Ceditar_usuario.php';
+	var buscar=$('#txtbuscar').val();
+	$.ajax({
+	type:'POST',
+	url:url,
+	data:'id_per='+id_per+'&id_car='+id_car+'&fecha='+fecha+'&dato='+buscar,
+	success: function(registro){
+		$('#lista').html(registro);
+		return false;
+		}
+	});
+}
+</script>
 </head>
 
 <body>
-<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="formListar" id="form91">
+<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="form91" id="form91">
 	<header>
 	<div id="conte" class="contenedor">
     
@@ -39,7 +74,7 @@ $(document).ready(function(){
         <input type="checkbox" id="menu-bar" />
         <label class="icon-menu" for="menu-bar"></label>
         <nav class="menu">
-        	<a href="../Estadistica/Inicio.php" style="font-size:18px;" class="icon-inicio">Inicio</a>
+        	<a href="../Administrador/Inicio.php" style="font-size:18px;" class="icon-inicio">Inicio</a>
             <a href="#" style="font-size:18px;" class="icon-iniciar-sesion">Usuarios</a>
         </nav>
     </div>
