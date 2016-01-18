@@ -15,9 +15,10 @@ class clsTrabajo_campo {
     public $cqu_tca;
     public $cte_tca;
     public $est_tca;
+	public $img_tca;
 
-    //Constructor
-    public function __construct($id_tca, $npe_tca, $tcr_tca, $sen_tca, $obs_tca, $maq_tca, $qui_tca, $cqu_tca, $cte_tca, $est_tca) {
+    //Constructor ordinario
+    public function __construct($id_tca, $npe_tca, $tcr_tca, $sen_tca, $obs_tca, $maq_tca, $qui_tca, $cqu_tca, $cte_tca, $est_tca, $img_tca) {
         $this->id_tca = $id_tca;
         $this->npe_tca = $npe_tca;
         $this->tcr_tca = $tcr_tca;
@@ -28,13 +29,15 @@ class clsTrabajo_campo {
         $this->cqu_tca = $cqu_tca;
         $this->cte_tca = $cte_tca;
         $this->est_tca = $est_tca;
+		$this->img_tca = $img_tca;
     }
 
     //Destructor
     public function __destruct() {
         
     }
-
+	
+	//PROPIEDADES
     //Getters
     function get_id_tca() {
         return $this->id_tca;
@@ -75,6 +78,10 @@ class clsTrabajo_campo {
     function get_est_tca() {
         return $this->est_tca;
     }
+	
+	function get_img_tca() {
+        return $this->img_tca;
+    }
 
     //Función para buscar usuarios
     public function buscar() {
@@ -93,6 +100,7 @@ class clsTrabajo_campo {
             $this->cqu_tca = $columna['cqu_tca'];
             $this->cte_tca = $columna['cte_tca'];
             $this->est_tca = $columna['est_tca'];
+			$this->img_tca = $columna['img_tca'];
             $encontro = true;
         }
 
@@ -106,11 +114,11 @@ class clsTrabajo_campo {
     public function insertar() {
         $objDatos = new clsDatos();
         $sql = "INSERT INTO trabajo_campo(id_tca, npe_tca, tcr_tca, sen_tca, obs_tca,
-                maq_tca, qui_tca, cqu_tca, cte_tca, est_tca)
+                maq_tca, qui_tca, cqu_tca, cte_tca, est_tca , img_tca)
                 VALUES ('$this->id_tca','$this->npe_tca','$this->tcr_tca',
                         '$this->sen_tca','$this->obs_tca','$this->maq_tca',
                         '$this->qui_tca','$this->cqu_tca','$this->cte_tca',
-                        '$this->est_tca');";
+                        '$this->est_tca','this->get_img_tca()');";
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }
@@ -121,7 +129,8 @@ class clsTrabajo_campo {
         $sql = "UPDATE trabajo_campo SET id_tca = '$this->id_tca',
                 npe_tca = '$this->npe_tca', tcr_tca = '$this->tcr_tca', sen_tca = '$this->sen_tca',
                 obs_tca = '$this->obs_tca', maq_tca = '$this->maq_tca', qui_tca = '$this->qui_tca',
-                cqu_tca = '$this->cqu_tca', cte_tca = '$this->cte_tca', est_tca = '$this->est_tca'
+                cqu_tca = '$this->cqu_tca', cte_tca = '$this->cte_tca', est_tca = '$this->est_tca',
+				img_tca = 'this->get_img_tca()'
                 WHERE id_tca = '$this->id_tca';";
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
