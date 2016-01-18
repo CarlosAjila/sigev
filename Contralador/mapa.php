@@ -215,7 +215,43 @@ function buscar(longitud_caso,latitud_caso)
 	//Mediante marcador.events.register 'mousedown', indicamos que capture el evento de click sobre cualquiera de los marcadores ubicados en la capa marcador.
 	marcador.events.register('mousedown', marcador, function(evt) {
 	alert('Hola');
-	$('#id_pac').val(lon2);
+	//$('#id_pac').val(lon2);
+	//$('#dialogotrabajocampo').dialog('open');
+	//map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
+		//new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa
+		//null,//Tamaño de la ventana emergente
+		//"<table width='200' border='1'><tr><td>Hola</td></tr></table>",//Contenido HTML
+		//null,
+		//true/*Esto nos indica que se mostrará una X en el popup para cerrarse*/));
+	});
+	marcador(lon2, lat2, 2, 0);
+	}
+	
+}
+
+function trabajo_campo(longitud_caso,latitud_caso,id_pac)
+{
+	lon2=longitud_caso;
+	lat2=latitud_caso;
+	center=new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));//se transforma las coordenas a wgs84
+	map.setCenter(center, 13);//se centra el mapa y se aplica un zoom de 16
+	if((lon2!=0)||(lat2!=0))
+	{
+		//marcador(lon2, lat2, 2, 0);
+		//Asignación de la capa especial para la ubicación de los marcadores a través de OpenLayers.Layer.Markers
+    var marcador = new OpenLayers.Layer.Markers('MARCADOR');
+	//Asignación de una imagen para el marcador a través de OpenLayers.Icon
+	var icon = new OpenLayers.Icon('../../imagenes/per.png');
+	//A través de marcador.addMarker añadimos un nuevo marcador a la capa previamente establecida para los marcadores denominada marcador
+	marcador.addMarker(new OpenLayers.Marker(
+    	new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),icon));
+	//Finalmente añadimos la capa de marcadores al mapa principal, se ubica addLayers cuando interactuamos con más de una capa	
+	map.addLayers([osmLayer,marcador]);
+	
+	//Mediante marcador.events.register 'mousedown', indicamos que capture el evento de click sobre cualquiera de los marcadores ubicados en la capa marcador.
+	marcador.events.register('mousedown', marcador, function(evt) {
+	//alert('Hola');
+	$('#id_pac').val(id_pac);
 	$('#dialogotrabajocampo').dialog('open');
 	//map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
 		//new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa

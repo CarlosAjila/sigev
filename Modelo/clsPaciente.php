@@ -203,7 +203,7 @@ class clsPaciente extends clsDatos {
 	//Listar pacientes
 	public function listar_paciente(){
 		$objDatos= new clsDatos();
-		$sql="SELECT georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,enfemedad.nom_enf
+		$sql="SELECT paciente.id_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,enfemedad.nom_enf
 FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
 WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
 AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'";
@@ -213,7 +213,8 @@ AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=en
 			$this->arreglo [] = array("paciente"=>$columna['pno_per'].' '.$columna['apa_per'],
 									  "enfermedad"=>$columna['nom_enf'],
 									  "longitud"=>$columna['lat_geo'],
-									  "latitud"=>$columna['lon_geo']);
+									  "latitud"=>$columna['lon_geo'],
+									  "id_pac"=>$columna['id_pac']);
 		}
 		return($this->arreglo);
 	}
