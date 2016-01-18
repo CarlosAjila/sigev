@@ -1,74 +1,26 @@
-<link rel="stylesheet" type="text/css" href="../jquery-ui-1.10.4.custom/css/smoothness/jquery-ui-1.10.4.custom.css" />
-<script src="../jquery-1.11.3/jquery-1.11.3.js"></script>
-<script src="../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
-<script src="../default/AjaxUpload.2.0.min.js"></script>
-<script language="javascript">
-    $(document).ready(function ()
-    {
-        $('#bteditar').click(function () {
-            counter = $("#cont_elementos").val();
-            var pregunta = confirm('¿Esta seguro de editar estos Paciente?');
-            if (pregunta == true) {
-                for (indice = 0; indice <= counter; indice++) {
-                    var fecha = $('#txtfecha' + indice).val();
-                    var id_per = $('#hd_idper' + indice).val();
-                    var id_car = $('#cargo' + indice).val();
-                    editar(id_per, id_car, fecha);
-                }
-            } else {
-                return false;
-            }
-        });
-    })
-</script>
 
-<script language="javascript">
-//Para el manejo de fechas
-    var opciones_datepicker = {changeYear: true,
-        dateFormat: "yy-mm-dd",
-        monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-        yearRange: "1950:2050"
-    };
-    $(document).ready(function (e) {
-        $("[id^='txtfecha']").datepicker(opciones_datepicker);
-    });
-</script>
 <?php
-require_once("../Modelo/clsPersona.php");
+
 require_once("../Modelo/clsPaciente.php");
-require_once("../Modelo/clsGeorefenciacion.php");
 
 
+echo '1111111111';
 $dato = 'a';
 
-//Instancia de clase persona
-$objpersona = new clsPersona("", "", "", "", "", "", "", "", "", "", "");
 //Instancia de clase usuario
 $objpaciente = new clsPaciente("", "", "", "", "", "", "", "", "", "", "", "", "");
-//Instancia Georeferenciacion
-$objgeoreferenciacion = new clsGeoreferenciacion("", "");
 //Arreglo para captar a todas las cuentas de usuario registradas
-$arre = $objpersona->listar_persona_paciente($_POST['dato']);
-
-echo $arre;
+$arre = $objpaciente->listar_persona_paciente($dato);
 //Variable para recorrer el arreglo de cuentas de usuario
 $i = 0;
 
-//Variable contador para el número total de elementos
-$contador = 0;
-$total = 0;
-
-//CREAMOS NUESTRA VISTA Y LA DEVOLVEMOS AL AJAX
 echo '<table class="table table-striped table-condensed table-hover">
-            <tr>
+        	<tr>
             	<th>Cedula</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Sexo</th>
                 <th>Lugar de vivienda</th>
-		
             </tr>';
 do {
     echo '<tr>
@@ -76,10 +28,10 @@ do {
 				<td>' . $arre[$i]["nombre"] . '</td>
 				<td>' . $arre[$i]['apellido'] . '</td>
 				<td>' . $arre[$i]['sex_per'] . '</td>
-				<td>' . $arre[$i]['nom_loc'] . '</td>
-				';
- 
-  
+				<td>' . $arre[$i]['id_per'] . '</td>
+                                <td><input type="hidden" name="hd_idper' . $i . '" id="hd_idper' . $i . '" value="' . $arre[$i]["id_per"] . '"/><a href="javascript:eliminarProducto(' . $arre[$i]['id_per'] . ');">Eliminar</a></td>
+		 	</tr>';
+
     $i++;
     $contador++;
 } while ($i < sizeof($arre));

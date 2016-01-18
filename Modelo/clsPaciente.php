@@ -1,6 +1,7 @@
 <?php
 
 require_once "clsDatos.php";
+
 class clsPaciente extends clsDatos {
 
 //Declarando datos
@@ -182,13 +183,14 @@ class clsPaciente extends clsDatos {
         //conexion a la base de datos
         $objDatos = new clsDatos();
 //        if ($casos == 'Todos')
-            $sql = "SELECT * FROM persona per 
+        $sql = "SELECT * FROM persona per 
                  INNER JOIN paciente pac ON per.id_per = pac.id_per ORDER BY RAND() LIMIT 2;";
 //        else
 //            $sql = "SELECT * FROM persona per 
 //                 INNER JOIN paciente pac ON per.id_per = pac.id_per WHERE carrera='$caso' ORDER BY RAND() LIMIT $limit;";
-         $objDatos->ejecutar($sql);
-        $objDatos->crerrarconexion();;
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+        ;
         if ($this->numero_de_filas($query) > 0) { // existe -> datos correctos
             //se llenan los datos en un array
             while ($tsArray = $objDatos->fetch_assoc($query))
@@ -198,25 +200,30 @@ class clsPaciente extends clsDatos {
             return '';
         }
     }
-	
-	/*Jose Ambuludi*/
-	//Listar pacientes
-	public function listar_paciente(){
-		$objDatos= new clsDatos();
-		$sql="SELECT georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,enfemedad.nom_enf
-FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
-WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
-AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'";
-		$datos_desordenados = $objDatos->consulta($sql);
-		while($columna = $objDatos->arreglos($datos_desordenados))
-		{
-			$this->arreglo [] = array("paciente"=>$columna['pno_per'].' '.$columna['apa_per'],
-									  "enfermedad"=>$columna['nom_enf'],
-									  "longitud"=>$columna['lat_geo'],
-									  "latitud"=>$columna['lon_geo']);
-		}
-		return($this->arreglo);
-	}
+
+//Listar personas
+    public function listar_persona_paciente($letra) {
+        $objDatos = new clsDatos();
+        //
+        $sql = "SELECT per.id_per, per.ced_per, per.pno_per, per.sno_per, per.apa_per, per.ama_per, per.sex_per 
+                FROM persona per 
+                INNER JOIN paciente pac ON per.id_per = pac.id_per 
+                INNER JOIN georeferenciacion geo ON geo.id_geo = pac.id_geo
+                WHERE (pno_per LIKE '%$letra%' OR sno_per LIKE '%$letra%' OR apa_per LIKE '%$letra%' OR ama_per LIKE '%$letra%') 
+                AND per.est_per='A'";
+        $datos_desordenados = $objDatos->consulta($sql);
+        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->arreglo [] = array(
+                "id_per" => $columna['id_per'],
+                "ced_per" => $columna['ced_per'],
+                "nombre" => $columna['pno_per'] . " " . $columna['sno_per'],
+                "apellido" => $columna['apa_per'] . " " . $columna['ama_per'],
+                "sex_per" => $columna['sex_per']);
+        }
+        return($this->arreglo);
+
+  
+    }
 
 }
 
