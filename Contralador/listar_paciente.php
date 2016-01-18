@@ -7,7 +7,7 @@ $(document).ready(function()
 {
 	$('#bteditar').click(function(){
 	counter=$("#cont_elementos").val();
-	var pregunta = confirm('¿Esta seguro de editar estos USUARIOS?');
+	var pregunta = confirm('¿Esta seguro de editar estos Paciente?');
 	if(pregunta==true){
 		for(indice=0; indice<=counter; indice++){
 			var fecha=$('#txtfecha'+indice).val();
@@ -37,20 +37,21 @@ $(document).ready(function(e) {
 </script>
 <?php
 require_once("../Modelo/clsPersona.php");
-require_once("../Modelo/clsUsuario.php");
+require_once("../Modelo/clsPaciente.php");
+require_once("../Modelo/clsGeorefenciacion.php");
+
 
 $dato = $_POST['dato'];
 
 //Instancia de clase persona
 $objpersona=new clsPersona("","","","","","","","","","","");
 //Instancia de clase usuario
-$objusuario=new clsUsuario("","","","","","","","");	
-
+$objpaciente=new clsPaciente("","","","","","","","","","","","","");	
+//Instancia Georeferenciacion
+$objgeoreferenciacion = new clsGeoreferenciacion("", "");
 //Arreglo para captar a todas las cuentas de usuario registradas
 $arre=$objpersona->listar_persona($_POST['dato']);
 
-//Arreglo para captar todos los cargos disponibles
-$arreglo_cargo=$objusuario->listar_cargo();
 
 //Variable para recorrer el arreglo de cuentas de usuario
 $i=0;

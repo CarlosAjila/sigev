@@ -182,11 +182,11 @@ class clsPaciente extends clsDatos {
         //conexion a la base de datos
         $objDatos = new clsDatos();
 //        if ($casos == 'Todos')
-//            $sql = "SELECT * FROM persona per 
-//                 INNER JOIN paciente pac ON per.id_per = pac.id_per ORDER BY RAND() LIMIT $limit;";
-//        else
             $sql = "SELECT * FROM persona per 
-                 INNER JOIN paciente pac ON per.id_per = pac.id_per WHERE carrera='$caso' ORDER BY RAND() LIMIT $limit;";
+                 INNER JOIN paciente pac ON per.id_per = pac.id_per ORDER BY RAND() LIMIT 2;";
+//        else
+//            $sql = "SELECT * FROM persona per 
+//                 INNER JOIN paciente pac ON per.id_per = pac.id_per WHERE carrera='$caso' ORDER BY RAND() LIMIT $limit;";
          $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();;
         if ($this->numero_de_filas($query) > 0) { // existe -> datos correctos

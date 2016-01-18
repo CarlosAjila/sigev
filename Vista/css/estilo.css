@@ -71,7 +71,7 @@ text-align:right;
 	
 #menu li a {
 	height: 32px;
-  	voice-family: "\"; 
+  	voice-family: inherit; 
   	voice-family: inherit;
   	height: 24px;
 	text-decoration: none;

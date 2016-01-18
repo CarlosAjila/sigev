@@ -119,7 +119,7 @@ $(document).ready(function(e) {
 		autoOpen:false,
 		modal:true,
 		width:350,
-		height:'auto'
+		height:750
 	});
 	$('#bt_guardar').click(function(e) {
 		var ruta = "../../Contralador/Cgeoreferenciacion.php";	

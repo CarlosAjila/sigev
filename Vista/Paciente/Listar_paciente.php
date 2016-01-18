@@ -17,7 +17,7 @@ $(document).ready(function(){
       var value = $(this).val();
       $.ajax({
 		type:'POST',
-		url:'../../Contralador/prueba_listar.php',
+		url:'../../Contralador/listar_paciente.php',
 		data:'dato='+value,
 		success: function(datos){
 			$('#lista').html(datos);
@@ -39,7 +39,7 @@ $(document).ready(function(){
         <input type="checkbox" id="menu-bar" />
         <label class="icon-menu" for="menu-bar"></label>
         <nav class="menu">
-        	<a href="../Administrador/Inicio.php" style="font-size:18px;" class="icon-inicio">Inicio</a>
+        	<a href="../Estadistica/Inicio.php" style="font-size:18px;" class="icon-inicio">Inicio</a>
             <a href="#" style="font-size:18px;" class="icon-iniciar-sesion">Usuarios</a>
         </nav>
     </div>
