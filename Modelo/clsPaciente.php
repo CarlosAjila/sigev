@@ -214,8 +214,7 @@ AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=en
 									  "enfermedad"=>$columna['nom_enf'],
 									  "longitud"=>$columna['lat_geo'],
 									  "latitud"=>$columna['lon_geo'],
-									  "id_pac"=>$columna['id_pac'],
-									  "pno_per"=>$columna['pno_per']);
+									  "id_pac"=>$columna['id_pac']);
 		}
 		return($this->arreglo);
 	}
