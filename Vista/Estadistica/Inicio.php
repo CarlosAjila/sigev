@@ -40,7 +40,7 @@
              
             <nav class="menu">
                 <a href="#" style="font-size:18px;" class="icon-inicio">Inicio</a>
-                <a href="../Usuario/Listar.php" style="font-size:18px;" class="icon-iniciar-sesion">Usuarios</a>
+                <a href="../Paciente/Listar.php" style="font-size:18px;" class="icon-iniciar-sesion">Paciente</a>
                 <a href="#" onclick="ubicacion()" style="font-size:18px;">Ubicacion</a>
                 <a href="#" onclick="nuevo_paciente(1)" style="font-size:18px;">Registrar Paciente</a>
                 <a href="#" onclick="nuevo_marcador(1)" style="font-size:18px;">Punto de partida</a>

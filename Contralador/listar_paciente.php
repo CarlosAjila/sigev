@@ -1,14 +1,12 @@
 
 <?php
 
-require_once("../Modelo/clsPaciente.php");
+require_once("../Modelo/clsPacienteAux.php");
 
-
-echo '1111111111';
-$dato = 'a';
+$dato = $_POST['dato'];
 
 //Instancia de clase usuario
-$objpaciente = new clsPaciente("", "", "", "", "", "", "", "", "", "", "", "", "");
+$objpaciente = new clsPacienteAux("", "", "", "", "", "", "", "", "", "", "", "", "");
 //Arreglo para captar a todas las cuentas de usuario registradas
 $arre = $objpaciente->listar_persona_paciente($dato);
 //Variable para recorrer el arreglo de cuentas de usuario
@@ -29,12 +27,10 @@ do {
 				<td>' . $arre[$i]['apellido'] . '</td>
 				<td>' . $arre[$i]['sex_per'] . '</td>
 				<td>' . $arre[$i]['id_per'] . '</td>
-                                <td><input type="hidden" name="hd_idper' . $i . '" id="hd_idper' . $i . '" value="' . $arre[$i]["id_per"] . '"/><a href="javascript:eliminarProducto(' . $arre[$i]['id_per'] . ');">Eliminar</a></td>
+                                <td><input type="hidden" name="hd_idper' . $i . '" id="hd_idper' . $i . '" value="' . $arre[$i]["id_per"] . '"/><a href="javascript:eliminarPaciente(' . $arre[$i]['id_per'] . ');">Eliminar</a></td>
 		 	</tr>';
-
     $i++;
     $contador++;
 } while ($i < sizeof($arre));
 $total = $contador - 1;
-echo '<tr><td><input type="hidden" name="cont_elementos" id="cont_elementos" value="' . $total . '"/><input type="button" name="bteditar" id="bteditar" value="Editar" /></td></tr></table>';
 ?>
