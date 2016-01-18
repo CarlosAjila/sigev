@@ -59,6 +59,15 @@
         <input type="hidden" name="save_paciente" id="save_paciente" value="save_paciente" />
     </form>
     </div>
+    <div id="dialogotrabajocampo">
+    	<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormTrabajoCampo" id="FormTrabajoCampo" enctype="multipart/form-data">
+        	<table>
+            	<tr>
+                	<td><input type="text" name="id_pac" id="id_pac"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
     <div id="ruta">
     </div>
     <div id="flotante">

@@ -214,12 +214,15 @@ function buscar(longitud_caso,latitud_caso)
 	
 	//Mediante marcador.events.register 'mousedown', indicamos que capture el evento de click sobre cualquiera de los marcadores ubicados en la capa marcador.
 	marcador.events.register('mousedown', marcador, function(evt) {
-	map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
-		new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa
-		null,//Tamaño de la ventana emergente
-		"<table width='200' border='1'><tr><td>Hola</td></tr></table>",//Contenido HTML
-		null,
-		true/*Esto nos indica que se mostrará una X en el popup para cerrarse*/));
+	alert('Hola');
+	$('#id_pac').val(lon2);
+	$('#dialogotrabajocampo').dialog('open');
+	//map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
+		//new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa
+		//null,//Tamaño de la ventana emergente
+		//"<table width='200' border='1'><tr><td>Hola</td></tr></table>",//Contenido HTML
+		//null,
+		//true/*Esto nos indica que se mostrará una X en el popup para cerrarse*/));
 	});
 	marcador(lon2, lat2, 2, 0);
 	}
@@ -235,6 +238,12 @@ function drawLine() {
 <script language="javascript">
 $(document).ready(function(e) {
     $('#dialogoformulario').dialog({
+		autoOpen:false,
+		modal:true,
+		width:350,
+		height:750
+	});
+	$('#dialogotrabajocampo').dialog({
 		autoOpen:false,
 		modal:true,
 		width:350,

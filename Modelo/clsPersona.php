@@ -147,7 +147,7 @@ class clsPersona {
     }
 
     //Listar personas
-    public function listar_persona($letra) {
+    public function listar_persona_paciente($letra) {
         $objDatos = new clsDatos();
         $sql = "SELECT * FROM persona per 
 INNER JOIN paciente pac ON per.id_per = pac.id_per 
@@ -167,7 +167,7 @@ AND persona.est_per='A' ORDER BY RAND()";
     }
 
     //Listar personas
-    public function listar_persona_paciente($letra) {
+    public function listar_persona($letra) {
         $objDatos = new clsDatos();
         $sql = "SELECT persona.id_per,ced_per,pno_per,sno_per,apa_per,ama_per,sex_per,nom_loc,id_usu,id_car,ffc_usu
 FROM persona,usuario,localizacion
