@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
 <link rel="stylesheet" type="text/css" href="../../Estilos/EstiloAdministrador.css" />
 <link rel="stylesheet" type="text/css" href="../../Estilos/EstiloPaciente.css" />
+<link rel="stylesheet" type="text/css" href="../../Estilos/EstiloRegistrar.css" />
 <link rel="stylesheet" href="../../Estilos/fontello.css" />
 <title>SIGEV - Trabajo de Campo</title>
 </head>
@@ -18,14 +19,46 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script> 
 <!--Librerias para el uso de Jquery 1.11.3-->
 <link rel="stylesheet" type="text/css" href="../../jquery-ui-1.10.4.custom/css/smoothness/jquery-ui-1.10.4.custom.css" />
+
 <script src="../../jquery-1.11.3/jquery-1.11.3.js"></script>
 <script src="../../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+<script src="../../AjaxUpload.2.0.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#flotante').load('../../Contralador/Clista_paciente.php');
 	});
 </script>
+
+<script language="javascript">
+//Evento que se disparará cuando se vaya a cargar una foto de perfil
+$(function(){
+	var btnUpload=$('#btimagen');
+	var status=$('#status');
+	new AjaxUpload(btnUpload, {
+		action: '../../Contralador/CargarFoto.php',
+		name: 'uploadfile',
+		dataType:'json',
+		onSubmit: function(file){
+			$('#load').attr('class','imagensi');
+			status.text('Cargando...');
+		},
+		onComplete: function(file, response){
+			//Parseamos el array JSON
+			var respuesta = $.parseJSON(response);
+			alert(respuesta.mensaje);
+			status.text('');
+			$('#fotoPerfil').removeAttr('src');
+			$('#fotoPerfil').attr('src','../'+respuesta.ruta);
+			$('#ruta_imagen').attr('value','../'+respuesta.ruta);
+			$('#load').attr('class','imagenno');
+		}
+	});
+});
+
+</script>
+
+
 
 <?php include("../../Contralador/mapa.php"); ?>
 
@@ -61,21 +94,43 @@
     </div>
     <div id="dialogotrabajocampo">
     	<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormTrabajoCampo" id="FormTrabajoCampo" enctype="multipart/form-data">
-        	<table>
+        	<table  class="contenedor">
             	<tr>
+        			<td colspan="2" align="center">
+            			<img id="fotoPerfil" src="../../imagenes/fotoperfil.jpg" class="bordefoto" />
+            			<input type="hidden" id="ruta_imagen" name="ruta_imagen" value="" />
+            		</td>
+        		</tr>
+        		<tr>
+        			<td colspan="2" align="center">
+            			<img id="load" src="../../imagenes/load.gif" class="imagenno">
+						<span id="status"></span>
+            		</td>
+        		</tr>
+        		<tr>
+        			<td colspan="2" align="center">
+            			<input type="button" id="btimagen" value="Cargar Imagen" />
+            		</td>
+        		</tr>
+                <tr>
                 	<td><input type="text" name="id_pac" id="id_pac" disabled="disabled"/></td>
+                    
+                    
                 </tr>
+                
                 
                 <tr>
                 	<td><input type="text" name="nombre_paciente" id="nombre_paciente" disabled="disabled"/></td>
                 </tr>
                 
                 <tr>
-                	<td>Número de Personas<input type="text" name="" id=""/></td>
+                	<td align="left"><strong>Número de Personas:</strong></td>
+                	<td><input type="text" name="num_personas" id="num_personas" size="3"/></td>
                 </tr>
                 
                  <tr>
-                	<td>Tipo de Criadero
+                 	<td align="left"><strong>Tipo de Criadero:</strong></td>
+                	<td>
                     	<select name="tipo_criadero"id="tipo_criadero">
                     		<option>Aedes</option>
                             <option>Cules</option>
@@ -84,32 +139,31 @@
                     </td>
                 </tr>
 				  <tr>
-                	<td>Sector Endémico<input type="text" name="" id=""/></td>
+                  	<td align="left"><strong>Sector Endémico:</strong></td>
+                	<td><input type="text" name="sector" id="sector"/></td>
                 </tr>
                 
-                  <tr>
-                	<td>Observación<textarea id="observacion" name="observacion" cols="50" rows="5" class=""></textarea></td>
+                 <tr>
+                  	<td align="left"><strong>Observación:</strong></td>
+                	<td><textarea id="observacion" name="observacion" cols="25" rows="3" class=""></textarea></td>
                 </tr>
                 <tr>
-                	<td>Tipo de Máquina<input type="text" name="" id=""/></td>
+                	<td align="left"><strong>Tipo de Máquina:</strong></td>
+                	<td><input type="text" name="tipo_maquina" id="tipo_maquina"/></td>
                 </tr>
                  <tr>
-                	<td>Tipo de Químico<input type="text" name="" id=""/></td>
+                 	<td align="left"><strong>Tipo de Químico:</strong></td>
+                	<td><input type="text" name="tipo_quimico" id="tipo_quimico"/></td>
                 </tr>
                  <tr>
-                	<td>Cantidad de Químico<input type="text" name="" id=""/></td>
+                 	<td align="left"><strong>Cantidad de Químico:</strong></td>
+                	<td><input type="text" name="cant_quimico" id="cant_quimico" size="3"/></td>
                 </tr>
                  <tr>
-                	<td>Criterio Técnico<textarea id="criterio_tecnico" name="criterio_tecnico" cols="50" rows="5" class=""></textarea></td>
+                	<td align="left"><strong>Criterio Técnico:</strong></td>
+                    <td><textarea id="criterio_tecnico" name="criterio_tecnico" cols="25" rows="5" class=""></textarea></td>
                 </tr>
-                <tr valign="baseline">
-                  <td align="right" nowrap bgcolor="#FFFF99"><div align="left"><em><strong>Imagen:</strong></em></div></td>
-                  <td valign="middle" bgcolor="#FFFF99">
-                  <label>
-                    <input name="Foto" type="file" id="Foto">
-                  </label></td>
-                  
-                </tr>
+               
             </table>
         </form>
     </div>
