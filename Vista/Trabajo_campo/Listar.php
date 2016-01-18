@@ -8,7 +8,7 @@
 <body>
 
 	<h1>
-    	trabajo de campo
+    	trabajo de campo para el paciente
         
         </h1>
 </body>
