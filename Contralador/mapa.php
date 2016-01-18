@@ -229,8 +229,9 @@ function buscar(longitud_caso,latitud_caso)
 	
 }
 
-function trabajo_campo(longitud_caso,latitud_caso,id_pac,paciente)
+function trabajo_campo(longitud_caso,latitud_caso,id_pac)
 {
+	//alert(id_pac);
 	lon2=longitud_caso;
 	lat2=latitud_caso;
 	center=new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));//se transforma las coordenas a wgs84
@@ -251,7 +252,7 @@ function trabajo_campo(longitud_caso,latitud_caso,id_pac,paciente)
 	marcador.events.register('mousedown', marcador, function(evt) {
 	//alert('Hola');
 	$('#id_pac').val(id_pac);
-	$('#nombre_paciente').val(paciente);
+	$('#nombre_paciente').val(id_pac);
 	$('#dialogotrabajocampo').dialog('open');
 	//map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
 		//new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa

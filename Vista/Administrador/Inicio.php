@@ -64,6 +64,7 @@
         	<table>
             	<tr>
                 	<td><input type="text" name="id_pac" id="id_pac"/></td>
+                    <td><input type="text" name="nombre_paciente" id="nombre_paciente"/></td>
                 </tr>
             </table>
         </form>
