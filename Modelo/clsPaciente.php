@@ -1,6 +1,7 @@
 <?php
 
 require_once "clsDatos.php";
+
 class clsPaciente extends clsDatos {
 
 //Declarando datos
@@ -19,7 +20,7 @@ class clsPaciente extends clsDatos {
     public $fis_pac;
     public $est_pac;
 
-    //Constructor
+//Constructor
     public function __construct($id_geo, $id_per, $oex_pac, $fre_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fat_pac, $fis_pac, $est_pac) {
 
         $this->id_geo = $id_geo;
@@ -37,12 +38,12 @@ class clsPaciente extends clsDatos {
         $this->est_pac = $est_pac;
     }
 
-    //Destructor
+//Destructor
     public function __destruct() {
         
     }
 
-    //Getters
+//Getters
     public function get_id_geo() {
         return $this->id_geo;
     }
@@ -95,7 +96,11 @@ class clsPaciente extends clsDatos {
         return $this->est_pac;
     }
 
+
     //Función para buscar paciente
+
+//Función para buscar usuarios
+
     public function buscar() {
         $encontro = false;
         $objDatos = new clsDatos();
@@ -121,7 +126,7 @@ class clsPaciente extends clsDatos {
             $encontro = true;
         }
 
-        //Cerrar la consulta
+//Cerrar la consulta
         $objDatos->cerrar_consulta($datos_desordenados);
         $objDatos->crerrarconexion();
         return $encontro;
@@ -133,6 +138,7 @@ class clsPaciente extends clsDatos {
         $objDatos = new clsDatos();
         $sql = "SELECT * FROM usuario WHERE id_pac='$cod_paciente'";
         $datos_desordenados = $objDatos->consulta($sql);
+
 
         if ($columna = $objDatos->arreglos($datos_desordenados)) {
             $this->id_pac = $columna['id_pac'];
@@ -160,6 +166,9 @@ class clsPaciente extends clsDatos {
     }
 	
     //Insertar Paciente
+
+//Insertar Paciente
+
     public function insertar() {
         $objDatos = new clsDatos();
         $sql = "INSERT INTO paciente (id_geo, id_per, oex_pac, fre_pac, cas_pac, 
@@ -181,7 +190,7 @@ class clsPaciente extends clsDatos {
         $objDatos->crerrarconexion();
     }
 
-    //Modificar datos de Paciente
+//Modificar datos de Paciente
     public function modificar() {
         $objDatos = new clsDatos();
         $sql = "UPDATE paciente
@@ -202,54 +211,59 @@ class clsPaciente extends clsDatos {
         $objDatos->crerrarconexion();
     }
 
-    //Dar de baja a usuario
-    public function dar_baja() {
+//Dar de baja a usuario
+    //Dar de baja a un paciente
+    public function dar_baja($id_per) {
         $objDatos = new clsDatos();
-        $sql = "UPDATE paciente SET(est_pac='I')";
+        $sql = "UPDATE paciente SET est_pac='I' WHERE id_per='$id_per'";
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }
 
-    function listarPaciente($caso = NULL, $limit = 12) {
-        //conexion a la base de datos
+
+
+//Listar personas
+    /* Carlos Ajila */
+    public function listar_persona_paciente($letra) {
         $objDatos = new clsDatos();
-//        if ($casos == 'Todos')
-            $sql = "SELECT * FROM persona per 
-                 INNER JOIN paciente pac ON per.id_per = pac.id_per ORDER BY RAND() LIMIT 2;";
-//        else
-//            $sql = "SELECT * FROM persona per 
-//                 INNER JOIN paciente pac ON per.id_per = pac.id_per WHERE carrera='$caso' ORDER BY RAND() LIMIT $limit;";
-         $objDatos->ejecutar($sql);
-        $objDatos->crerrarconexion();;
-        if ($this->numero_de_filas($query) > 0) { // existe -> datos correctos
-            //se llenan los datos en un array
-            while ($tsArray = $objDatos->fetch_assoc($query))
-                $data[] = $tsArray;
-            return $data;
-        } else {
-            return '';
+        //
+        $sql = "SELECT per.id_per, per.ced_per, per.pno_per, per.sno_per, per.apa_per, per.ama_per, per.sex_per 
+                FROM persona per 
+                INNER JOIN paciente pac ON per.id_per = pac.id_per 
+                INNER JOIN georeferenciacion geo ON geo.id_geo = pac.id_geo
+                WHERE (pno_per LIKE '%$letra%' OR sno_per LIKE '%$letra%' OR apa_per LIKE '%$letra%' OR ama_per LIKE '%$letra%') 
+                AND per.est_per='A'";
+        $datos_desordenados = $objDatos->consulta($sql);
+        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->arreglo [] = array(
+                "id_per" => $columna['id_per'],
+                "ced_per" => $columna['ced_per'],
+                "nombre" => $columna['pno_per'] . " " . $columna['sno_per'],
+                "apellido" => $columna['apa_per'] . " " . $columna['ama_per'],
+                "sex_per" => $columna['sex_per']);
         }
+        return($this->arreglo);
     }
-	
-	/*Jose Ambuludi*/
-	//Listar pacientes
-	public function listar_paciente(){
-		$objDatos= new clsDatos();
-		$sql="SELECT paciente.id_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,enfemedad.nom_enf
+
+    /* Jose Ambuludi */
+
+    //Listar pacientes
+    public function listar_paciente() {
+        $objDatos = new clsDatos();
+        $sql = "SELECT paciente.id_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,enfemedad.nom_enf
 FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
 WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
 AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'";
-		$datos_desordenados = $objDatos->consulta($sql);
-		while($columna = $objDatos->arreglos($datos_desordenados))
-		{
-			$this->arreglo [] = array("paciente"=>$columna['pno_per'].' '.$columna['apa_per'],
-									  "enfermedad"=>$columna['nom_enf'],
-									  "longitud"=>$columna['lat_geo'],
-									  "latitud"=>$columna['lon_geo'],
-									  "id_pac"=>$columna['id_pac']);
-		}
-		return($this->arreglo);
-	}
+        $datos_desordenados = $objDatos->consulta($sql);
+        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->arreglo [] = array("paciente" => $columna['pno_per'] . ' ' . $columna['apa_per'],
+                "enfermedad" => $columna['nom_enf'],
+                "longitud" => $columna['lat_geo'],
+                "latitud" => $columna['lon_geo'],
+                "id_pac" => $columna['id_pac']);
+        }
+        return($this->arreglo);
+    }
 
 }
 
