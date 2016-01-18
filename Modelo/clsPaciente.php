@@ -200,6 +200,7 @@ class clsPaciente extends clsDatos {
             return '';
         }
     }
+<<<<<<< HEAD
 
 //Listar personas
     public function listar_persona_paciente($letra) {
@@ -224,6 +225,28 @@ class clsPaciente extends clsDatos {
 
   
     }
+=======
+	
+	/*Jose Ambuludi*/
+	//Listar pacientes
+	public function listar_paciente(){
+		$objDatos= new clsDatos();
+		$sql="SELECT paciente.id_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,enfemedad.nom_enf
+FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
+WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
+AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'";
+		$datos_desordenados = $objDatos->consulta($sql);
+		while($columna = $objDatos->arreglos($datos_desordenados))
+		{
+			$this->arreglo [] = array("paciente"=>$columna['pno_per'].' '.$columna['apa_per'],
+									  "enfermedad"=>$columna['nom_enf'],
+									  "longitud"=>$columna['lat_geo'],
+									  "latitud"=>$columna['lon_geo'],
+									  "id_pac"=>$columna['id_pac']);
+		}
+		return($this->arreglo);
+	}
+>>>>>>> 796d8905955c3ba25868c25453bdda5576d19535
 
 }
 

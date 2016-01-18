@@ -146,25 +146,6 @@ class clsPersona {
         $objDatos->crerrarconexion();
     }
 
-    //Listar personas
-    public function listar_persona_paciente($letra) {
-        $objDatos = new clsDatos();
-        $sql = "SELECT * FROM persona per 
-INNER JOIN paciente pac ON per.id_per = pac.id_per 
-INNER JOIN georeferenciacion geo ON geo.id_geo = pac.id_geo
-WHERE (pno_per LIKE '%$letra%' OR sno_per LIKE '%$letra%' OR apa_per LIKE '%$letra%' OR ama_per LIKE '%$letra%') 
-AND persona.est_per='A' ORDER BY RAND()";
-        $datos_desordenados = $objDatos->consulta($sql);
-        while ($columna = $objDatos->arreglos($datos_desordenados)) {
-            $this->arreglo [] = array(
-                "id_per" => $columna['id_per'],
-                "ced_per" => $columna['ced_per'],
-                "nombre" => $columna['pno_per'] . " " . $columna['sno_per'],
-                "apellido" => $columna['apa_per'] . " " . $columna['ama_per'],
-                "sex_per" => $columna['sex_per']);
-        }
-        return($this->arreglo);
-    }
 
     //Listar personas
     public function listar_persona($letra) {

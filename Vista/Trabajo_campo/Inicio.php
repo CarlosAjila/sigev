@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../../Estilos/EstiloAdministrador.css" />
 <link rel="stylesheet" type="text/css" href="../../Estilos/EstiloPaciente.css" />
 <link rel="stylesheet" href="../../Estilos/fontello.css" />
-<title>SIGEV - Administrador</title>
+<title>SIGEV - Trabajo de Campo</title>
 </head>
 
 <!--SECCIÓN PARA LA PRESENTACIÓN DEL MAPA-->
@@ -63,8 +63,52 @@
     	<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormTrabajoCampo" id="FormTrabajoCampo" enctype="multipart/form-data">
         	<table>
             	<tr>
-                	<td><input type="text" name="id_pac" id="id_pac"/></td>
-                    <td><input type="text" name="nombre_paciente" id="nombre_paciente"/></td>
+                	<td><input type="text" name="id_pac" id="id_pac" disabled="disabled"/></td>
+                </tr>
+                
+                <tr>
+                	<td><input type="text" name="nombre_paciente" id="nombre_paciente" disabled="disabled"/></td>
+                </tr>
+                
+                <tr>
+                	<td>Número de Personas<input type="text" name="" id=""/></td>
+                </tr>
+                
+                 <tr>
+                	<td>Tipo de Criadero
+                    	<select name="tipo_criadero"id="tipo_criadero">
+                    		<option>Aedes</option>
+                            <option>Cules</option>
+                            <option>Anofeles</option>
+                        </select>
+                    </td>
+                </tr>
+				  <tr>
+                	<td>Sector Endémico<input type="text" name="" id=""/></td>
+                </tr>
+                
+                  <tr>
+                	<td>Observación<textarea id="observacion" name="observacion" cols="50" rows="5" class=""></textarea></td>
+                </tr>
+                <tr>
+                	<td>Tipo de Máquina<input type="text" name="" id=""/></td>
+                </tr>
+                 <tr>
+                	<td>Tipo de Químico<input type="text" name="" id=""/></td>
+                </tr>
+                 <tr>
+                	<td>Cantidad de Químico<input type="text" name="" id=""/></td>
+                </tr>
+                 <tr>
+                	<td>Criterio Técnico<textarea id="criterio_tecnico" name="criterio_tecnico" cols="50" rows="5" class=""></textarea></td>
+                </tr>
+                <tr valign="baseline">
+                  <td align="right" nowrap bgcolor="#FFFF99"><div align="left"><em><strong>Imagen:</strong></em></div></td>
+                  <td valign="middle" bgcolor="#FFFF99">
+                  <label>
+                    <input name="Foto" type="file" id="Foto">
+                  </label></td>
+                  
                 </tr>
             </table>
         </form>
