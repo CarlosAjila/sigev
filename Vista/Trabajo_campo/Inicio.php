@@ -118,15 +118,6 @@ $(function(){
                 		<input type="text" name="id_pac" id="id_pac" disabled="disabled" size="2"/>
                         <input type="text" name="nom_paciente" id="nom_paciente" disabled="disabled"/>
                     
-                     	<?php 
-							include("../../Modelo/clsPaciente.php");
-							$objpaciente = new clsPaciente("", "", "", "", "", "", "", "", "", "", "", "", "");
-							$resultado = $objpaciente->buscar_paciente_x_codigo(1);
-							//Variable para recorrer el arreglo de cuentas de usuario
-							echo $resultado[0]["nombre"] ;																	                     		                                                                                      						
-    					?>
-                    
-                    	<?php echo $resultado[0]["apellido"] ;?>
                     </td>                                                                               	
                    
                 </tr>
