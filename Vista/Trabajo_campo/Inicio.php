@@ -110,19 +110,27 @@ $(function(){
         		<tr>
         			<td colspan="2" align="center">
             			<input type="button" id="btimagen" value="Cargar Imagen" />
+                        
             		</td>
         		</tr>
-                <tr>
-                	<td><input type="text" name="id_pac" id="id_pac" disabled="disabled"/></td>
+                <tr >
+                	<td colspan ="2">
+                		<input type="text" name="id_pac" id="id_pac" disabled="disabled" size="2"/>
+                        <input type="text" name="nom_paciente" id="nom_paciente" disabled="disabled"/>
                     
+                     	<?php 
+							include("../../Modelo/clsPaciente.php");
+							$objpaciente = new clsPaciente("", "", "", "", "", "", "", "", "", "", "", "", "");
+							$resultado = $objpaciente->buscar_paciente_x_codigo(1);
+							//Variable para recorrer el arreglo de cuentas de usuario
+							echo $resultado[0]["nombre"] ;																	                     		                                                                                      						
+    					?>
                     
+                    	<?php echo $resultado[0]["apellido"] ;?>
+                    </td>                                                                               	
+                   
                 </tr>
-                
-                
-                <tr>
-                	<td><input type="text" name="nombre_paciente" id="nombre_paciente" disabled="disabled"/></td>
-                </tr>
-                
+                                                              
                 <tr>
                 	<td align="left"><strong>Número de Personas:</strong></td>
                 	<td><input type="text" name="num_personas" id="num_personas" size="3"/></td>

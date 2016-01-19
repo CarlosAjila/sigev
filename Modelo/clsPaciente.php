@@ -134,35 +134,24 @@ class clsPaciente extends clsDatos {
 	
 	  //Función para buscar paciente por codigo
     public function buscar_paciente_x_codigo($cod_paciente) {
-        $encontro = false;
         $objDatos = new clsDatos();
-        $sql = "SELECT * FROM usuario WHERE id_pac='$cod_paciente'";
+        $sql = "SELECT per.id_per, per.ced_per, per.pno_per, per.sno_per, per.apa_per, per.ama_per, per.sex_per 
+				FROM persona per, paciente
+				where per.id_per = paciente.id_per and paciente.id_pac = '$cod_paciente' and paciente.est_pac = 'A'";
+				
         $datos_desordenados = $objDatos->consulta($sql);
-
-
-        if ($columna = $objDatos->arreglos($datos_desordenados)) {
-            $this->id_pac = $columna['id_pac'];
-            $this->id_geo = $columna['id_geo'];
-            $this->id_per = $columna['id_per'];
-            $this->oex_pac = $columna['oex_pac'];
-            $this->fre_pac = $columna['fre_pac'];
-            $this->cas_pac = $columna['cas_pac'];
-            $this->dir_pac = $columna['dir_pac'];
-            $this->ref_pac = $columna['ref_pac'];
-            $this->ofi_pac = $columna['ofi_pac'];
-            $this->dof_pac = $columna['dof_pac'];
-            $this->emi_pac = $columna['emi_pac'];
-            $this->fat_pac = $columna['fat_pac'];
-            $this->fis_pac = $columna['fis_pac'];
-            $this->est_pac = $columna['est_pac'];
-            $this->est_usu = $columna['est_usu'];
-            $encontro = true;
+        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->arreglo [] = array(
+                "id_per" => $columna['id_per'],
+                "ced_per" => $columna['ced_per'],
+                "nombre" => $columna['pno_per'] . " " . $columna['sno_per'],
+                "apellido" => $columna['apa_per'] . " " . $columna['ama_per'],
+                "sex_per" => $columna['sex_per']);
         }
-
-        //Cerrar la consulta
+        return($this->arreglo);
+       //Cerrar la consulta
         $objDatos->cerrar_consulta($datos_desordenados);
         $objDatos->crerrarconexion();
-        return $encontro;
     }
 	
     //Insertar Paciente
