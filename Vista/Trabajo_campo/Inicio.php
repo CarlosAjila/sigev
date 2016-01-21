@@ -178,32 +178,7 @@ $(document).ready(function(){
             <input type="button" name="bt_guardar" id="bt_guardar" value="Guardar" />
             <input type="hidden" name="save_paciente" id="save_paciente" value="save_paciente" />
         </form>
-    </div>
-<<<<<<< HEAD
-    <div id="dialogotrabajocampo">         
-    	<form method="POST"  name="FormTrabajoCampo" id="FormTrabajoCampo" enctype="multipart/form-data">
-        	<input type="hidden" id="save_trabajo_campo" name="save_trabajo_campo" value="save_trabajo_campo" />
-            <table class="tablaflotante" >            	       			
-        		<tr>	
-                	
-                	<td colspan="2" align="center">
-                           <input type="file"  name="file" > 
-                           <input type="hidden" id="ruta_imagen" name="ruta_imagen" value="" />
-                           <img id ="imagen" src="../../imagenes/fotoperfil.jpg" />
-                           <div id="respuesta">
-                           </div>  
-                    </td>
-                                              
-                                                                            	
-        		</tr>
-                
-                
-                <tr>
-                	<td><input type="text" name="id_pac" id="id_pac" readonly="readonly" size="2"/></td>                    
-                   	<td><input type="text" name="nombre_paciente" id="nombre_paciente" readonly="readonly" value="Carlos Ajila"/></td>
-                </tr>
-                                                               
-=======
+    </div>     
     <div id="dialogotrabajocampo">
     	<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormTrabajoCampo" id="FormTrabajoCampo" enctype="multipart/form-data">
         	<table  class="contenedor">
@@ -233,8 +208,6 @@ $(document).ready(function(){
                     </td>                                                                               	
                    
                 </tr>
-                                                              
->>>>>>> origin/master
                 <tr>
                 	<td align="left"><strong>Número de Personas:</strong></td>
                 	<td>

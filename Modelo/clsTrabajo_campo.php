@@ -16,18 +16,11 @@ class clsTrabajo_campo {
     public $cte_tca;
     public $est_tca;
 	public $img_tca;
-<<<<<<< HEAD
 	
    
-	
 	//Constructor ordinario
     public function __construct($npe_tca, $tcr_tca, $sen_tca, $obs_tca, $maq_tca, $qui_tca, $cqu_tca, $cte_tca, $est_tca, $img_tca) {
-=======
-
-    //Constructor ordinario
-    public function __construct($npe_tca, $tcr_tca, $sen_tca, $obs_tca, $maq_tca, $qui_tca, $cqu_tca, $cte_tca, $est_tca, $img_tca) {
         
->>>>>>> origin/master
         $this->npe_tca = $npe_tca;
         $this->tcr_tca = $tcr_tca;
         $this->sen_tca = $sen_tca;
