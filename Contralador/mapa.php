@@ -53,7 +53,7 @@ function init()
 	lonlat.transform(proj4326, projmerc);
 	map.events.register("mousemove", map, mouseMoveHandler);
 	map.setCenter(lonlat, zoom);
-	<? do{?>
+	<?php do{?>
 	var nombre="<?php echo $localidad['pno_per']?>";
 	var apellido="<?php echo $localidad['apa_per']?>";
 	var enfermedad="<?php echo $localidad['nom_enf']?>";
@@ -73,7 +73,7 @@ function init()
 		te2="No posee";
 	}
 	recibe(<?php echo $localidad['lat_geo']?>,<?php echo $localidad['lon_geo']?>,nombre,apellido,enfermedad,caso,fecha_registro,direccion,referencia,te1,te2,ima);
-	<? }while($localidad=mysqli_fetch_assoc($rs_localidades));?>
+	<?php }while($localidad=mysqli_fetch_assoc($rs_localidades));?>
 	//Ubicando un marcador al momento de dar click sobre el mapa
 	//Asignación de la capa especial para la ubicación de los marcadores a través de OpenLayers.Layer.Markers
     var marcador_nuevo = new OpenLayers.Layer.Markers("Marcador_Nuevo");
