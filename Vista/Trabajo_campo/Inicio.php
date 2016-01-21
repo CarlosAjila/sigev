@@ -179,6 +179,7 @@ $(document).ready(function(){
             <input type="hidden" name="save_paciente" id="save_paciente" value="save_paciente" />
         </form>
     </div>
+<<<<<<< HEAD
     <div id="dialogotrabajocampo">         
     	<form method="POST"  name="FormTrabajoCampo" id="FormTrabajoCampo" enctype="multipart/form-data">
         	<input type="hidden" id="save_trabajo_campo" name="save_trabajo_campo" value="save_trabajo_campo" />
@@ -202,6 +203,38 @@ $(document).ready(function(){
                    	<td><input type="text" name="nombre_paciente" id="nombre_paciente" readonly="readonly" value="Carlos Ajila"/></td>
                 </tr>
                                                                
+=======
+    <div id="dialogotrabajocampo">
+    	<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormTrabajoCampo" id="FormTrabajoCampo" enctype="multipart/form-data">
+        	<table  class="contenedor">
+            	<tr>
+        			<td colspan="2" align="center">
+            			<img id="fotoPerfil" src="../../imagenes/fotoperfil.jpg" class="bordefoto" />
+            			<input type="hidden" id="ruta_imagen" name="ruta_imagen" value="" />
+            		</td>
+        		</tr>
+        		<tr>
+        			<td colspan="2" align="center">
+            			<img id="load" src="../../imagenes/load.gif" class="imagenno">
+						<span id="status"></span>
+            		</td>
+        		</tr>
+        		<tr>
+        			<td colspan="2" align="center">
+            			<input type="button" id="btimagen" value="Cargar Imagen" />
+                        
+            		</td>
+        		</tr>
+                <tr >
+                	<td colspan ="2">
+                		<input type="text" name="id_pac" id="id_pac" disabled="disabled" size="2"/>
+                        <input type="text" name="nom_paciente" id="nom_paciente" disabled="disabled"/>
+                    
+                    </td>                                                                               	
+                   
+                </tr>
+                                                              
+>>>>>>> origin/master
                 <tr>
                 	<td align="left"><strong>Número de Personas:</strong></td>
                 	<td>
