@@ -73,22 +73,21 @@ function editar(id_per,id_car,fecha){
         <label class="icon-menu" for="menu-bar"></label>
         <nav class="menu">
         	<a href="../Administrador/Inicio.php" style="font-size:18px;" class="icon-inicio">Inicio</a>
-            <a href="#" style="font-size:18px;" class="icon-iniciar-sesion">Usuarios</a>
         </nav>
     </div>
 	</header>
     <section class="cuerpo">
-    	<table width="100%" border="1">
+    	<table width="100%" class="tabla">
         	<tr>
             	<td>Ingrese Nombre o Apellido para iniciar la búsqueda</td>
             </tr>
             <tr>
             	<td>
-                <input type="text" name="txtbuscar" id="txtbuscar" placeholder="Ingrese índice de búsqueda"/>
+                <input type="text" name="txtbuscar" id="txtbuscar" placeholder="Ingrese índice de búsqueda.." class="txtbuscar"/>
                 </td>
             </tr>
         </table>
-        <div id="lista"></div>
+        <div id="lista" class="listado"></div>
     </section>
 </form>
 </body>

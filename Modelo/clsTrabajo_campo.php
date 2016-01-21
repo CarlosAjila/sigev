@@ -16,13 +16,14 @@ class clsTrabajo_campo {
     public $cte_tca;
     public $est_tca;
 	public $img_tca;
-
-    //Constructor ordinario
-    public function __construct($id_tca, $npe_tca, $tcr_tca, $sen_tca, $obs_tca, $maq_tca, $qui_tca, $cqu_tca, $cte_tca, $est_tca, $img_tca) {
-        $this->id_tca = $id_tca;
+	
+   
+	
+	//Constructor ordinario
+    public function __construct($npe_tca, $tcr_tca, $sen_tca, $obs_tca, $maq_tca, $qui_tca, $cqu_tca, $cte_tca, $est_tca, $img_tca) {
         $this->npe_tca = $npe_tca;
         $this->tcr_tca = $tcr_tca;
-        $this->est_spa = $sen_tca;
+        $this->sen_tca = $sen_tca;
         $this->obs_tca = $obs_tca;
         $this->maq_tca = $maq_tca;
         $this->qui_tca = $qui_tca;
@@ -112,15 +113,17 @@ class clsTrabajo_campo {
 
     //Insertar usuario
     public function insertar() {
+		$id = "";
         $objDatos = new clsDatos();
-        $sql = "INSERT INTO trabajo_campo(id_tca, npe_tca, tcr_tca, sen_tca, obs_tca,
+        $sql = "INSERT INTO trabajo_campo(npe_tca, tcr_tca, sen_tca, obs_tca,
                 maq_tca, qui_tca, cqu_tca, cte_tca, est_tca , img_tca)
-                VALUES ('$this->id_tca','$this->npe_tca','$this->tcr_tca',
+                VALUES ('$this->npe_tca','$this->tcr_tca',
                         '$this->sen_tca','$this->obs_tca','$this->maq_tca',
                         '$this->qui_tca','$this->cqu_tca','$this->cte_tca',
-                        '$this->est_tca','this->get_img_tca()');";
-        $objDatos->ejecutar($sql);
+                        '$this->est_tca','$this->img_tca');";
+        $id = $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
+		return($id);
     }
 
     //Modificar datos de usuario

@@ -1,4 +1,8 @@
-
+<?php
+$rs_localidades = ejecutar_sentencia(
+        "SELECT * FROM enfemedad"); //Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
+$localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la variable $localidad recibimos un arreglo con el resultado de la consulta
+?>
 
 
 <script language="javascript">
@@ -29,15 +33,18 @@
                 dataType: 'json',
                 data: $('#FormRegistroPaciente').serialize(),
                 success: function (data) {
-                    //alert('hola');
-                    //Parseamos el array JSON
-                    alert(data.id_geo);
-                    alert(data.id_per);
+                alert(data.mensaje);
+                document.getElementById('FormRegistroPaciente').submit();     
                     //$('#resultado').html(datos); // Mostrar la respuestas del script PHP.
                 }
             });
         });
-    });</script>
+		
+		$('#btcancelar').click(function(e) {
+            document.getElementById('FormRegistroPaciente').submit(); 
+        });
+    });
+</script>
 
 <script language="javascript">
     //Sección para el autocompletado
@@ -61,27 +68,29 @@
     });
 </script>
 
+
+
 <form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormRegistroPaciente" id="FormRegistroPaciente" enctype="multipart/form-data">
     <input id="save_paciente" name="save_paciente" type="hidden" value="save_paciente"/>
-    <table class="contenedor" border="1">
+    <table class="contenedor" border="0">
         <tr>
-            <td><input type="text" name="txtcedula" id="txtcedula" placeholder="Número de cédula" class="cajatexto" value="0703865584"/></td>
+            <td><input type="text" name="txtcedula" id="txtcedula" placeholder="Número de cédula" class="cajatexto" value=""/></td>
             <td><input type="text" name="txtfn" id="txtfn" placeholder="Fecha de nacimiento" class="cajatexto" readonly="readonly"/></td>
         </tr>
         <tr>
-            <td><input type="text" name="txtpnombre" id="txtpnombre" placeholder="Primer nombre" class="cajatexto" value="carlos1"/></td>
-            <td><input type="text" name="txtsnombre" id="txtsnombre" placeholder="Segundo nombre" class="cajatexto" value="alberto1"/></td>
+            <td><input type="text" name="txtpnombre" id="txtpnombre" placeholder="Primer nombre" class="cajatexto" value=""/></td>
+            <td><input type="text" name="txtsnombre" id="txtsnombre" placeholder="Segundo nombre" class="cajatexto" value=""/></td>
         </tr>
         <tr>
-            <td><input type="text" name="txtapaterno" id="txtapaterno" placeholder="Apellido paterno" class="cajatexto" value="ajila1"/></td>
-            <td><input type="text" name="txtamaterno" id="txtamaterno" placeholder="Apellido materno" class="cajatexto" value="moreira1"/></td>
+            <td><input type="text" name="txtapaterno" id="txtapaterno" placeholder="Apellido paterno" class="cajatexto" value=""/></td>
+            <td><input type="text" name="txtamaterno" id="txtamaterno" placeholder="Apellido materno" class="cajatexto" value=""/></td>
         </tr>
         <tr>
-            <td><input type="text" name="txtcel" id="txtcel" placeholder="Número de celular" class="cajatexto" value="1234567890"/></td>
-            <td><input type="text" name="txttel" id="txttel" placeholder="Número de teléfono" class="cajatexto" value="1234567890"/></td>
+            <td><input type="text" name="txtcel" id="txtcel" placeholder="Número de celular" class="cajatexto" value=""/></td>
+            <td><input type="text" name="txttel" id="txttel" placeholder="Número de teléfono" class="cajatexto" value=""/></td>
         </tr>
         <tr>
-            <td colspan="3"><input type="text" name="txtemipac" id="txtemipac" placeholder="Email" class="email" value="carlos@gmail.com"/></td>
+            <td colspan="3"><input type="text" name="txtemipac" id="txtemipac" placeholder="Email" class="email" value=""/></td>
         </tr>
 
         <tr>
@@ -96,7 +105,7 @@
         </tr>
 
         <tr>
-            <td><input type="text" name="txtexpac" id="txtexpac" placeholder="Lugar donde se realizó el Examen" class="cajatexto" value="lugar1"/></td>
+            <td><input type="text" name="txtexpac" id="txtexpac" placeholder="Lugar donde se realizó el exámen" class="cajatexto" value=""/></td>
             <td>
                 <div id="cbOpciones">
                     <select>
@@ -108,25 +117,58 @@
             </td>
         </tr>
         <tr>
-<!--                                            <input type="text" name="txtcaspac" id="txtcaspac" placeholder="Caso del Paciente " class="cajatexto" value="Presuntivo"/></td>-->
-            <td><input type="text" name="txtdirpac" id="txtdirpac" placeholder="Dirección Domicilio" class="cajatexto" value="dir Domicilio"/></td>
-            <td><input type="text" name="txtrefpac" id="txtrefpac" placeholder="Referencia Domicilio" class="cajatexto" value="Rf domiciliio"/></td>
+            <td><input type="text" name="txtdirpac" id="txtdirpac" placeholder="Dirección domicilio" class="cajatexto" value=""/></td>
+            <td><input type="text" name="txtrefpac" id="txtrefpac" placeholder="Referencia domicilio" class="cajatexto" value=""/></td>
         </tr>
         <tr>
-            <td><input type="text" name="txtofipac" id="txtofipac" placeholder="Ocupacion" class="cajatexto" value="dir trabajo" value="Director"/></td>
-            <td><input type="text" name="txtdofpac" id="txtdofpac" placeholder="Direccion Trabajo" class="cajatexto" value="palmera"/></td>
+            <td><input type="text" name="txtofipac" id="txtofipac" placeholder="Ocupacion" class="cajatexto" value=""/></td>
+            <td><input type="text" name="txtdofpac" id="txtdofpac" placeholder="Direccion Trabajo" class="cajatexto" value=""/></td>
         </tr>
         <tr>
-            <td><input type="text" name="txfatpac" id="txfatpac" placeholder="Fecha Antencion" class="cajatexto" readonly="readonly"/></td>
-            <td><input type="text" name="txfispac" id="txfispac" placeholder="Fecha inicio Sintomas" class="cajatexto" readonly="readonly"/></td></td>
+            <td><input type="text" name="txfatpac" id="txfatpac" placeholder="Fecha antención" class="cajatexto" readonly="readonly"/></td>
+            <td><input type="text" name="txfispac" id="txfispac" placeholder="Fecha inicio sintomas" class="cajatexto" readonly="readonly"/></td></td>
         </tr>
- 
+
         <input type="hidden" name="longitud" id="longitud" value="" />
         <input type="hidden" name="latitud" id="latitud" value="" />
+
         <tr>
-            <td colspan="3"><input type="button" name="btguardar" id="btguardar" value="GUARDAR"/></td>
+            <td colspan="3">
+                <select name="id_enf" id="id_enf" class="form-control">
+                    <option value="" selected>Seleccione una enfermedad</option>
+                    <?php do { ?>
+                        <option value="<?php echo $localidad["id_enf"]; ?>"><?php echo $localidad["nom_enf"]; ?></option>
+                    <?php } while ($localidad = mysqli_fetch_assoc($rs_localidades)) ?>
+                </select>
+            </td>
+
+        </tr>
+        <!--<tr>
+            <td colspan="3">
+
+                <form action="checkbox-form.php" method="post">
+
+                    Sintomas que presenta el Paciente<br />
+                    <?php
+                    $rs_localidades = ejecutar_sentencia("SELECT id_sin, nom_sin
+                FROM sintoma WHERE est_sin= 'A'");
+                    //$id_enf
+                    $sintomas = mysqli_fetch_assoc($rs_localidades);
+                    do {
+                        ?>
+                        <input type="checkbox" name="formDoor[]" value="<?php echo $sintomas["id_sin"]; ?>" /><?php echo $sintomas["nom_sin"]; ?><br />
+
+                        <?php } while ($sintomas = mysqli_fetch_assoc($rs_localidades))
+                    ?>
+
+                </form>
+            </td>
+        </tr>-->
+
+        <tr>
+            <td colspan="3" align="center"><input type="button" name="btguardar" id="btguardar" value="GUARDAR"/></td>
+        	<td colspan="3" align="center"><input type="button" name="btcancelar" id="btcancelar" value="CANCELAR"/></td>
         </tr>
     </table>
 
 </form>
-

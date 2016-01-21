@@ -10,7 +10,8 @@
 
 <body class="imagenfondo">
 <div id="diviniciosesion">
-	<table width="100%">
+	<form method="POST" name="FormInicioSesion" id="FormInicioSesion" action="Contralador/Cvalidar_usuario.php" enctype="multipart/form-data"> 
+    <table width="100%">
     	<tr>
         	<td align="center" valign="bottom"></td>
         </tr>
@@ -36,7 +37,7 @@
                     <label class="icon-usuario" style="font-size:24px; color:#036;"></label>
                     </td>
                     <td>
-                    <input type="text" id="txtusuario" class="txt_login" placeholder="Usuario" style="border:none;"/>
+                    <input type="text" name="txtusuario" id="txtusuario" class="txt_login" placeholder="Usuario" style="border:none;"/>
                     </td>
                 </tr>
         	</table>
@@ -53,7 +54,7 @@
                     <label class="icon-clave" style="font-size:24px; color:#036;"></label>
                     </td>
                     <td>
-                    <input type="password" id="txtpassword" class="txt_login" placeholder="Contraseña" style="border:none;"/>
+                    <input type="password" name="txtpassword" id="txtpassword" class="txt_login" placeholder="Contraseña" style="border:none;"/>
                     </td>
                 </tr>
         	</table>
@@ -63,7 +64,7 @@
         <td colspan="3">&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="3" align="center"><input type="button" id="btiniciar" name="btiniciar" value="Iniciar sesión" class="btiniciarsesion" /></td>
+        <td colspan="3" align="center"><input type="submit" id="btiniciar" name="btiniciar" value="Iniciar sesión" class="btiniciarsesion" /></td>
       </tr>
       <tr>
         <td colspan="3">&nbsp;</td>
@@ -78,6 +79,7 @@
         <td colspan="3">&nbsp;</td>
       </tr>
     </table>
+    </form>
 </div>
 </body>
 </html>

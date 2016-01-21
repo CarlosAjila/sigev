@@ -2,6 +2,12 @@
 require_once("../Modelo/clsPersona.php");
 require_once("../Modelo/clsUsuario.php");
 
+//$objpersona=new clsPersona("","","","","","","","","","","");
+//$objpersona->editar_perfil_persona('7','0705212968','Karlos','Alberto','Ajila','Moreira','2944787','0990325687','2012-01-16');
+	
+//$objusuario=new clsUsuario("","","","","","","","");
+//$objusuario->editar_perfil_usuario('7','karlos@gmail.com','Carlos','123456');
+$a=3;
 if(isset($_POST['save_usuario']))
 {
 	/*Datos de persona*/
@@ -31,7 +37,40 @@ if(isset($_POST['save_usuario']))
 	$objusuario=new clsUsuario($id_per,$id_car,$fot_usu,$nus_usu,$con_usu,$ema_usu,$ffc_usu,$estado);
 	$objusuario->insertar($id_per,$id_car,$fot_usu,$nus_usu,$con_usu,$ema_usu,$ffc_usu,$estado);
 	
-	$mensaje="Cuenta de usuario registrada con éxito11";
+	$mensaje="Cuenta de usuario registrada con éxito";
+	$salidaJson = array("mensaje" => $mensaje);
+	echo json_encode($salidaJson);
+}
+
+if(isset($_POST['editar_perfil']))
+{
+	
+	/*Datos de persona*/
+	$id_per=$_POST['id_per'];
+	$ced_per=$_POST['txtcedula'];
+	$fna_per=$_POST['txtfna'];
+	$pno_per=$_POST['txtpnombre'];
+	$sno_per=$_POST['txtsnombre'];
+	$apa_per=$_POST['txtapaterno'];
+	$ama_per=$_POST['txtamaterno'];
+	$te1_per=$_POST['txtte1'];
+	$te2_per=$_POST['txtte2'];
+	/*Datos de usuario*/
+	$fot_usu=$_POST['ruta_imagen'];
+	$id_usu=$_POST['id_usu'];
+	$ema_usu=$_POST['txtemail'];
+	$nus_usu=$_POST['txtusuario'];
+	$con_usu=$_POST['txtpass'];
+	
+	$objpersona=new clsPersona("","","","","","","","","","","");
+	$objpersona->editar_perfil_persona($id_per,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$te1_per,$te2_per,$fna_per);
+	//$objpersona->editar_perfil_persona('7','0705212968','CCarlos','Alberto','Ajila','Moreira','2944787','0990325687','2012-01-16');
+	
+	$objusuario=new clsUsuario("","","","","","","","");
+	$objusuario->editar_perfil_usuario($id_usu,$ema_usu,$nus_usu,$con_usu,$fot_usu);
+	//$objusuario->editar_perfil_usuario('7','karlos@gmail.com','Carlos','123456');
+	
+	$mensaje="Cuenta de usuario editada con éxito";
 	$salidaJson = array("mensaje" => $mensaje);
 	echo json_encode($salidaJson);
 }

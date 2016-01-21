@@ -19,7 +19,7 @@ function ejecutar_sentencia($query)
 	return $rs_resultado;
 }
 $rs_localidades=ejecutar_sentencia("SELECT paciente.id_pac,paciente.oex_pac,paciente.fre_pac,paciente.cas_pac,paciente.dir_pac,paciente.ref_pac,paciente.ofi_pac,
-paciente.dof_pac,paciente.emi_pac,paciente.fat_pac,paciente.fis_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,enfemedad.nom_enf
+paciente.dof_pac,paciente.emi_pac,paciente.fat_pac,paciente.fis_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,persona.te1_per,persona.te2_per,enfemedad.nom_enf
 FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
 WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
 AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'");//Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
@@ -54,9 +54,25 @@ function init()
 	map.events.register("mousemove", map, mouseMoveHandler);
 	map.setCenter(lonlat, zoom);
 	<? do{?>
-	var nombre="<?php echo $localidad['apa_per']?>";
-	//recibe(<?php echo $localidad['lat_geo']?>,<?php echo $localidad['lon_geo']?>,<?php echo $localidad['persona.apa_per']?>);
-	p(<?php echo $localidad['lat_geo']?>,<?php echo $localidad['lon_geo']?>,nombre);
+	var nombre="<?php echo $localidad['pno_per']?>";
+	var apellido="<?php echo $localidad['apa_per']?>";
+	var enfermedad="<?php echo $localidad['nom_enf']?>";
+	var caso="<?php echo $localidad['cas_pac']?>";
+	var fecha_registro="<?php echo $localidad['fre_pac']?>";
+	var direccion="<?php echo $localidad['dir_pac']?>";
+	var referencia="<?php echo $localidad['ref_pac']?>";
+	var te1="<?php echo $localidad['te1_per']?>";
+	var te2="<?php echo $localidad['te2_per']?>";
+	var ima="../../imagenes/per.png";
+	if(te1=="")	
+	{
+		te1="No posee";
+	}
+	if(te2=="")	
+	{
+		te2="No posee";
+	}
+	recibe(<?php echo $localidad['lat_geo']?>,<?php echo $localidad['lon_geo']?>,nombre,apellido,enfermedad,caso,fecha_registro,direccion,referencia,te1,te2,ima);
 	<? }while($localidad=mysqli_fetch_assoc($rs_localidades));?>
 	//Ubicando un marcador al momento de dar click sobre el mapa
 	//Asignación de la capa especial para la ubicación de los marcadores a través de OpenLayers.Layer.Markers
@@ -109,6 +125,7 @@ function ubicacion()
 		markers.addMarker(new OpenLayers.Marker(this.center.transform(map),icon));
 		map.setCenter(this.center.transform(map.proj4326, map.projmerc), 16);
 		});
+		marcador(longitud_enviar,latitud_enviar,1,0);
 	}
 }
 
@@ -123,8 +140,6 @@ function nuevo_paciente(ban)
 	if(ban==1)
 	{
 	  map.events.register("click",map,function(e){
-		  //var icon = new OpenLayers.Icon('imagenes/casa.png');//carga la imagen del marcador 
-		  //var lonlat = map.getLonLatFromPixel(e.xy) 
 		  var position = map.getLonLatFromPixel(e.xy);
 		  var size = new OpenLayers.Size(21,25);
 		  var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
@@ -230,7 +245,7 @@ function buscar(longitud_caso,latitud_caso)
 	lon2=longitud_caso;
 	lat2=latitud_caso;
 	center=new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));//se transforma las coordenas a wgs84
-	map.setCenter(center, 13);//se centra el mapa y se aplica un zoom de 16
+	map.setCenter(center, 17);//se centra el mapa y se aplica un zoom de 16
 	if((lon2!=0)||(lat2!=0))
 	{
 		//marcador(lon2, lat2, 2, 0);
@@ -246,7 +261,6 @@ function buscar(longitud_caso,latitud_caso)
 	
 	//Mediante marcador.events.register 'mousedown', indicamos que capture el evento de click sobre cualquiera de los marcadores ubicados en la capa marcador.
 	marcador.events.register('mousedown', marcador, function(evt) {
-	alert('Hola');
 	//$('#id_pac').val(lon2);
 	//$('#dialogotrabajocampo').dialog('open');
 	//map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
@@ -260,24 +274,16 @@ function buscar(longitud_caso,latitud_caso)
 	}
 	
 }
-function p(x,y,z)
+
+/*Muestra Información en los popup*/
+function recibe(longitud,latitud,nombre,apellido,enfermedad,caso,fecha_registro,direccion,referencia,te1,te2,ima)
 {
-	alert(x);
-	alert(y);
-	alert(z);
-}
-function recibe(longitud,latitud,nombre)
-{
-	alert(nombre);
-	alert(longitud);
-	alert(latitud);
 	center=new OpenLayers.LonLat(longitud,latitud).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));//se transforma las coordenas a wgs84
 	map.setCenter(center, 13);//se centra el mapa y se aplica un zoom de 16
-	
 		//Asignación de la capa especial para la ubicación de los marcadores a través de OpenLayers.Layer.Markers
     	var marcador = new OpenLayers.Layer.Markers('MARCADOR');
 		//Asignación de una imagen para el marcador a través de OpenLayers.Icon
-		var icon = new OpenLayers.Icon('../../imagenes/per.png');
+		var icon = new OpenLayers.Icon(ima);
 		//A través de marcador.addMarker añadimos un nuevo marcador a la capa previamente establecida para los marcadores denominada marcador
 		marcador.addMarker(new OpenLayers.Marker(
     	new OpenLayers.LonLat(longitud,latitud).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),icon));
@@ -290,14 +296,14 @@ function recibe(longitud,latitud,nombre)
 	map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
 		new OpenLayers.LonLat(longitud,latitud).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa
 		null,//Tamaño de la ventana emergente
-		"<table width='200' border='1'><tr><td>"+longitud+"</td></tr></table>",//Contenido HTML
+		"<table class='tablapopup'><tr><td align='center' colspan='2' style='font-weight:bold; background-color:#036; color:#FFF;'>Información de Paciente</td></tr><tr><td style='font-weight:bold;'>Paciente:</td><td>"+nombre+" "+apellido+"</td></tr><tr><td style='font-weight:bold;'>Enfermedad:</td><td>"+enfermedad+"</td></tr><tr><td style='font-weight:bold;'>Tipo de caso:</td><td>"+caso+"</td></tr><tr><td style='font-weight:bold;'>Fecha de registro:</td><td>"+fecha_registro+"</td></tr><tr><td style='font-weight:bold;'>Dirección domicilio:</td><td>"+direccion+"</td></tr><tr><td style='font-weight:bold;'>Referencia domicilio:</td><td>"+referencia+"</td></tr><tr><td style='font-weight:bold;'>Teléfono 1:</td><td>"+te1+"</td></tr><tr><td style='font-weight:bold;'>Teléfono 2:</td><td>"+te2+"</td></tr></table>",//Contenido HTML
 		null,
 		true/*Esto nos indica que se mostrará una X en el popup para cerrarse*/));
 	});
 	
 }
 
-function trabajo_campo(longitud_caso,latitud_caso,id_pac,paciente)
+function trabajo_campo(longitud_caso,latitud_caso,id_pac)
 {
 	lon2=longitud_caso;
 	lat2=latitud_caso;
@@ -319,7 +325,7 @@ function trabajo_campo(longitud_caso,latitud_caso,id_pac,paciente)
 	marcador.events.register('mousedown', marcador, function(evt) {
 	//alert('Hola');
 	$('#id_pac').val(id_pac);
-	$('#nom_paciente').val(paciente);
+	//$('#nombre_paciente').val(paciente);
 	$('#dialogotrabajocampo').dialog('open');
 	//map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
 		//new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa
@@ -337,6 +343,13 @@ function trabajo_campo(longitud_caso,latitud_caso,id_pac,paciente)
 function drawLine() { 
 	location.href="../mapa3.php?varlon="+ longitud_enviar + "&tipo=A&varlat="+latitud_enviar+"&lon="+lon2+"&lat="+lat2;	
 }
+
+//Funcion para editar el perfil
+function editar_perfil()
+{
+	$('#dialogoperfil').dialog('open');
+}
+
 </script>
 
 <script language="javascript">
@@ -344,14 +357,21 @@ $(document).ready(function(e) {
     $('#dialogoformulario').dialog({
 		autoOpen:false,
 		modal:true,
-		width:350,
-		height:750
+		width:500,
+		height:450
 	});
 	$('#dialogotrabajocampo').dialog({
 		autoOpen:false,
 		modal:true,
 		width:350,
 		height:750
+	});
+	/*Dialogo para editar perfil*/
+	$('#dialogoperfil').dialog({
+		autoOpen:false,
+		modal:true,
+		width:690,
+		height:560
 	});
 	$('#bt_guardar').click(function(e) {
 		var ruta = "../../Contralador/Cgeoreferenciacion.php";	

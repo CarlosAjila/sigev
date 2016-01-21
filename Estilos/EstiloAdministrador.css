@@ -43,6 +43,20 @@ Versión: 0.1
 	z-index:3;
 }
 
+/*Estilo para el opopup del mapa*/
+.tablapopup {
+  width: 200px;
+  height:250px;
+  border: 1px solid #000;
+  border-collapse: collapse;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:12px;
+}
+.tablapopup td {
+  border: 1px solid #000;
+  background-color:#95C6F7;
+}
+
 /*RESPONSIVE DESIGN*/
 header{
 	width:100%;

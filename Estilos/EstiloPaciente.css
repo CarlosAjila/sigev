@@ -1,4 +1,9 @@
 /*Para el efecto del div flotante*/
+*{
+	margin:0px auto;
+	padding:0px;
+	box-sizing:border-box;/*Para que todo se contenga dentro del mismo modelo de caja*/
+}
 #flotante
 {
 	position:absolute;
@@ -11,16 +16,17 @@
 
 .tablaflotante
 {
+	border: black 1px solid;
+	border-collapse: collapse;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
-	color:#FFF;
-    background-color: black;
-    z-index:1001;
-    -moz-opacity: 0.7;
-    opacity:.70;
-    filter: alpha(opacity=70);
-	border-radius: 3px 3px 3px 3px;
-	-moz-border-radius: 3px 3px 3px 3px;
-	-webkit-border-radius: 3px 3px 3px 3px;
-	border: 0px solid #000000;	
+	opacity: 0.8;
 }
+
+.tablaflotante td
+{
+	border: black 1px solid;
+	padding:3px;
+}
+
+

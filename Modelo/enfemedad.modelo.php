@@ -10,12 +10,7 @@
  */
 require_once("clsDatos.php");
 
-class clsEnfemedad {
-
-//Declarando datos
-    public $id_enf;
-    public $nom_enf;
-    public $pri_enf;
+class EnfermedadModel {
 
     //Constructor
     public function __construct($id_enf, $nom_enf, $pri_enf) {
@@ -91,17 +86,48 @@ class clsEnfemedad {
 
     //// metodos Carlos
     public function c_listar_enfermedad() {
-        $objDatos = new clsDatos();
-        $sql = "SELECT * FROM enfemedad";
-        $datos_desordenados = $objDatos->consulta($sql);
-        while ($columna = $objDatos->arreglos($datos_desordenados)) {
-            $this->arreglo [] = array(
-                "id_enf" => $columna['id_enf'],
-                "nom_enf" => $columna['nom_enf'],
-                "pri_enf" => $columna['pri_enf']);
+        try {
+            $result = array();
+            $objDatos = new clsDatos();
+            $sql = "SELECT * FROM enfemedad";
+            $datos_desordenados = $objDatos->consulta($sql);
+             while ($columna = $objDatos->arreglos($datos_desordenados)) {
+                $result [] = array(
+                    "id_enf" => $columna['id_enf'],
+                    "nom_enf" => $columna['nom_enf'],
+                    "pri_enf" => $columna['pri_enf']);
+            }
+
+            return $result;
+        } catch (Exception $e) {
+            die($e->getMessage());
         }
-        return($this->arreglo);
     }
+
+//    public function c_listar_enfermedad() {
+//        try {
+//            $objDatos = new clsDatos();
+//            $sql = "SELECT * FROM enfemedad";
+//            $datos_desordenados = $objDatos->consulta($sql);
+//            while ($columna = $objDatos->arreglos($datos_desordenados)) {
+//                $this->arreglo [] = array(
+//                    "id_enf" => $columna['id_enf'],
+//                    "nom_enf" => $columna['nom_enf'],
+//                    "pri_enf" => $columna['pri_enf']);
+//            }
+//
+//            return($this->arreglo);
+//        } catch (Exception $e) {
+//            die($e->getMessage());
+//        }
+////        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+////            $this->arreglo [] = array(
+////                "id_enf" => $columna['id_enf'],
+////                "nom_enf" => $columna['nom_enf'],
+////                "pri_enf" => $columna['pri_enf']);
+////        }
+//        //return($this->arreglo);
+//    }
 
     public function c_buscar_sintomas_enfermedad($id_enf) {
         $objDatos = new clsDatos();
@@ -118,5 +144,7 @@ class clsEnfemedad {
         }
         return($this->arreglo);
     }
+
 }
+
 ?>

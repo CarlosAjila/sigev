@@ -5,14 +5,12 @@ require_once("clsDatos.php");
 class clsPaciente_enfermedad {
 
 //Declarando datos
-    public $id_pae;
     public $id_pac;
     public $id_enf;
     public $est_pae;
 
     //Constructor
-    public function __construct($id_pae, $id_pac, $id_enf, $est_pae) {
-        $this->id_pae = $id_pae;
+    public function __construct($id_pac, $id_enf, $est_pae) {
         $this->id_pac = $id_pac;
         $this->id_enf = $id_enf;
         $this->est_pae = $est_pae;
@@ -61,11 +59,13 @@ class clsPaciente_enfermedad {
 
     //Insertar paciente_enfermedad
     public function insertar() {
+        $id = "";
         $objDatos = new clsDatos();
         $sql = "INSERT INTO paciente_enfermedad(id_pae,id_pac,id_enf,est_pae)
                 VALUES ('$this->id_pae','$this->id_pac','$this->id_enf','$this->est_pae');";
-        $objDatos->ejecutar($sql);
+        $id = $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
+        return($id);
     }
 
     //Modificar datos de usuario

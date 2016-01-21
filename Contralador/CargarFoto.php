@@ -1,6 +1,6 @@
 <?php
-sleep(3);
-$file=$_FILES["uploadfile"];
+sleep(1);
+$file=$_FILES["file"];
 $nombre=$file["name"];
 $tipo=$file["type"];
 $ruta_provisional=$file["tmp_name"];

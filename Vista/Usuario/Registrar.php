@@ -17,7 +17,7 @@ $(function(){
 	var status=$('#status');
 	new AjaxUpload(btnUpload, {
 		action: '../../Contralador/CargarFoto.php',
-		name: 'uploadfile',
+		name: 'file',
 		dataType:'json',
 		onSubmit: function(file){
 			$('#load').attr('class','imagensi');
@@ -53,7 +53,6 @@ $(document).ready(function(e) {
 ﻿<script language="javascript">
 $(document).ready(function(){
 	$('#btguardar').click(function() {
-		alert('Cuenta registrada con éxito');
 		$('input:radio[name=sex_per]:checked').val();
 		var ruta = "../../Contralador/Usuario.php";	
 		$.ajax({
@@ -62,11 +61,8 @@ $(document).ready(function(){
 			dataType:'json',
 			data: $('#FormRegistro').serialize(),
 			success: function(json){
-				alert('hola');
            		//Parseamos el array JSON
 				alert(json.mensaje);
-				
-			   //$('#resultado').html(datos); // Mostrar la respuestas del script PHP.
            	}
 		});
 	});

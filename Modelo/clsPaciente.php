@@ -170,6 +170,7 @@ class clsPaciente extends clsDatos {
 //Insertar Paciente
 
     public function insertar() {
+       $id = "";
         $objDatos = new clsDatos();
         $sql = "INSERT INTO paciente (id_geo, id_per, oex_pac, fre_pac, cas_pac, 
                 dir_pac, ref_pac, ofi_pac, dof_pac, emi_pac, fat_pac, fis_pac, est_pac)
@@ -186,8 +187,9 @@ class clsPaciente extends clsDatos {
                         '$this->fat_pac',
                         '$this->fis_pac',
                         '$this->est_pac');";
-        $objDatos->ejecutar($sql);
+        $id = $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
+        return($id);
     }
 
 //Modificar datos de Paciente
@@ -287,6 +289,30 @@ AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=en
 		}
 		return($this->arreglo);
 	}
+	
+	//    METODOS CARLOS AJILA
+    //Modificar datos de persona
+    public function c_modificar_paciente(
+    $id_pec, $id_geo, $id_per, $oex_pac, $fre_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fat_pac, $fis_pac, $est_pac) {
+        $objDatos = new clsDatos();
+        $sql = "UPDATE paciente
+			SET (
+                          id_geo = '$id_geo',
+			  id_per = '$id_per',
+			  oex_pac = '$oex_pac',
+			  fre_pac = '$fre_pac',
+			  cas_pac = '$cas_pac',
+			  dir_pac = '$dir_pac',
+			  ref_pac = '$ref_pac',
+			  ofi_pac = '$ofi_pac',
+			  dof_pac = '$dof_pac',
+			  emi_pac = '$emi_pac',
+			  fat_pac = '$fat_pac',
+			  fis_pac = '$fis_pac',
+			  est_pac = '$est_pac') 
+                          WHERE id_per='$id_pec';";
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+    }
 }
-
 ?>

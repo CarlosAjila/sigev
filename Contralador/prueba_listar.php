@@ -71,31 +71,32 @@ do{
 	$j++;
 }while($j<sizeof($arre_rol));
 
-echo '<table class="table table-striped table-condensed table-hover">
+echo '<table class="tablaborde" border="1">
         	<tr>
-            	<th>Cedula</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Sexo</th>
-                <th>Lugar de vivienda</th>
-				<th>Cargo</th>
-                <th>Fecha de fin de contrato</th>
+            	<th class="encabezadolista">Cedula</th>
+                <th class="encabezadolista">Nombre</th>
+                <th class="encabezadolista">Apellido</th>
+                <th class="encabezadolista">Sexo</th>
+                <th class="encabezadolista">Lugar de vivienda</th>
+				<th class="encabezadolista">Cargo</th>
+                <th class="encabezadolista">Fecha de fin de contrato</th>
+				<th class="encabezadolista">Eliminar</th>
             </tr>';
 do{
 	echo '<tr>
-				<td>'.$arre[$i]["ced_per"].'</td>
+				<td style="padding:3px;">'.$arre[$i]["ced_per"].'</td>
 				<td>'.$arre[$i]["nombre"].'</td>
 				<td>'.$arre[$i]['apellido'].'</td>
 				<td>'.$arre[$i]['sex_per'].'</td>
 				<td>'.$arre[$i]['nom_loc'].'</td>
 				<td>
-					<select id="cargo'.$i.'" name="cargo'.$i.'">';
+					<select id="cargo'.$i.'" name="cargo'.$i.'" class="cargo">';
 					do{
 					echo '<option value="'.$arreglo_cargo[$c]['id_car'].'">'.$arreglo_cargo[$c]['nom_car'].'</option>';
 						$c++;
 					}while($c<sizeof($arreglo_cargo));
 				echo '</select></td>
-				<td><input type="text" name="txtfecha'.$i.'" id="txtfecha'.$i.'" class="letra" value="'.$arre[$i]["ffc_usu"].'" /></td>
+				<td><input type="text" name="txtfecha'.$i.'" id="txtfecha'.$i.'" value="'.$arre[$i]["ffc_usu"].'" readonlu="readonly" /></td>
 				<td><input type="hidden" name="hd_idper'.$i.'" id="hd_idper'.$i.'" value="'.$arre[$i]["id_per"].'"/><a href="javascript:eliminarProducto('.$arre[$i]['id_per'].');">Eliminar</a></td>
 		 	</tr>';
 $i++;
@@ -103,5 +104,7 @@ $contador++;
 $c=0;
 }while($i<sizeof($arre));
 $total=$contador-1;
-echo '<tr><td><input type="hidden" name="cont_elementos" id="cont_elementos" value="'.$total.'"/><input type="button" name="bteditar" id="bteditar" value="Editar" /></td></tr></table>';
+echo '</table><input type="hidden" name="cont_elementos" id="cont_elementos" value="'.$total.'"/>
+<table width="100%"><tr><td><input type="button" name="bteditar" id="bteditar" class="imageneditarboton" /></td></tr>
+<tr><td>Editar</td></tr></table>';
 ?>

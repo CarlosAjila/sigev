@@ -12,24 +12,24 @@ $objpaciente=new clsPaciente("","","","","","","","","","","","","");
 //Obtencion del arreglo de pacientes
 $arreglo_pacientes=$objpaciente->listar_paciente();
 //variable para control del arreglo
+//<a href='javascript:trabajo_campo(".$arreglo_pacientes[$i]['longitud'].",".$arreglo_pacientes[$i]['latitud'].",".$arreglo_pacientes[$i]['id_pac'].",\".$arreglo_pacientes[$i]['id_pac'].\");'>Trabajo</a>
 $i=0;
 
-echo '<table class="tablaflotante">
+echo "<table class='tablaflotante'>
 	  <tr>
-		  <td colspan="2">Lista de Casos</td>
+		  <td colspan='3' align='center' style='background-color:#036; color:#FFF; font-weight:bold;'>Lista de Casos</td>
 	  </tr>
-	  <tr><td>Paciente</td><td>Enfermedad</td></tr>';
+	  <tr style='background-color:#95C6F7; font-weight:bold;' align='center'><td>Paciente</td><td>Enfermedad</td><td>Opción</td></tr>";
 	do{
-		echo '<tr>
-					<td>'.$arreglo_pacientes[$i]["paciente"].'</td>
-					<td>'.$arreglo_pacientes[$i]["enfermedad"].'</td>
+		echo "<tr>
+					<td>".$arreglo_pacientes[$i]["paciente"]."</td>
+					<td>".$arreglo_pacientes[$i]["enfermedad"]."</td>
 					<td>
-						<script type="text/javascript">var paciente="'.$arreglo_pacientes[$i]['paciente'].'"</script>
-						<a href="javascript:buscar('.$arreglo_pacientes[$i]['longitud'].','.$arreglo_pacientes[$i]['latitud'].');">Buscar</a>
-						<a href="javascript:trabajo_campo('.$arreglo_pacientes[$i]['longitud'].','.$arreglo_pacientes[$i]['latitud'].','.$arreglo_pacientes[$i]['id_pac'].',paciente);">Trabajo</a>
+						<a href='javascript:buscar(".$arreglo_pacientes[$i]["longitud"].",".$arreglo_pacientes[$i]["latitud"].");'>Buscar</a>
+						
 					</td>
-			 </tr>';
+			 </tr>";
 		$i++;
 	}while($i<sizeof($arreglo_pacientes));
-echo '</table>';
+echo "</table>";
 ?>

@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../../Estilos/EstiloAdministrador.css" />
 <link rel="stylesheet" type="text/css" href="../../Estilos/EstiloPaciente.css" />
 <link rel="stylesheet" href="../../Estilos/fontello.css" />
-<title>SIGEV - Administrador</title>
+<title>SIGEV - Estadística</title>
 </head>
 
 <!--SECCIÓN PARA LA PRESENTACIÓN DEL MAPA-->
@@ -44,7 +44,6 @@
                 <a href="#" onclick="ubicacion()" style="font-size:18px;">Ubicacion</a>
                 <a href="#" onclick="nuevo_paciente(1)" style="font-size:18px;">Registrar Paciente</a>
                 <a href="#" onclick="nuevo_marcador(1)" style="font-size:18px;">Punto de partida</a>
-                <a href="#" onclick="buscar()" style="font-size:18px;">Destino</a>
                 <a href="#" onclick="drawLine()" style="font-size:18px;">Ruta</a>
             </nav>
         </div>
@@ -68,7 +67,7 @@
     <div id="ruta">
     </div>
     <div id="flotante">
-    	
+    	 <?php include("../../Vista/Paciente/Editar_paciente.php"); ?>
     </div>
 </div>
 </body>

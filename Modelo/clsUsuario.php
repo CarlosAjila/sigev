@@ -119,7 +119,7 @@ public $arreglo = array();
 	//Modificar cargo y fecha de fin de contrato de usuario
 	public function modificar_usuario($id_car,$id_per,$fecha){
 		$objDatos = new clsDatos();
-		$sql = "UPDATE usuario SET id_car='$id_car', ffc_usu='$fecha' WHERE id_per='$id_per'";
+		$sql = "UPDATE usuario SET id_car='$id_car', ffc_usu='$fecha', est_usu='A' WHERE id_per='$id_per'";
 		$objDatos->ejecutar($sql);
 		$objDatos->crerrarconexion();
 	}
@@ -135,6 +135,50 @@ public $arreglo = array();
 									  "nom_car"=>$columna['nom_car']);
 		}
 		return($this->arreglo);
+	}
+	
+	/*Procesos Jose Ambuludi*/
+	//Método para validar usuario
+	public function M_validar_usuario($usuario,$password)
+	{
+		$objDatos= new clsDatos();
+		$sql="SELECT usuario.id_usu,persona.id_per,persona.ced_per,persona.pno_per,persona.sno_per,persona.apa_per,persona.ama_per,persona.te1_per,persona.te2_per,persona.fna_per,
+usuario.nus_usu,usuario.con_usu,usuario.id_car,usuario.fot_usu,usuario.ema_usu,nom_car,nom_loc
+FROM persona,usuario,cargo,localizacion
+WHERE usuario.nus_usu='$usuario' AND usuario.con_usu='$password' AND usuario.id_per=persona.id_per AND usuario.est_usu='A'
+AND usuario.id_car=cargo.id_car AND persona.id_loc=localizacion.id_loc";
+		$datos_desordenados = $objDatos->consulta($sql);
+		while($columna = $objDatos->arreglos($datos_desordenados))
+		{
+			$this->arreglo [] = array("ced_per"=>$columna['ced_per'],
+									  "pno_per"=>$columna['pno_per'],
+									  "sno_per"=>$columna['sno_per'],
+									  "apa_per"=>$columna['apa_per'],
+									  "ama_per"=>$columna['ama_per'],
+									  "te1_per"=>$columna['te1_per'],
+									  "te2_per"=>$columna['te2_per'],
+									  "fna_per"=>$columna['fna_per'],
+									  "nus_usu"=>$columna['nus_usu'],
+									  "con_usu"=>$columna['con_usu'],
+									  "fot_usu"=>$columna['fot_usu'],
+									  "ema_usu"=>$columna['ema_usu'],
+									  "id_car"=>$columna['id_car'],
+									  "nom_car"=>$columna['nom_car'],
+									  "nom_loc"=>$columna['nom_loc'],
+									  "id_usu"=>$columna['id_usu'],
+									  "id_per"=>$columna['id_per']);
+		}
+		return($this->arreglo);
+	}
+	
+	//Funcion para editar perfil de usuario
+	public function editar_perfil_usuario($id_usu,$ema_usu,$nus_usu,$con_usu,$fot_usu)
+	{
+		$objDatos = new clsDatos();
+		$sql = "UPDATE usuario SET ema_usu='$ema_usu', nus_usu='$nus_usu', con_usu='$con_usu', fot_usu='$fot_usu' 
+				WHERE id_usu='$id_usu'";
+		$objDatos->ejecutar($sql);
+		$objDatos->crerrarconexion();
 	}
 }	
 ?>
