@@ -14,10 +14,10 @@ mysql_select_db("bd_sigev");
 
 
 
-//$fechaDesde = $_POST['txtfechaDesde'];
-//$fechaHasta = $_POST['txtfechaHasta'];
-$fechaDesde = "2016-01-18";
-$fechaHasta = "2016-01-23";
+$fechaDesde = $_POST['hdfechaDesde'];
+$fechaHasta = $_POST['hdfechaHasta'];
+//$fechaDesde = "2016-01-18";
+//$fechaHasta = "2016-01-23";
 
 
 //$rs_localidades = ejecutar_sentencia("SELECT  pac.fre_pac ,enf.nom_enf,COUNT(enf.nom_enf)
@@ -57,10 +57,10 @@ $fechaHasta = "2016-01-23";
                         }
                     },
                     title: {
-                        text: '3D chart with null values'
+                        text: 'GRÁFICO DE INCIDENCIA'
                     },
                     subtitle: {
-                        text: 'Notice the difference between a 0 value and a null point'
+                        text: 'Fecha inicio '+"<?php echo $fechaDesde;?>"+' hasta '+"<?php echo $fechaHasta;?>"
                     },
                     plotOptions: {
                         column: {
@@ -71,17 +71,24 @@ $fechaHasta = "2016-01-23";
                         categories: [
 <?php
 //$sql = mysql_query("select * from deudas order by monto_deudor desc");
-$sql = mysql_query("SELECT  pac.fre_pac ,enf.nom_enf,COUNT(enf.nom_enf)
+//$sql = mysql_query("SELECT  pac.fre_pac ,enf.nom_enf,COUNT(enf.nom_enf)
+//FROM persona per INNER JOIN paciente pac ON per.id_per = pac.id_per 
+//INNER JOIN paciente_enfermedad pae ON pae.id_pac = pac.id_pac 
+//INNER JOIN enfemedad enf ON enf.id_enf = pae.id_enf 
+//WHERE pac.fre_pac >= '$fechaDesde' AND pac.fre_pac <= '$fechaHasta'
+//GROUP BY enf.nom_enf");
+$sql = mysql_query("SELECT DATE_FORMAT(pac.fre_pac,'%d/%m/%Y') as fecha, enf.nom_enf, COUNT(enf.nom_enf) AS casos
 FROM persona per INNER JOIN paciente pac ON per.id_per = pac.id_per 
 INNER JOIN paciente_enfermedad pae ON pae.id_pac = pac.id_pac 
 INNER JOIN enfemedad enf ON enf.id_enf = pae.id_enf 
-WHERE pac.fre_pac >= '$fechaDesde' AND pac.fre_pac <= '$fechaHasta'
-GROUP BY enf.nom_enf");
+WHERE pac.fre_pac >= '$fechaDesde' AND pac.fre_pac <= '$fechaHasta' 
+GROUP BY YEAR(pac.fre_pac), MONTH(pac.fre_pac), DAY(pac.fre_pac),enf.nom_enf");
+//date_format($date, 'd/m/y');
 while ($res = mysql_fetch_array($sql)) {
 //    echo $res['nom_enf'];
     ?>
 
-                                ['<?php echo $res['nom_enf']." ".$res['fre_pac']; ?>'],
+                                ['<?php echo $res['nom_enf']." ".$res['fecha']; ?>'],
     <?php
 }
 ?>
@@ -97,12 +104,12 @@ while ($res = mysql_fetch_array($sql)) {
                             data: [
 <?php
 //$sql = mysql_query("select * from deudas order by monto_deudor desc");
-$sql = mysql_query("SELECT  pac.fre_pac ,enf.nom_enf,COUNT(enf.nom_enf) as casos
+$sql = mysql_query("SELECT pac.fre_pac ,enf.nom_enf, COUNT(enf.nom_enf) AS casos
 FROM persona per INNER JOIN paciente pac ON per.id_per = pac.id_per 
 INNER JOIN paciente_enfermedad pae ON pae.id_pac = pac.id_pac 
 INNER JOIN enfemedad enf ON enf.id_enf = pae.id_enf 
-WHERE pac.fre_pac >= '$fechaDesde' AND pac.fre_pac <= '$fechaHasta'
-GROUP BY enf.nom_enf");
+WHERE pac.fre_pac >= '$fechaDesde' AND pac.fre_pac <= '$fechaHasta' 
+GROUP BY YEAR(pac.fre_pac), MONTH(pac.fre_pac), DAY(pac.fre_pac),enf.nom_enf");
 while ($res = mysql_fetch_array($sql)) {
     ?>
 
@@ -118,9 +125,9 @@ while ($res = mysql_fetch_array($sql)) {
     </head>
     <body>
 
-        <script src="../Highcharts-4.1.5/js/highcharts.js"></script>
-        <script src="../Highcharts-4.1.5/js/highcharts-3d.js"></script>
-        <script src="../Highcharts-4.1.5/js/modules/exporting.js"></script>
+        <script src="../../Highcharts-4.1.5/js/highcharts.js"></script>
+        <script src="../../Highcharts-4.1.5/js/highcharts-3d.js"></script>
+        <script src="../../Highcharts-4.1.5/js/modules/exporting.js"></script>
 
         <div id="container" style="height: 400px"></div>
     </body>

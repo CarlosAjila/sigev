@@ -299,7 +299,7 @@ AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=en
 
     //incidencias de casos
     public function c_incidencias_por_fecha($fechaDesde, $fechaHasta) {
-       $objDatos= new clsDatos();
+        $objDatos = new clsDatos();
         $sql = "SELECT per.ced_per, per.pno_per, per.sno_per, per.apa_per, per.ama_per,
                  enf.nom_enf, enf.pri_enf, pac.fre_pac
                 FROM persona per 
@@ -317,7 +317,35 @@ AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=en
                 "prioridad" => $columna['pri_enf'],
                 "fechaRegistro" => $columna['fre_pac']);
         }
-       $objDatos->crerrarconexion();
+        $objDatos->crerrarconexion();
+        return($this->arreglo);
+    }
+
+    //Reporte de lista de casos preuntivos o Confirmado
+    public function c_lista_casos_paciente($casoPaciente) {
+        if ($casoPaciente == "Todos") {
+            $sqlWhere = "";
+        }else{
+            $sqlWhere = " WHERE pac.cas_pac = '$casoPaciente'";
+        }
+        $objDatos = new clsDatos();
+        $sql = "SELECT per.ced_per, per.pno_per, per.sno_per, per.apa_per, per.ama_per, enf.nom_enf, enf.pri_enf, pac.fre_pac, pac.cas_pac
+        FROM persona per 
+        INNER JOIN paciente pac ON per.id_per = pac.id_per 
+        INNER JOIN paciente_enfermedad pae ON pae.id_pac = pac.id_pac 
+        INNER JOIN enfemedad enf ON enf.id_enf = pae.id_enf $sqlWhere";
+        $datos_desordenados = $objDatos->consulta($sql);
+        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->arreglo [] = array(
+                "cedula" => $columna['ced_per'],
+                "nombre" => $columna['pno_per'] . " " . $columna['sno_per'],
+                "apellido" => $columna['apa_per'] . " " . $columna['ama_per'],
+                "enfermedad" => $columna['nom_enf'],
+                "prioridad" => $columna['pri_enf'],
+                "fechaRegistro" => $columna['fre_pac'],
+                "caso" => $columna['cas_pac']);
+        }
+        $objDatos->crerrarconexion();
         return($this->arreglo);
     }
 

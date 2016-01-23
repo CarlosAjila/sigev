@@ -14,7 +14,11 @@
         <title>SIGEV - Listar Usuarios</title>
         <script language="javascript">
             $(document).ready(function () {
+
                 $('#btbuscar').click(function () {
+
+                    $('#hdfechaDesde').val($('#txtfechaDesde').val());
+                    $('#hdfechaHasta').val($('#txtfechaHasta').val());
                     $.ajax({
                         type: 'POST',
                         url: '../../Contralador/reporteIncidenciaController.php',
@@ -25,18 +29,18 @@
                     })
                 }).keyup();
             });
-            $(document).ready(function () {
-                $('#btbuscar').click(function () {
-                    $.ajax({
-                        type: 'POST',
-                        url: '../../Contralador/reporteIncidenciaController.php',
-                        data: $('#form91').serialize(),
-                        success: function (datos) {
-                            $('#lista').html(datos);
-                        }
-                    })
-                }).keyup();
-            });
+//            $(document).ready(function () {
+//                $('#btbuscar').click(function () {
+//                    $.ajax({
+//                        type: 'POST',
+//                        url: '../../Contralador/reporteIncidenciaController.php',
+//                        data: $('#form91').serialize(),
+//                        success: function (datos) {
+//                            $('#lista').html(datos);
+//                        }
+//                    })
+//                }).keyup();
+//            });
         </script>
         <script language="javascript">
 
@@ -57,37 +61,53 @@
     </head>
 
     <body>
-        <form method="POST" action="../../Contralador/reporte_pdf.php" name="form91" id="form91">
-            <header>
-                <div id="conte" class="contenedor">
+
+        <header>
+            <div id="conte" class="contenedor">
 
 
-                    <h1><img src="../../imagenes/lbanner-05.png" class="logo" /></h1>
-                    <input type="checkbox" id="menu-bar" />
-                    <label class="icon-menu" for="menu-bar"></label>
-                    <nav class="menu">
-                        <a href="../Administrador/Inicio.php" style="font-size:18px;" class="icon-inicio">Inicio</a>
-                    </nav>
-                </div>
-            </header>
-            <section class="cuerpo">
-                <table width="100%" class="tabla">
-                    <tr>
-                        <td align="center">REPORTE DE CASOS DE INCIDENCIA</td>
-                    </tr>
-                    <tr>
+                <h1><img src="../../imagenes/lbanner-05.png" class="logo" /></h1>
+                <input type="checkbox" id="menu-bar" />
+                <label class="icon-menu" for="menu-bar"></label>
+                <nav class="menu">
+                    <a href="../Estadistica/Inicio.php" style="font-size:18px;" class="icon-inicio">Inicio</a>
+                </nav>
+                <nav class="menu">
+                    <a href="../Paciente/Reporte_lista_caso_paciente.php" style="font-size:18px;" class="icon-iniciar-sesion">Lista por Casos</a>
+                    <a href="../Paciente/Reporte_incidencia_fecha.php" style="font-size:18px;" class="icon-iniciar-sesion">Lista de Incidencia</a>
+                </nav>
+            </div>
+        </header>
+        <section class="cuerpo">
+            <table width="100%" class="tabla">
+                <tr>
+                    <td align="center">REPORTE DE CASOS DE INCIDENCIA</td>
+                </tr>
+                <tr>
+                    <form method="POST" action="../Reportes/reporte_pdf.php" name="form91" id="form91">
                         <td>Fehca Desde: <input type="text" name="txtfechaDesde" id="txtfechaDesde" placeholder="Fecha desde" class="cajatexto" readonly="readonly"/></td>
                         <td>Fecha Hasta: <input type="text" name="txtfechaHasta" id="txtfechaHasta" placeholder="Fecha hasta" class="cajatexto" readonly="readonly"/></td>
-                        <td><input type="button" name="btbuscar" id="btbuscar" value="ACTUALIZAR"/></td>
-                        <!--<td><input type="submit" name="btpdf" id="btpdf" value=""/><img src="../../imagenes/pdf.png" width="30" height="25"/></td>-->
+
                         <td>
-                            <button type="submit" name="btpdf" id="buscbtpdfar"> <img src="../../imagenes/pdf.png" height="30"  width="30" align="absmiddle"/></button>
+                            <!--<input type="button" name="btbuscar" id="btbuscar" value=""/></td>bt_actualizar-->
+                            <button type="button" name="btbuscar" id="btbuscar"> <img src="../../imagenes/bt_actualizar.png" height="50"  width="50" align="absmiddle"/></button>
+                            <td>
+                                <button type="submit" name="btpdf" id="buscbtpdfar"> <img src="../../imagenes/pdf.png" height="50"  width="50" align="absmiddle"/></button>
+                            </td>
+                    </form>
+                    <form method="POST" action="../Reportes/reporte_grafico.php" name="form91" id="form91" target="_new">
+                        <input type="hidden" name="hdfechaDesde" id="hdfechaDesde" value="" />
+                        <input type="hidden" name="hdfechaHasta" id="hdfechaHasta" value="" />
+                        <td>
+                            <button type="submit" name="btpgraficar" id="btpgraficar"> <img src="../../imagenes/bt_estadistico.png" height="50"  width="50" align="absmiddle"/></button>
                         </td>
-                    </tr>
-                </table>
-                <div id="lista" class="listado"></div>
-            </section>
-        </form>
-       
+                    </form>
+
+
+                </tr>
+            </table>
+            <div id="lista" class="listado"></div>
+        </section>
+
     </body>
 </html>
