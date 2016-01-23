@@ -1,6 +1,6 @@
 <?php
 
-require_once "clsDatos.php";
+require_once("clsDatos.php");
 
 class clsPaciente extends clsDatos {
 

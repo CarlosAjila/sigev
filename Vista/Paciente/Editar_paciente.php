@@ -21,7 +21,7 @@ function ejecutar_sentencia($query) {
 
 $id = $_POST['id'];
 $rs_localidades = ejecutar_sentencia(
-        "SELECT per.id_per,
+"SELECT per.id_per,
 per.id_loc,
 per.ced_per,
 per.pno_per,
@@ -51,42 +51,29 @@ FROM persona per
 INNER JOIN paciente pac ON per.id_per = pac.id_per 
 INNER JOIN georeferenciacion geo ON geo.id_geo = pac.id_geo
 WHERE per.id_per = '" . $id . "'"); //Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
-//WHERE per.id_per = '".$id."'");//Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
 $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la variable $localidad recibimos un arreglo con el resultado de la consulta
-echo 'dooppoopopo';
-if(isset($modificar_paciente)){
-    echo 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh';
-    
-}
 ?>
 
 <script language="javascript">
-
-    //Para el manejo de fechas
-    var opciones_datepicker = {changeYear: true,
-        dateFormat: "yy-mm-dd",
-        monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-        yearRange: "1950:2050"
-    };
-    $(document).ready(function (e) {
-        $('#txtfn').datepicker(opciones_datepicker);
-        $('#txtfrepac').datepicker(opciones_datepicker);
-        $('#txfatpac').datepicker(opciones_datepicker);
-        $('#txfispac').datepicker(opciones_datepicker);
-    });</script>
-
-
-
-
-
-
+//Para el manejo de fechas
+var opciones_datepicker = {changeYear: true,
+	dateFormat: "yy-mm-dd",
+	monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+	dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+	dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+	yearRange: "1950:2050"
+};
+$(document).ready(function (e) {
+	$('#txtfn').datepicker(opciones_datepicker);
+	$('#txtfrepac').datepicker(opciones_datepicker);
+	$('#txfatpac').datepicker(opciones_datepicker);
+	$('#txfispac').datepicker(opciones_datepicker);
+});</script>
 
 <script language="javascript">
     $(document).ready(function () {
         $('#btmodificar').click(function (e) {
-            alert("php vale m");
+            
             var ruta = "../../Contralador/PacienteController.php";
             $.ajax({
                 url: ruta,
@@ -96,10 +83,10 @@ if(isset($modificar_paciente)){
                 success: function (data) {
                     //Parseamos el array JSON
                     alert(data.mensaje);
-                   // alert(data.id_persona);
-                    //document.getElementById('FormPerfil').submit(); 
                 }
             });
+			alert("Edición exitosa");
+			location.reload();
         });
     });
 </script>
@@ -126,11 +113,13 @@ if(isset($modificar_paciente)){
     });
 </script>
 
-<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormModificarPaciente" id="FormRegistroPaciente" enctype="multipart/form-data">
+<form method="POST" action="../../Contralador/PacienteController.php" name="FormModificarPaciente" id="FormModificarPaciente" enctype="multipart/form-data">
     <input id="modificar_paciente" name="modificar_paciente" type="hidden" value="modificar_paciente"/>
     <table class="contenedor" border="1">
         <tr>
-            <td><input type="text" name="txtcedula" id="txtcedula" placeholder="Número de cédula" class="cajatexto" value="<?php echo $localidad ["ced_per"] ?>"/></td>
+            <td>
+            <input type="text" name="id_per" id="id_per" value="<?php echo $localidad ["id_per"] ?>" />
+            <input type="text" name="txtcedula" id="txtcedula" placeholder="Número de cédula" class="cajatexto" value="<?php echo $localidad ["ced_per"] ?>"/></td>
             <td><input type="text" name="txtfn" id="txtfn" placeholder="Fecha de nacimiento" class="cajatexto" readonly="readonly" value="<?php echo $localidad ["fna_per"] ?>"/></td>
         </tr>
         <tr>

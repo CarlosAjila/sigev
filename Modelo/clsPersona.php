@@ -186,22 +186,21 @@ AND persona.id_per=usuario.id_per AND persona.id_loc=localizacion.id_loc AND per
     public function c_modificar_persona(
     $id_per, $id_loc, $ced_per, $pno_per, $sno_per, $apa_per, $ama_per, $fna_per, $te1_per, $te2_per, $sex_per, $est_per) {
         $objDatos = new clsDatos();
-        $sql = "UPDATE persona SET "
-                . "id_loc='$id_loc',"
-                . "ced_per='$ced_per',"
-                . "pno_per='$pno_per',"
-                . "sno_per='$sno_per',"
-                . "apa_per='$apa_per',"
-                . "ama_per='$ama_per',"
-                . "fna_per='$fna_per',"
-                . "te1_per='$te1_per',"
-                . "te2_per='$te2_per',"
-                . "sex_per='$sex_per',"
-                . "est_per='$est_per' WHERE id_per='$id_per'";
+        $sql = "UPDATE persona SET est_per='$est_per' WHERE id_per='$id_per'";
         echo $sql;
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }
+	
+	//modificar prueba persona
+	public function modif_persona($ced_per,$pno_per,$id_per)
+	{
+		$objDatos = new clsDatos();
+        $sql = "UPDATE persona SET ced_per='$ced_per', pno_per='$pno_per' WHERE id_per='$id_per'";
+        echo $sql;
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();		
+	}
 
 }
 

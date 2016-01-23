@@ -67,4 +67,15 @@ if (isset($_POST['save_paciente'])) {
     $salidaJson = array("mensaje" => $mensaje);
     echo json_encode($salidaJson);
 }
+if (isset($_POST['modificar_paciente'])) {
+	$objpersona = new clsPersona("","","","","","","","","","","");
+	$id_per=$_POST['id_per'];
+	$cedula=$_POST['txtcedula'];
+	$pnombre=$_POST['txtpnombre'];
+	echo $cedula.$pnombre.$id_per;
+	$objpersona->modif_persona($cedula,$pnombre,$id_per);
+	$mensaje = "Paciente modificado con éxito";
+    $salidaJson = array("mensaje" => $mensaje);
+    echo json_encode($salidaJson);
+}
 ?>
