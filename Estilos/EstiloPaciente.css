@@ -8,10 +8,42 @@
 {
 	position:absolute;
 	top:55px;
-	left:78%;
-	width:300px;
+	left:81%;
+	width:230px;
 	height:200px;
 	z-index:5;
+}
+
+/*Para leyenda flotante*/
+#leyendaflotante
+{
+	position:absolute;
+	top:560px;
+	left:37%;
+	width:300px;
+	height:68px;
+	z-index:6;
+}
+
+/*Para combo de barrios*/
+#barriosflotante
+{
+	position:absolute;
+	top:270px;
+	left:81%;
+	width:230px;
+	height:80px;
+	z-index:7;
+}
+
+.tablabarrios
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	opacity: 0.8;
+	border:1px solid #000;
+	border-collapse: collapse;
 }
 
 .tablaflotante
@@ -21,9 +53,34 @@
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
 	opacity: 0.8;
+	text-align:center;
+	background-color:#FFF;
+}
+
+.tablaleyenda
+{
+	opacity: 0.8;
+	border-collapse: collapse;
+	border:1px solid #000;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:bold;
+	text-align:center;
+	background-color:#CCC;
 }
 
 .tablaflotante td
+{
+	border: black 1px solid;
+	padding:3px;
+}
+
+.tablaleyenda td
+{
+	padding:1px;
+}
+
+.tablabarrios td
 {
 	border: black 1px solid;
 	padding:3px;

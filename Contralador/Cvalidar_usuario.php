@@ -24,6 +24,7 @@ if(isset($_POST['txtusuario']) && isset($_POST['txtpassword']))
 		$_SESSION['ema_usu']=$arreglo[0]['ema_usu'];
 		$_SESSION['nom_car']=$arreglo[0]['nom_car'];
 		$_SESSION['nom_loc']=$arreglo[0]['nom_loc'];
+		$_SESSION['id_loc']=$arreglo[0]['id_loc'];
 		$_SESSION['id_usu']=$arreglo[0]['id_usu'];
 		$_SESSION['id_per']=$arreglo[0]['id_per'];
 		

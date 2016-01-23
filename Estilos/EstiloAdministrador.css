@@ -57,6 +57,19 @@ Versión: 0.1
   background-color:#95C6F7;
 }
 
+.tablaperfil
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+
+#dialogoperfil
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:15px;
+	width:100%;
+}
+
 /*RESPONSIVE DESIGN*/
 header{
 	width:100%;
@@ -122,6 +135,22 @@ header label{
 
 #menu-bar:checked ~ .menu{
 	transform:translateX(0%);
+}
+
+.imageneditarboton
+{
+	background-image:url(../imagenes/bteditar.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	width:50px;
+	height:55px;
+	cursor:pointer;
+	border:1px solid #000;
+	border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+
 }
 
 /*Estructura responsive*/

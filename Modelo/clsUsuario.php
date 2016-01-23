@@ -143,7 +143,7 @@ public $arreglo = array();
 	{
 		$objDatos= new clsDatos();
 		$sql="SELECT usuario.id_usu,persona.id_per,persona.ced_per,persona.pno_per,persona.sno_per,persona.apa_per,persona.ama_per,persona.te1_per,persona.te2_per,persona.fna_per,
-usuario.nus_usu,usuario.con_usu,usuario.id_car,usuario.fot_usu,usuario.ema_usu,nom_car,nom_loc
+usuario.nus_usu,usuario.con_usu,usuario.id_car,usuario.fot_usu,usuario.ema_usu,nom_car,localizacion.nom_loc,localizacion.id_loc
 FROM persona,usuario,cargo,localizacion
 WHERE usuario.nus_usu='$usuario' AND usuario.con_usu='$password' AND usuario.id_per=persona.id_per AND usuario.est_usu='A'
 AND usuario.id_car=cargo.id_car AND persona.id_loc=localizacion.id_loc";
@@ -165,6 +165,7 @@ AND usuario.id_car=cargo.id_car AND persona.id_loc=localizacion.id_loc";
 									  "id_car"=>$columna['id_car'],
 									  "nom_car"=>$columna['nom_car'],
 									  "nom_loc"=>$columna['nom_loc'],
+									  "id_loc"=>$columna['id_loc'],
 									  "id_usu"=>$columna['id_usu'],
 									  "id_per"=>$columna['id_per']);
 		}
