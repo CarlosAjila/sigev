@@ -56,10 +56,10 @@ if (isset($_POST['save_paciente'])) {
     $objpaciente_enfermedad = new clsPaciente_enfermedad($id_pac, $id_enf, $est_pac);
     $id_pae = $objpaciente_enfermedad->insertar();
 
-    
+
     $arregloCHK = $_POST['chk'];
     $numm = count($arregloCHK);
-	$obsSintoma_paciente = new clsSintoma_paciente();
+    $obsSintoma_paciente = new clsSintoma_paciente();
     for ($n = 0; $n < $numm; $n++) {
         $obsSintoma_paciente->insertar($id_pae, $arregloCHK[$n]);
     }
@@ -68,13 +68,36 @@ if (isset($_POST['save_paciente'])) {
     echo json_encode($salidaJson);
 }
 if (isset($_POST['modificar_paciente'])) {
-	$objpersona = new clsPersona("","","","","","","","","","","");
-	$id_per=$_POST['id_per'];
-	$cedula=$_POST['txtcedula'];
-	$pnombre=$_POST['txtpnombre'];
-	echo $cedula.$pnombre.$id_per;
-	$objpersona->modif_persona($cedula,$pnombre,$id_per);
-	$mensaje = "Paciente modificado con éxito";
+    $objpersona = new clsPersona("", "", "", "", "", "", "", "", "", "", "");
+//	$id_per=$_POST['id_per'];
+//	$cedula=$_POST['txtcedula'];
+//	$pnombre=$_POST['txtpnombre'];
+    $id_per=$_POST['id_per'];
+    $id_loc = $_POST['id_loc'];
+    $ced_per = $_POST['txtcedula'];
+    $fna_per = $_POST['txtfn'];
+    $pno_per = $_POST['txtpnombre'];
+    $sno_per = $_POST['txtsnombre'];
+    $apa_per = $_POST['txtapaterno'];
+    $ama_per = $_POST['txtamaterno'];
+    $te1_per = $_POST['txtcel'];
+    $te2_per = $_POST['txttel'];
+    $sex_per = $_POST['sex_per'];
+    $estado = "A";
+
+    echo $cedula . $pnombre . $id_per;
+    $objpersona->c_modificar_perfil_persona(
+            $id_per, 
+            $ced_per, 
+            $pno_per, 
+            $sno_per, 
+            $apa_per, 
+            $ama_per, 
+            $te1_per, 
+            $te2_per, 
+            $fna_per, 
+            $id_loc);
+    $mensaje = "Paciente modificado con éxito";
     $salidaJson = array("mensaje" => $mensaje);
     echo json_encode($salidaJson);
 }
