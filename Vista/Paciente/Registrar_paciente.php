@@ -4,6 +4,10 @@ $rs_localidades = ejecutar_sentencia(
 $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la variable $localidad recibimos un arreglo con el resultado de la consulta
 ?>
 
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link href="../../jQuery/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
 
 <script language="javascript">
 
@@ -25,7 +29,7 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
 ﻿<script language="javascript">
     $(document).ready(function () {
         $('#btguardar').click(function () {
-            alert($('input:radio[name=sex_per]:checked').val());
+            //alert($('input:radio[name=sex_per]:checked').val());
             var ruta = "../../Contralador/PacienteController.php";
             $.ajax({
                 url: ruta,
@@ -33,15 +37,17 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
                 dataType: 'json',
                 data: $('#FormRegistroPaciente').serialize(),
                 success: function (data) {
-                alert(data.mensaje);
-                document.getElementById('FormRegistroPaciente').submit();     
+                    alert(data.mensaje);
+                    alert(data.num);
+                    location.reload();
+                    //document.getElementById('FormRegistroPaciente').submit();     
                     //$('#resultado').html(datos); // Mostrar la respuestas del script PHP.
                 }
             });
         });
-		
-		$('#btcancelar').click(function(e) {
-            document.getElementById('FormRegistroPaciente').submit(); 
+
+        $('#btcancelar').click(function (e) {
+            document.getElementById('FormRegistroPaciente').submit();
         });
     });
 </script>
@@ -107,12 +113,11 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
         <tr>
             <td><input type="text" name="txtexpac" id="txtexpac" placeholder="Lugar donde se realizó el exámen" class="cajatexto" value=""/></td>
             <td>
-                <div id="cbOpciones">
-                    <select>
-                        <option value="A">Presuntivos</option>
-                        <option value="B">Confirmados</option>
-                    </select>
-                </div>
+                <select name="cbOpciones" id="cbOpciones" class="form-control">
+                    <option value="" selected>Tipo de Caso</option>
+                    <option value="Presuntivos">Presuntivos</option>
+                    <option value="Presuntivos">Confirmados</option>
+                </select>
                 <input type="hidden" name="txtcaspac" id="txtcaspac" value="" />
             </td>
         </tr>
@@ -133,7 +138,7 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
         <input type="hidden" name="latitud" id="latitud" value="" />
 
         <tr>
-            <td colspan="3">
+            <td colspan="2">
                 <select name="id_enf" id="id_enf" class="form-control">
                     <option value="" selected>Seleccione una enfermedad</option>
                     <?php do { ?>
@@ -143,32 +148,50 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
             </td>
 
         </tr>
-        <!--<tr>
-            <td colspan="3">
-
-                <form action="checkbox-form.php" method="post">
-
-                    Sintomas que presenta el Paciente<br />
-                    <?php
-                    $rs_localidades = ejecutar_sentencia("SELECT id_sin, nom_sin
-                FROM sintoma WHERE est_sin= 'A'");
-                    //$id_enf
-                    $sintomas = mysqli_fetch_assoc($rs_localidades);
-                    do {
-                        ?>
-                        <input type="checkbox" name="formDoor[]" value="<?php echo $sintomas["id_sin"]; ?>" /><?php echo $sintomas["nom_sin"]; ?><br />
-
-                        <?php } while ($sintomas = mysqli_fetch_assoc($rs_localidades))
+        <tr >
+            <td colspan="2">
+                <br>Seleccione Sintomas<br>
+                <?php
+                $rs_localidades = ejecutar_sentencia("SELECT id_sin, nom_sin FROM sintoma WHERE est_sin= 'A'");
+                $sintomas = mysqli_fetch_assoc($rs_localidades);
+                do {
                     ?>
+                    <input type="checkbox" name="chk[]"  value="<?php echo $sintomas["id_sin"]; ?>"><?php echo $sintomas["nom_sin"]; ?><br>
+                <?php } while ($sintomas = mysqli_fetch_assoc($rs_localidades));
+                ?>
 
-                </form>
             </td>
-        </tr>-->
+<!--            <td colspan="2" align="center">
+                <div class="container">
+                    <select name="country" multiple class="form-control">
+                        <option value="" selected>Seleccione Síntomas</option>
+            <?php
+            $rs_localidades = ejecutar_sentencia("SELECT id_sin, nom_sin FROM sintoma WHERE est_sin= 'A'");
+            $sintomas = mysqli_fetch_assoc($rs_localidades);
+            do {
+                ?>
+                                            <option name = "chk[]" id ="chk[]" value="<?php echo $sintomas["id_sin"]; ?>"><?php echo $sintomas["nom_sin"]; ?></option>
+            <?php } while ($sintomas = mysqli_fetch_assoc($rs_localidades));
+            ?>
+                    </select>
 
+                </div>
+                                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+                <script src="../../jQuery/jquery.multiselect.js"></script>
+                <script>
+    $('select[multiple]').multiselect({
+        columns: 3,
+        placeholder: 'Select options'
+    });
+                </script>
+            </td>-->
+        </tr>
         <tr>
             <td colspan="3" align="center"><input type="button" name="btguardar" id="btguardar" value="GUARDAR"/></td>
-        	<td colspan="3" align="center"><input type="button" name="btcancelar" id="btcancelar" value="CANCELAR"/></td>
+            <td colspan="3" align="center"><input type="button" name="btcancelar" id="btcancelar" value="CANCELAR"/></td>
         </tr>
     </table>
 
 </form>
+
+<!--fdgdkfñgl-->

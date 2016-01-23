@@ -69,12 +69,21 @@ class clsSintoma_paciente {
     }
 
     //Insertar usuario
-    public function insertar() {
+    public function insertar($id_pae, $id_sin) {
         $objDatos = new clsDatos();
-        $sql = "insert into sintoma_paciente(id_spa,id_pae,id_sin,est_spa)
-                values ('$this->id_spa','$this->id_pae','$this->id_sin','$this->est_spa');";
-        $objDatos->ejecutar($sql);
+        $sql = "insert into sintoma_paciente(id_pae,id_sin,est_spa)
+                values ('$id_pae','$id_sin','A');";
+        $id = $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
+        return($id);
+    }
+      public function insertarm($id_loc, $ced_per, $pno_per, $sno_per, $apa_per, $ama_per, $fna_per, $te1_per, $te2_per, $sex_per) {
+        $id = "";
+        $objDatos = new clsDatos();
+        $sql = "INSERT INTO persona(id_loc,ced_per,pno_per,sno_per,apa_per,ama_per,fna_per,te1_per,te2_per,sex_per) VALUES('$id_loc','$ced_per','$pno_per','$sno_per','$apa_per','$ama_per','$fna_per','$te1_per','$te2_per','$sex_per')";
+        $id = $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+        return($id);
     }
 
     //Modificar datos de usuario

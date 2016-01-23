@@ -96,9 +96,7 @@ class clsPaciente extends clsDatos {
         return $this->est_pac;
     }
 
-
     //Función para buscar paciente
-
 //Función para buscar usuarios
 
     public function buscar() {
@@ -131,14 +129,14 @@ class clsPaciente extends clsDatos {
         $objDatos->crerrarconexion();
         return $encontro;
     }
-	
-	  //Función para buscar paciente por codigo
+
+    //Función para buscar paciente por codigo
     public function buscar_paciente_x_codigo($cod_paciente) {
         $objDatos = new clsDatos();
         $sql = "SELECT per.id_per, per.ced_per, per.pno_per, per.sno_per, per.apa_per, per.ama_per, per.sex_per 
 				FROM persona per, paciente
 				where per.id_per = paciente.id_per and paciente.id_pac = '$cod_paciente' and paciente.est_pac = 'A'";
-				
+
         $datos_desordenados = $objDatos->consulta($sql);
         while ($columna = $objDatos->arreglos($datos_desordenados)) {
             $this->arreglo [] = array(
@@ -149,17 +147,16 @@ class clsPaciente extends clsDatos {
                 "sex_per" => $columna['sex_per']);
         }
         return($this->arreglo);
-       //Cerrar la consulta
+        //Cerrar la consulta
         $objDatos->cerrar_consulta($datos_desordenados);
         $objDatos->crerrarconexion();
     }
-	
-    //Insertar Paciente
 
+    //Insertar Paciente
 //Insertar Paciente
 
     public function insertar() {
-       $id = "";
+        $id = "";
         $objDatos = new clsDatos();
         $sql = "INSERT INTO paciente (id_geo, id_per, oex_pac, fre_pac, cas_pac, 
                 dir_pac, ref_pac, ofi_pac, dof_pac, emi_pac, fat_pac, fis_pac, est_pac)
@@ -211,8 +208,6 @@ class clsPaciente extends clsDatos {
         $objDatos->crerrarconexion();
     }
 
-
-
 //Listar personas
     /* Carlos Ajila */
     public function listar_persona_paciente($letra) {
@@ -245,41 +240,39 @@ class clsPaciente extends clsDatos {
 FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
 WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
 AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'";
-		$datos_desordenados = $objDatos->consulta($sql);
-		while($columna = $objDatos->arreglos($datos_desordenados))
-		{
-			$this->arreglo [] = array("paciente"=>$columna['pno_per'].' '.$columna['apa_per'],
-									  "enfermedad"=>$columna['nom_enf'],
-									  "longitud"=>$columna['lat_geo'],
-									  "latitud"=>$columna['lon_geo'],
-									  "id_pac"=>$columna['id_pac']);
-		}
-		return($this->arreglo);
-	}
-	
-	//Listar pacientes-popup
-	public function listar_paciente_popup(){
-		$objDatos= new clsDatos();
-		$sql="SELECT paciente.id_pac,paciente.oex_pac,paciente.fre_pac,paciente.cas_pac,paciente.dir_pac,paciente.ref_pac,paciente.ofi_pac,
+        $datos_desordenados = $objDatos->consulta($sql);
+        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->arreglo [] = array("paciente" => $columna['pno_per'] . ' ' . $columna['apa_per'],
+                "enfermedad" => $columna['nom_enf'],
+                "longitud" => $columna['lat_geo'],
+                "latitud" => $columna['lon_geo'],
+                "id_pac" => $columna['id_pac']);
+        }
+        return($this->arreglo);
+    }
+
+    //Listar pacientes-popup
+    public function listar_paciente_popup() {
+        $objDatos = new clsDatos();
+        $sql = "SELECT paciente.id_pac,paciente.oex_pac,paciente.fre_pac,paciente.cas_pac,paciente.dir_pac,paciente.ref_pac,paciente.ofi_pac,
 paciente.dof_pac,paciente.emi_pac,paciente.fat_pac,paciente.fis_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,enfemedad.nom_enf
 FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
 WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
 AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'";
-		$datos_desordenados = $objDatos->consulta($sql);
-		while($columna = $objDatos->arreglos($datos_desordenados))
-		{
-			$this->arreglo [] = array("oex_pac"=>$columna['oex_pac'],
-									  "fre_pac"=>$columna['fre_pac'],
-									  "cas_pac"=>$columna['cas_pac'],
-									  "dir_pac"=>$columna['dir_pac'],
-									  "ref_pac"=>$columna['ref_pac'],
-									  "lon_geo"=>$columna['lon_geo'],
-									  "lat_geo"=>$columna['lat_geo']);
-		}
-		return($this->arreglo);
-	}
-	
-	//    METODOS CARLOS AJILA
+        $datos_desordenados = $objDatos->consulta($sql);
+        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->arreglo [] = array("oex_pac" => $columna['oex_pac'],
+                "fre_pac" => $columna['fre_pac'],
+                "cas_pac" => $columna['cas_pac'],
+                "dir_pac" => $columna['dir_pac'],
+                "ref_pac" => $columna['ref_pac'],
+                "lon_geo" => $columna['lon_geo'],
+                "lat_geo" => $columna['lat_geo']);
+        }
+        return($this->arreglo);
+    }
+
+    //    METODOS CARLOS AJILA
     //Modificar datos de persona
     public function c_modificar_paciente(
     $id_pec, $id_geo, $id_per, $oex_pac, $fre_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fat_pac, $fis_pac, $est_pac) {
@@ -303,5 +296,31 @@ AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=en
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }
+
+    //incidencias de casos
+    public function c_incidencias_por_fecha($fechaDesde, $fechaHasta) {
+       $objDatos= new clsDatos();
+        $sql = "SELECT per.ced_per, per.pno_per, per.sno_per, per.apa_per, per.ama_per,
+                 enf.nom_enf, enf.pri_enf, pac.fre_pac
+                FROM persona per 
+                INNER JOIN paciente pac ON per.id_per = pac.id_per 
+                INNER JOIN paciente_enfermedad pae ON pae.id_pac = pac.id_pac
+                INNER JOIN enfemedad enf ON enf.id_enf = pae.id_enf 
+                WHERE pac.fre_pac >= '$fechaDesde' AND pac.fre_pac <= '$fechaHasta'";
+        $datos_desordenados = $objDatos->consulta($sql);
+        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->arreglo [] = array(
+                "cedula" => $columna['ced_per'],
+                "nombre" => $columna['pno_per'] . " " . $columna['sno_per'],
+                "apellido" => $columna['apa_per'] . " " . $columna['ama_per'],
+                "enfermedad" => $columna['nom_enf'],
+                "prioridad" => $columna['pri_enf'],
+                "fechaRegistro" => $columna['fre_pac']);
+        }
+       $objDatos->crerrarconexion();
+        return($this->arreglo);
+    }
+
 }
+
 ?>

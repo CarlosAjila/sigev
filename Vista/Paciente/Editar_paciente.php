@@ -50,9 +50,14 @@ pac.est_pac
 FROM persona per 
 INNER JOIN paciente pac ON per.id_per = pac.id_per 
 INNER JOIN georeferenciacion geo ON geo.id_geo = pac.id_geo
-WHERE per.id_per = '105'"); //Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
+WHERE per.id_per = '" . $id . "'"); //Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
 //WHERE per.id_per = '".$id."'");//Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
 $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la variable $localidad recibimos un arreglo con el resultado de la consulta
+echo 'dooppoopopo';
+if(isset($modificar_paciente)){
+    echo 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh';
+    
+}
 ?>
 
 <script language="javascript">
@@ -72,26 +77,32 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
         $('#txfispac').datepicker(opciones_datepicker);
     });</script>
 
-﻿<script language="javascript">
+
+
+
+
+
+
+<script language="javascript">
     $(document).ready(function () {
-        $('#btmodificar').click(function () {
-            alert($('input:radio[name=sex_per]:checked').val());
-            var ruta = "../../Contralador/PacienteModificarController.php";
+        $('#btmodificar').click(function (e) {
+            alert("php vale m");
+            var ruta = "../../Contralador/PacienteController.php";
             $.ajax({
                 url: ruta,
                 type: 'POST',
                 dataType: 'json',
                 data: $('#FormModificarPaciente').serialize(),
-                success: function (json) {
-                    alert('hola');
+                success: function (data) {
                     //Parseamos el array JSON
-                    alert(json.mensaje);
-                    alert(json.id_persona);
-                    //$('#resultado').html(datos); // Mostrar la respuestas del script PHP.
+                    alert(data.mensaje);
+                   // alert(data.id_persona);
+                    //document.getElementById('FormPerfil').submit(); 
                 }
             });
         });
-    });</script>
+    });
+</script>
 
 <script language="javascript">
     //Sección para el autocompletado
