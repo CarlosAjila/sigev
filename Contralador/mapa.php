@@ -154,8 +154,8 @@ function nuevo_paciente(ban)
 		  markerslayer.addMarker(new OpenLayers.Marker(position,icon));
 		  
 		  position.transform(projmerc,proj4326);
-		  longitu = Math.round(position.lat*10000)/10000;
-		  latitu = Math.round(position.lon*10000)/10000;           
+		  latitu = Math.round(position.lat*10000)/10000;
+		  longitu = Math.round(position.lon*10000)/10000;           
 		  $('#longitud').val(longitu);
 		  $('#latitud').val(latitu);
 		  registrar_paciente();
@@ -345,8 +345,8 @@ $(document).ready(function(e) {
     $('#dialogoformulario').dialog({
 		autoOpen:false,
 		modal:true,
-		width:500,
-		height:450
+		width:850,
+		height:600
 	});
 	$('#dialogotrabajocampo').dialog({
 		autoOpen:false,
@@ -387,19 +387,41 @@ $(document).ready(function(){
 </script>
 
 <div id="barriosflotante">
-        	<table class="tablabarrios" width="100%">
+        <table class="tablabarrios" width="100%">
+        <tr>
+            <td align="center" style="background-color:#036; color:#FFF;">Barrios del Cantón Santa Rosa</td>
+        </tr>
             <tr>
-            	<td align="center" style="background-color:#036; color:#FFF;">Barrios del Cantón Santa Rosa</td>
+                <td align="center">
+                    <select name="barrio" style="width:100%">
+                        <option value="" selected="selected">Seleccione un barrio</option>
+                    <?php do{?>
+                        <option value="<?php echo $barrios['lon_bar']?>,<?php echo $barrios['lat_bar']?>"><?php echo $barrios['nom_bar']?></option>
+                    <?php }while($barrios=mysqli_fetch_assoc($rs_barrios));?>
+                    </select>
+                </td>
             </tr>
-            	<tr>
-                	<td align="center">
-                    	<select name="barrio" style="width:100%">
-                        	<option value="" selected="selected">Seleccione un barrio</option>
-                        <?php do{?>
-                            <option value="<?php echo $barrios['lon_bar']?>,<?php echo $barrios['lat_bar']?>"><?php echo $barrios['nom_bar']?></option>
-                        <?php }while($barrios=mysqli_fetch_assoc($rs_barrios));?>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-    </div>
+        </table>
+</div>
+
+<div id="leyendaflotante">
+<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormPuntos" id="FormPuntos" enctype="multipart/form-data">
+    <table class="tablaleyenda">
+        <tr>
+            <td colspan="4" style="background-color:#036; color:#FFF;">Leyenda del mapa</td>
+        </tr>
+        <tr style="background-color:#FFF;">
+            <td><img src="../../imagenes/chikungunya.png" /></td>
+            <td><img src="../../imagenes/dengue.png" /></td>
+            <td><img src="../../imagenes/paludismo.png" /></td>
+            <td><img src="../../imagenes/zika.png" /></td>
+        </tr>
+        <tr style="background-color:#FFF;">
+            <td width="80px">Chikungunya</td>
+            <td width="80px">Dengue</td>
+            <td width="80px">Paludismo</td>
+            <td width="80px">Zika</td>
+        </tr>
+    </table>
+</form>
+</div>

@@ -114,27 +114,7 @@ $('#txtfna').datepicker(opciones_datepicker);
     </div>
     <div id="flotante">
     </div>
-  	<div id="leyendaflotante">
-    <form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormPuntos" id="FormPuntos" enctype="multipart/form-data">
-        <table class="tablaleyenda">
-            <tr>
-                <td colspan="4" style="background-color:#036; color:#FFF;">Leyenda del mapa</td>
-            </tr>
-            <tr style="background-color:#FFF;">
-                <td><img src="../../imagenes/chikungunya.png" /></td>
-                <td><img src="../../imagenes/dengue.png" /></td>
-                <td><img src="../../imagenes/paludismo.png" /></td>
-                <td><img src="../../imagenes/zika.png" /></td>
-            </tr>
-            <tr style="background-color:#FFF;">
-                <td width="80px">Chikungunya</td>
-                <td width="80px">Dengue</td>
-                <td width="80px">Paludismo</td>
-                <td width="80px">Zika</td>
-            </tr>
-        </table>
-    </form>
-    </div>
+  	
     <div id="dialogoperfil" title="Editar Perfil">
     	<?php include("../../Vista/Usuario/Perfil.php"); ?>
     </div>
