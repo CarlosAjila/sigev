@@ -19,11 +19,15 @@ function ejecutar_sentencia($query)
 	return $rs_resultado;
 }
 $rs_localidades=ejecutar_sentencia("SELECT paciente.id_pac,paciente.oex_pac,paciente.fre_pac,paciente.cas_pac,paciente.dir_pac,paciente.ref_pac,paciente.ofi_pac,
-paciente.dof_pac,paciente.emi_pac,paciente.fat_pac,paciente.fis_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,persona.te1_per,persona.te2_per,enfemedad.nom_enf
+paciente.dof_pac,paciente.emi_pac,paciente.fat_pac,paciente.fis_pac,georeferenciacion.lon_geo,georeferenciacion.lat_geo,persona.pno_per,persona.apa_per,persona.te1_per,persona.te2_per,enfemedad.nom_enf,enfemedad.ima_enf,enfemedad.pri_enf
 FROM georeferenciacion,paciente,persona,enfemedad,paciente_enfermedad
 WHERE paciente.id_per=persona.id_per AND paciente.id_geo=georeferenciacion.id_geo 
 AND paciente.id_pac=paciente_enfermedad.id_pac AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A'");//Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
 $localidad=mysqli_fetch_assoc($rs_localidades);//Mediante esta línea en la variable $localidad recibimos un arreglo con el resultado de la consulta
+
+$rs_barrios=ejecutar_sentencia("SELECT * FROM barrio");
+$barrios=mysqli_fetch_assoc($rs_localidades);//Lista de barrios del cantón
+
 ?>
 <script type="text/javascript">
 var map,markers,longitu,latitu;
@@ -63,7 +67,8 @@ function init()
 	var referencia="<?php echo $localidad['ref_pac']?>";
 	var te1="<?php echo $localidad['te1_per']?>";
 	var te2="<?php echo $localidad['te2_per']?>";
-	var ima="../../imagenes/per.png";
+	var ima="<?php echo $localidad['ima_enf']?>";
+	var prioridad="<?php echo $localidad['pri_enf']?>";
 	if(te1=="")	
 	{
 		te1="No posee";
@@ -72,7 +77,7 @@ function init()
 	{
 		te2="No posee";
 	}
-	recibe(<?php echo $localidad['lat_geo']?>,<?php echo $localidad['lon_geo']?>,nombre,apellido,enfermedad,caso,fecha_registro,direccion,referencia,te1,te2,ima);
+	recibe(<?php echo $localidad['lat_geo']?>,<?php echo $localidad['lon_geo']?>,nombre,apellido,enfermedad,caso,fecha_registro,direccion,referencia,te1,te2,ima,prioridad);
 	<?php }while($localidad=mysqli_fetch_assoc($rs_localidades));?>
 	//Ubicando un marcador al momento de dar click sobre el mapa
 	//Asignación de la capa especial para la ubicación de los marcadores a través de OpenLayers.Layer.Markers
@@ -246,37 +251,10 @@ function buscar(longitud_caso,latitud_caso)
 	lat2=latitud_caso;
 	center=new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));//se transforma las coordenas a wgs84
 	map.setCenter(center, 17);//se centra el mapa y se aplica un zoom de 16
-	if((lon2!=0)||(lat2!=0))
-	{
-		//marcador(lon2, lat2, 2, 0);
-		//Asignación de la capa especial para la ubicación de los marcadores a través de OpenLayers.Layer.Markers
-    var marcador = new OpenLayers.Layer.Markers('MARCADOR');
-	//Asignación de una imagen para el marcador a través de OpenLayers.Icon
-	var icon = new OpenLayers.Icon('../../imagenes/per.png');
-	//A través de marcador.addMarker añadimos un nuevo marcador a la capa previamente establecida para los marcadores denominada marcador
-	marcador.addMarker(new OpenLayers.Marker(
-    	new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),icon));
-	//Finalmente añadimos la capa de marcadores al mapa principal, se ubica addLayers cuando interactuamos con más de una capa	
-	map.addLayers([osmLayer,marcador]);
-	
-	//Mediante marcador.events.register 'mousedown', indicamos que capture el evento de click sobre cualquiera de los marcadores ubicados en la capa marcador.
-	marcador.events.register('mousedown', marcador, function(evt) {
-	//$('#id_pac').val(lon2);
-	//$('#dialogotrabajocampo').dialog('open');
-	//map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
-		//new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa
-		//null,//Tamaño de la ventana emergente
-		//"<table width='200' border='1'><tr><td>Hola</td></tr></table>",//Contenido HTML
-		//null,
-		//true/*Esto nos indica que se mostrará una X en el popup para cerrarse*/));
-	});
-	marcador(lon2, lat2, 2, 0);
-	}
-	
 }
 
 /*Muestra Información en los popup*/
-function recibe(longitud,latitud,nombre,apellido,enfermedad,caso,fecha_registro,direccion,referencia,te1,te2,ima)
+function recibe(longitud,latitud,nombre,apellido,enfermedad,caso,fecha_registro,direccion,referencia,te1,te2,ima,prioridad)
 {
 	center=new OpenLayers.LonLat(longitud,latitud).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));//se transforma las coordenas a wgs84
 	map.setCenter(center, 13);//se centra el mapa y se aplica un zoom de 16
@@ -296,7 +274,7 @@ function recibe(longitud,latitud,nombre,apellido,enfermedad,caso,fecha_registro,
 	map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
 		new OpenLayers.LonLat(longitud,latitud).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa
 		null,//Tamaño de la ventana emergente
-		"<table class='tablapopup'><tr><td align='center' colspan='2' style='font-weight:bold; background-color:#036; color:#FFF;'>Información de Paciente</td></tr><tr><td style='font-weight:bold;'>Paciente:</td><td>"+nombre+" "+apellido+"</td></tr><tr><td style='font-weight:bold;'>Enfermedad:</td><td>"+enfermedad+"</td></tr><tr><td style='font-weight:bold;'>Tipo de caso:</td><td>"+caso+"</td></tr><tr><td style='font-weight:bold;'>Fecha de registro:</td><td>"+fecha_registro+"</td></tr><tr><td style='font-weight:bold;'>Dirección domicilio:</td><td>"+direccion+"</td></tr><tr><td style='font-weight:bold;'>Referencia domicilio:</td><td>"+referencia+"</td></tr><tr><td style='font-weight:bold;'>Teléfono 1:</td><td>"+te1+"</td></tr><tr><td style='font-weight:bold;'>Teléfono 2:</td><td>"+te2+"</td></tr></table>",//Contenido HTML
+		"<table class='tablapopup'><tr><td align='center' colspan='2' style='font-weight:bold; background-color:#036; color:#FFF;'>Información de Paciente</td></tr><tr><td style='font-weight:bold;'>Paciente:</td><td>"+nombre+" "+apellido+"</td></tr><tr><td style='font-weight:bold;'>Enfermedad:</td><td>"+enfermedad+"</td></tr><tr><td style='font-weight:bold;'>Tipo de caso:</td><td>"+caso+"</td></tr><tr><td style='font-weight:bold;'>Fecha de registro:</td><td>"+fecha_registro+"</td></tr><tr><td style='font-weight:bold;'>Dirección domicilio:</td><td>"+direccion+"</td></tr><tr><td style='font-weight:bold;'>Referencia domicilio:</td><td>"+referencia+"</td></tr><tr><td style='font-weight:bold;'>Teléfono 1:</td><td>"+te1+"</td></tr><tr><td style='font-weight:bold;'>Teléfono 2:</td><td>"+te2+"</td></tr><tr><td style='font-weight:bold;'>Prioridad:</td><td>"+prioridad+"</td></tr></table>",//Contenido HTML
 		null,
 		true/*Esto nos indica que se mostrará una X en el popup para cerrarse*/));
 	});
@@ -340,8 +318,14 @@ function trabajo_campo(longitud_caso,latitud_caso,id_pac)
 }
 
 //FUNCIÓN QUE PERMITE DIBUJAR LA RUTA
-function drawLine() { 
-	location.href="../mapa3.php?varlon="+ longitud_enviar + "&tipo=A&varlat="+latitud_enviar+"&lon="+lon2+"&lat="+lat2;	
+function drawLine(valor) { 
+	
+	if(valor == 1)//opcion para presentar el mapa de vigilante
+		location.href="../mapa_vigilante.php?varlon="+ longitud_enviar + "&tipo=A&varlat="+latitud_enviar+"&lon="+lon2+"&lat="+lat2;	
+	if(valor == 2)//opcion para presentar el mapa de vigilante
+		location.href="../mapa3.php?varlon="+ longitud_enviar + "&tipo=A&varlat="+latitud_enviar+"&lon="+lon2+"&lat="+lat2;	
+	if(valor == 3)//opcion para presentar el mapa de vigilante
+		location.href="../mapa_estadistica.php?varlon="+ longitud_enviar + "&tipo=A&varlat="+latitud_enviar+"&lon="+lon2+"&lat="+lat2;	
 }
 
 //Funcion para editar el perfil
@@ -350,6 +334,10 @@ function editar_perfil()
 	$('#dialogoperfil').dialog('open');
 }
 
+function barrios()
+{
+	alert('hola');
+}
 </script>
 
 <script language="javascript">
@@ -364,14 +352,14 @@ $(document).ready(function(e) {
 		autoOpen:false,
 		modal:true,
 		width:350,
-		height:750
+		height:650
 	});
 	/*Dialogo para editar perfil*/
 	$('#dialogoperfil').dialog({
 		autoOpen:false,
 		modal:true,
-		width:690,
-		height:560
+		width:790,
+		height:510
 	});
 	$('#bt_guardar').click(function(e) {
 		var ruta = "../../Contralador/Cgeoreferenciacion.php";	
@@ -388,3 +376,30 @@ $(document).ready(function(e) {
     });
 });
 </script>
+<script language="javascript">
+$(document).ready(function(){
+	$("select[name=barrio]").change(function(){
+	var cordenadas=$('select[name=barrio]').val();
+	var ss = cordenadas.split(",");
+	buscar(ss[0],ss[1]);
+	})
+});
+</script>
+
+<div id="barriosflotante">
+        	<table class="tablabarrios" width="100%">
+            <tr>
+            	<td align="center" style="background-color:#036; color:#FFF;">Barrios del Cantón Santa Rosa</td>
+            </tr>
+            	<tr>
+                	<td align="center">
+                    	<select name="barrio" style="width:100%">
+                        	<option value="" selected="selected">Seleccione un barrio</option>
+                        <?php do{?>
+                            <option value="<?php echo $barrios['lon_bar']?>,<?php echo $barrios['lat_bar']?>"><?php echo $barrios['nom_bar']?></option>
+                        <?php }while($barrios=mysqli_fetch_assoc($rs_barrios));?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+    </div>

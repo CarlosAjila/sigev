@@ -31,18 +31,20 @@ class clslocalizacion{
 	//Función para buscar usuarios
 	public function buscar(){
 		$objDatos = new clsDatos();
-		$sql="SELECT localizacion.nom_loc AS parroquia, localizacion.id_loc, localizacion.cpa_loc AS cod_parroquia, 
+		$sql="SELECT localizacion.nom_loc AS barrio, localizacion.id_loc, localizacion.cpa_loc AS cod_barrio, 
+(SELECT localizacion.nom_loc FROM localizacion WHERE localizacion.id_loc=cod_barrio) AS parroquia,
+(SELECT localizacion.cpa_loc FROM localizacion WHERE localizacion.id_loc=cod_barrio) AS cod_parroquia,
 (SELECT localizacion.nom_loc FROM localizacion WHERE localizacion.id_loc=cod_parroquia) AS canton,
 (SELECT localizacion.cpa_loc FROM localizacion WHERE localizacion.id_loc=cod_parroquia) AS cod_canton,
 (SELECT localizacion.nom_loc FROM localizacion WHERE localizacion.id_loc=cod_canton) AS provincia,
 (SELECT localizacion.cpa_loc FROM localizacion WHERE localizacion.id_loc=cod_canton) AS cod_provincia,
 (SELECT localizacion.nom_loc FROM localizacion WHERE localizacion.id_loc=cod_provincia) AS pais
 FROM localizacion
-WHERE nom_loc LIKE '%$this->nom_loc%' AND tip_loc='parroquia'";
+WHERE nom_loc LIKE '%$this->nom_loc%' AND tip_loc='barrio'";
 		$datos_desordenados = $objDatos->consulta($sql);
 		while($columna = $objDatos->arreglos($datos_desordenados))
 		{
-			$this->arreglo [] = array("value"=>'Parroquia:'.$columna['parroquia'].' Canton:'.$columna['canton'],
+			$this->arreglo [] = array("value"=>'Barrio:'.$columna['barrio'].' Parroquia:'.$columna['parroquia'].' Cantón:'.$columna['canton'].' Provincia:'.$columna['provincia'],
 									  "id_loc"=>$columna['id_loc']);
 		}
 		return($this->arreglo);
