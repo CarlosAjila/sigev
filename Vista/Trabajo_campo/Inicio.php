@@ -1,3 +1,8 @@
+<?php
+//initialize the session		
+	session_start();		
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -29,10 +34,12 @@
 
 <script language="javascript" type="text/javascript" src="../../Validaciones/Validacion.js"></script>
 
+<?php include("../../Contralador/mapa.php"); ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#flotante').load('../../Contralador/Clista_paciente.php');
+				
 	});
 		
 	$(function(){
@@ -53,20 +60,38 @@
 						$('#ruta_imagen').val(respuesta.ruta);
 						$('#imagen').attr('src','../'+respuesta.ruta);
 						
-					}
-					
-			});									
-		});	
-	});
+					}					
+			});																		
+		});		
 	
+	});
 </script>
 
-<?php include("../../Contralador/mapa.php"); ?>
+<script>
+$(document).ready(function() {
+	$(function(){
+	 	$("input[name='file']").on('change', function(){	
+			var id_paciente = window.document.FormTrabajoCampo.id_pac.value;		             			
+			alert(id_paciente);
+			$.ajax({
+				type: 'POST',
+				url: '../../Contralador/CTrabajoCampoNombre.php',
+				data: 'id=' +id_paciente,
+				success: function (datos) {
+					$('#nombre').html(datos);
+					return false;
+				}	
+			});
+		});
+	});
+});
+</script>
+﻿
 
-﻿<script language="javascript">
+<script language="javascript">
 $(document).ready(function(){
 	$('#btguardar').click(function() {
-		
+				
 		var isNotOk;
 		var num=window.document.FormTrabajoCampo.num_personas.value;
 		if(num=="")
@@ -118,12 +143,10 @@ $(document).ready(function(){
 			});
 		}
 	});
-	
-	
 });
+	
+	
 </script>
-
-
 
 <style type="text/css">
 <!--
@@ -149,27 +172,27 @@ $(document).ready(function(){
 </head>
 
 <body onload="init()">
-	
+		
 <div id="contenedor">
   <header>
-		<div>
+		<div >
             <h1><img src="../../imagenes/lbanner-05.png" class="logo" /></h1>
             <input type="checkbox" id="menu-bar" />
             <label class="icon-menu" for="menu-bar"></label>
              
+           
             <nav class="menu">
                 <a href="#" style="font-size:18px;" class="icon-inicio">Inicio</a>
-                <a href="../Usuario/Listar.php" style="font-size:18px;" class="icon-iniciar-sesion">Usuarios</a>
+                <a href="Listar.php" target="_new" >Trabajos de Campo</a>
                 <a href="#" onclick="ubicacion()" style="font-size:18px;">Ubicacion</a>
-                <a href="#" onclick="nuevo_paciente(1)" style="font-size:18px;">Registrar Paciente</a>
                 <a href="#" onclick="nuevo_marcador(1)" style="font-size:18px;">Punto de partida</a>
-                <a href="#" onclick="buscar()" style="font-size:18px;">Destino</a>
-                <a href="#" onclick="drawLine()" style="font-size:18px;">Ruta</a>
+                <a href="#" onclick="drawLine(1)" style="font-size:18px;">Ruta</a>
+                <a href="#" onclick="cerrar_sesion()" style="font-size:18px;" >Cerrar Sesión</a>                
             </nav>
         </div>
     </header>
 	<div id="map"> 
-	</div>
+</div>
     
     <div id="dialogoformulario" title="Registro de Pacientes" style="display:none;">
         <form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormRegistroP" id="FormRegistroP" enctype="multipart/form-data">
@@ -178,36 +201,44 @@ $(document).ready(function(){
             <input type="button" name="bt_guardar" id="bt_guardar" value="Guardar" />
             <input type="hidden" name="save_paciente" id="save_paciente" value="save_paciente" />
         </form>
-    </div>     
-    <div id="dialogotrabajocampo">
-    	<form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormTrabajoCampo" id="FormTrabajoCampo" enctype="multipart/form-data">
-        	<table  class="contenedor">
-            	<tr>
-        			<td colspan="2" align="center">
-            			<img id="fotoPerfil" src="../../imagenes/fotoperfil.jpg" class="bordefoto" />
-            			<input type="hidden" id="ruta_imagen" name="ruta_imagen" value="" />
-            		</td>
+    </div>
+    <div id="dialogotrabajocampo">         
+    	<form method="POST"  name="FormTrabajoCampo" id="FormTrabajoCampo" enctype="multipart/form-data">
+        <?php    
+         	/*if(!isset($_SESSION['nus_usu']))
+			{	
+				echo "<script language=\"javascript\">
+				location=\"../../acceso_denegado.php\";</script>";
+			}*/
+			
+		?>
+            
+            
+        <input type="hidden" id="save_trabajo_campo" name="save_trabajo_campo" value="save_trabajo_campo" />
+            <table class="tablaflotante" >            	       			
+        		<tr>	
+                	
+                	<td colspan="2" align="center">
+                          
+                           <input type="hidden" id="ruta_imagen" name="ruta_imagen" value="../imagenes/sin-imagen.jpg" />
+                           <img id ="imagen" src="../../imagenes/sin-imagen.jpg" />
+                           <input type="file"  name="file" > 
+                           <div id="respuesta">
+                           </div>  
+                    </td>
+                                              
+                                                                            	
         		</tr>
-        		<tr>
-        			<td colspan="2" align="center">
-            			<img id="load" src="../../imagenes/load.gif" class="imagenno">
-						<span id="status"></span>
-            		</td>
-        		</tr>
-        		<tr>
-        			<td colspan="2" align="center">
-            			<input type="button" id="btimagen" value="Cargar Imagen" />
-                        
-            		</td>
-        		</tr>
-                <tr >
-                	<td colspan ="2">
-                		<input type="text" name="id_pac" id="id_pac" disabled="disabled" size="2"/>
-                        <input type="text" name="nom_paciente" id="nom_paciente" disabled="disabled"/>
-                    
-                    </td>                                                                               	
-                   
+                
+                
+                <tr>
+                	<td><input type="text" name="id_pac" id="id_pac" readonly="readonly" size="2"/></td>                    
+                   	<td>
+                    	<input type="hidden" name="nombre_paciente" id="nombre_paciente" value="ok"/>                       
+                    	<div id = "nombre"> </div>
+                   	</td> 
                 </tr>
+                                                               
                 <tr>
                 	<td align="left"><strong>Número de Personas:</strong></td>
                 	<td>
@@ -223,9 +254,9 @@ $(document).ready(function(){
                  	<td align="left"><strong>Tipo de Criadero:</strong></td>
                 	<td>
                     	<select name="tipo_criadero"id="tipo_criadero">
-                    		<option>Aedes</option>
-                            <option>Cules</option>
-                            <option>Anofeles</option>
+                    		<option>AEDES</option>
+                            <option>CULES</option>
+                            <option>ANOFELES</option>
                         </select>
                         
                     </td>
@@ -253,7 +284,7 @@ $(document).ready(function(){
                 	<td align="left"><strong>Tipo de Máquina:</strong></td>
                 	<td>
                     	<select name="tipo_maquina"id="tipo_maquina">
-                    		<option>MÁQUINA ULV</option>
+                    		<option>MAQUINA ULV</option>
                             <option>MOTO MOCHILA</option>                           
                         </select>
                         
@@ -295,7 +326,7 @@ $(document).ready(function(){
                 </tr>                
                  <tr>
                 	<td colspan="2" align="center">                    
-                    	<input type="button" name="btguardar" id="btguardar" value="Guardar Datos" onclick="guardar_datos()" />                        
+                    	<input type="button" name="btguardar" id="btguardar" value="Guardar Datos" />                        
                         
                     </td>
                 </tr>
@@ -303,13 +334,15 @@ $(document).ready(function(){
             </table>
             <p align="center" class="Estilo6">Todos los campos son Obligatorios (*)</p>
         </form>
-      
+    
     </div>
     <div id="ruta">
     </div>
     <div id="flotante">
-    	
-    </div>
-</div>
+    
+    </div> 	          							
+   
 </body>
 </html>
+
+		         

@@ -44,6 +44,14 @@ if(isset($_POST['txtusuario']) && isset($_POST['txtpassword']))
 			</script>
 		<?php
 		}
+		else if($arreglo[0]['pno_per']!="" && $arreglo[0]['id_car']==3)
+		{
+			?>
+			<script type="text/javascript">
+				window.location="../Vista/Trabajo_campo/Inicio.php";
+			</script>
+		<?php
+		}
 	}
 	else
 	{?>

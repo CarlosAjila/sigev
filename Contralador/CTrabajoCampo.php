@@ -3,21 +3,8 @@ require_once("../Modelo/clsTrabajo_campo.php");
 require_once("../Modelo/clsFichaPaciente.php");
 
 if(isset($_POST['save_trabajo_campo']))
-{		
-	//sleep(3);
-	$archivo="";
-	//proceso para insertar foto   
-				
-	
-		
-		$file=$_POST['ruta_imagen'];			   
-		
-		//$ruta_provisional=$file['tmp_name'];
-		//copy($_FILES['file']['tmp_name'], $archivo);				
-		
-		//$mensaje="VALOR DEL ARHIVO ".$file;
-		//$salidaJson = array("mensaje" => $mensaje);
-		//echo json_encode($salidaJson);
+{							
+		$file=$_POST['ruta_imagen'];	//carga la ruta de la imagen		   			
 		
 		/*Datos del Trabajo Campo*/
 		$id_paciente=$_POST['id_pac'];  // clave primaria del paciente
@@ -29,8 +16,7 @@ if(isset($_POST['save_trabajo_campo']))
 		$t_quimico=$_POST['tipo_quimico'];
 		$c_quimico=$_POST['cant_quimico'];
 		$criterio=$_POST['criterio_tecnico'];
-		//$archivo=$_POST['Foto'];
-			
+		
 		//Inserta en la tabla Trabajo campo
 		$objtrabajo_campo=new clsTrabajo_campo($n_personas,$t_criadero,$sector,$obs,$t_maquina,$t_quimico,$c_quimico,$criterio,"A",$file);
 		$id_trabajo_campo = $objtrabajo_campo->insertar();

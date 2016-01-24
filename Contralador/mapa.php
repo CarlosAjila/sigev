@@ -340,14 +340,29 @@ function trabajo_campo(longitud_caso,latitud_caso,id_pac)
 }
 
 //FUNCIÓN QUE PERMITE DIBUJAR LA RUTA
-function drawLine() { 
-	location.href="../mapa3.php?varlon="+ longitud_enviar + "&tipo=A&varlat="+latitud_enviar+"&lon="+lon2+"&lat="+lat2;	
+function drawLine(valor) { 
+	
+	if (valor == 1)
+			location.href="../mapa_vigilante.php?varlon="+ longitud_enviar + "&tipo=A&varlat="+latitud_enviar+"&lon="+lon2+"&lat="+lat2;	
+	if (valor == 2) 
+			location.href="../mapa3.php?varlon="+ longitud_enviar + "&tipo=A&varlat="+latitud_enviar+"&lon="+lon2+"&lat="+lat2;	
 }
 
 //Funcion para editar el perfil
 function editar_perfil()
 {
 	$('#dialogoperfil').dialog('open');
+}
+
+
+//funcion cerra sesion
+function cerrar_sesion(){
+					
+		<?php
+			session_destroy();
+			echo "location.href='../../Inicio.php'";
+		?>
+		
 }
 
 </script>
