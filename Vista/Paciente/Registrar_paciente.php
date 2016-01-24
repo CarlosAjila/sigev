@@ -327,6 +327,12 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
             $('#txtexpac').val(seleccion);
         });
     });
+    $(document).on('ready', function () {
+        $('#cbofipac').change(function () {
+            var seleccion = $('#cbofipac option:selected').text();
+            $('#txtofipac').val(seleccion);
+        });
+    });
 </script>
 
 <form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormRegistroPaciente" id="FormRegistroPaciente" enctype="multipart/form-data">
@@ -375,7 +381,7 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
                 <select name="cbExpac" id="cbExpac" >
                     <option value="" selected>Lugar donde se realizó el exámen</option>
                     <option value="Laboratorio">Laboratorio</option>
-                    <option value="Clinica">Clinica</option>
+                    <option value="Clínica">Clinica</option>
                     <option value="Hospital">Hospital</option>
                     <option value="Subcentro de salud">Subcentro de salud</option>
                     <option value="Centro Particula">Centro Particula</option>
@@ -407,12 +413,12 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
             <td style="padding:2px;">
                 <!--<input type="text" name="txtofipac" id="txtofipac" placeholder="Ocupacion" style="border:1px solid #000; width:100%;" value=""/>-->
                 <select name="cbofipac" id="cbExpac" >
-                    <option value="" selected>Ocupacion</option>
-                    <option value="Docente">Laboratorio</option>
-                    <option value="Estudiante">Clinica</option>
-                    <option value="Ingeniero">Hospital</option>
-                    <option value="Médico">Subcentro de salud</option>
-                    <option value="Albañil">Centro Particula</option>
+                    <option value="" selected>Seleccione Ocupacion</option>
+                    <option value="Docente">Docente</option>
+                    <option value="Estudiante">Estudiante</option>
+                    <option value="Ingeniero">Ingeniero</option>
+                    <option value="Médico">Médico</option>
+                    <option value="Albañil">Albañil</option>
                     <option value="Otros">Otros</option>
                 </select>
                 <input type="hidden" name="txtofipac" id="txtofipac" value="" />

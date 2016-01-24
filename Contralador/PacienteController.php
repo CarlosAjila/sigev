@@ -72,6 +72,7 @@ if (isset($_POST['modificar_paciente'])) {
 //	$id_per=$_POST['id_per'];
 //	$cedula=$_POST['txtcedula'];
 //	$pnombre=$_POST['txtpnombre'];
+	
     $id_per=$_POST['id_per'];
     $id_loc = $_POST['id_loc'];
     $ced_per = $_POST['txtcedula'];
@@ -85,7 +86,8 @@ if (isset($_POST['modificar_paciente'])) {
     $sex_per = $_POST['sex_per'];
     $estado = "A";
 
-    echo $cedula . $pnombre . $id_per;
+//    echo $cedula . $pnombre . $id_per;
+//   $objpersona->modif_persona($cedula,$pnombre,$id_per);
     $objpersona->c_modificar_perfil_persona(
             $id_per, 
             $ced_per, 

@@ -334,10 +334,17 @@ function editar_perfil()
 	$('#dialogoperfil').dialog('open');
 }
 
-function barrios()
-{
-	alert('hola');
+
+//funcion cerra sesion
+function cerrar_sesion(){
+					
+		<?php
+			session_destroy();
+			echo "location.href='../../Inicio.php'";
+		?>
+		
 }
+
 </script>
 
 <script language="javascript">
