@@ -59,21 +59,22 @@ function validar_crear_periodo(form1)
 
 
 //función para validar la creación de usuario administrador
-function validar_crear_usuario(form_usuario)
+function validar_cedula(ced)
 {
+	
 	//Validar cédula
 	var isNotOk;
-	var cedu=window.document.form_usuario.cedula_Session.value;
+	alert(cedu);
 	if(cedu=="")
 	{
 		alert("Debe Ingresar Cédula")
-		document.form_usuario.cedula_Session.focus();
+		document.form_usuario.txtcedula.focus();
 		return false;
 		isNotOk=true;
 		
 	}
 	
-		var numero = window.document.form_usuario.cedula_Session.value;
+		var numero = window.document.form_usuario.txtcedula.value;
 		if(cedu!="")
 		{
 		var suma = 0;
@@ -89,7 +90,7 @@ function validar_crear_usuario(form_usuario)
 		var ok=1;
 		for (i=0; i; numeroProvincias){
 		alert("El c"+'\u00f3'+"digo de la provincia (dos primeros dígitos) es inv"+'\u00e1'+"lido"); 
-		document.form_usuario.cedula_Session.focus();
+		document.form_usuario.txtcedula.focus();
 		return false;
 		}
 		
@@ -112,7 +113,7 @@ function validar_crear_usuario(form_usuario)
 		
 		if (d3==7 || d3==8){
 		alert("El tercer d"+'\u00ed'+"gito ingresado es inv"+'\u00e1'+"lido");
-		document.form_usuario.cedula_Session.focus();
+		document.form_usuario.txtcedula.focus();
 		return false;
 		} 
 		
@@ -170,25 +171,25 @@ function validar_crear_usuario(form_usuario)
 		if (pub==true){
 		if (digitoVerificador != d9){
 		alert("El ruc de la empresa del sector p"+'\u00fa'+"blico es incorrecto.");
-		document.form_usuario.cedula_Session.focus();
+		document.form_usuario.txtcedula.focus();
 		return false;
 		}
 		/* El ruc de las empresas del sector publico terminan con 0001*/
 		if ( numero.substr(9,4) != '0001' ){
 		alert("El ruc de la empresa del sector p"+'\u00fa'+"blico debe terminar con 0001");
-		document.form_usuario.cedula_Session.focus();
+		document.form_usuario.txtcedula.focus();
 		return false;
 		}
 		}
 		else if(pri == true){
 		if (digitoVerificador != d10){
 		alert('El ruc de la empresa del sector privado es incorrecto.');
-		document.form_usuario.cedula_Session.focus();
+		document.form_usuario.txtcedula.focus();
 		return false;
 		}
 		if ( numero.substr(10,3) != '001' ){
 		alert('El ruc de la empresa del sector privado debe terminar con 001');
-		document.form_usuario.cedula_Session.focus();
+		document.form_usuario.txtcedula.focus();
 		return false;
 		}
 		} 
@@ -196,80 +197,27 @@ function validar_crear_usuario(form_usuario)
 		else if(nat == true){
 		if (digitoVerificador != d10){
 		alert("El n"+'\u00fa'+"mero de c"+'\u00e9'+"dula de la persona natural es incorrecto.");
-		document.form_usuario.cedula_Session.focus();
-		document.form_usuario.cedula_Session = "";
+		document.form_usuario.txtcedula.focus();
+		document.form_usuario.txtcedula = "";
 		return false;
 		isNotOk=true;
 		}
 		
 		if (numero.length >10 && numero.substr(10,3) != '001' ){
 		alert('El ruc de la persona natural debe terminar con 001');
-		document.form_usuario.cedula_Session.focus();
+		document.form_usuario.txtcedula.focus();
 		return false;
 		}
 		}
 		}
-	
-	//Validar usuario
-	var isNotOk;
-	var usu=window.document.form_usuario.Usuario.value;
-	if(usu=="")
-	{
-		alert("Debe Ingresar Usuario")
-		document.form_usuario.Usuario.focus();
-		return false;
-		isNotOk=true;
-		
-	}
-	
-	//Validar usuario
-	var isNotOk;
-	var nom=window.document.form_usuario.Nombre_Session.value;
-	if(nom=="")
-	{
-		alert("Debe Ingresar Nombre")
-		document.form_usuario.Nombre_Session.focus();
-		return false;
-		isNotOk=true;
-		
-	}
-	
-	//Validar usuario
-	var isNotOk;
-	var ape=window.document.form_usuario.Apellido_Sesion.value;
-	if(ape=="")
-	{
-		alert("Debe Ingresar Apellido")
-		document.form_usuario.Apellido_Sesion.focus();
-		return false;
-		isNotOk=true;
-		
-	}
-	
-	//Validar usuario
-	var isNotOk;
-	var cla=window.document.form_usuario.Clave.value;
-	if(cla=="")
-	{
-		alert("Debe Ingresar Clave")
-		document.form_usuario.Clave.focus();
-		return false;
-		isNotOk=true;
-		
-	}
 	
 	if(isNotOk)
 	{
 		return false;
 	}
-	else
-	{
-    	alert("Usuario Creado Correctamente!!");
-		document.getElementById('form_usuario').submit(); 
-	}
-
-
 }
+
+
 
 
 

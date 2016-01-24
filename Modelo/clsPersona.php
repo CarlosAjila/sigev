@@ -146,7 +146,6 @@ class clsPersona {
         $objDatos->crerrarconexion();
     }
 
-
     //Listar personas
     public function listar_persona($letra) {
         $objDatos = new clsDatos();
@@ -168,18 +167,47 @@ AND persona.id_per=usuario.id_per AND persona.id_loc=localizacion.id_loc AND per
         }
         return($this->arreglo);
     }
-	
-	/*Jose ambuludi*/
-	//Funcion para editar perfil de los campos persona
-	public function editar_perfil_persona($id_per,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$te1_per,$te2_per,$fna_per)
-	{
-		$objDatos = new clsDatos();
-		$sql = "UPDATE persona SET ced_per='$ced_per', pno_per='$pno_per', sno_per='$sno_per', apa_per='$apa_per', ama_per='$ama_per', 
-				te1_per='$te1_per', te2_per='$te2_per', fna_per='$fna_per' 
+
+    /* Jose ambuludi */
+
+    //Funcion para editar perfil de los campos persona
+    public function editar_perfil_persona($id_per, $ced_per, $pno_per, $sno_per, $apa_per, $ama_per, $te1_per, $te2_per, $fna_per, $id_loc) {
+        $objDatos = new clsDatos();
+        $sql = "UPDATE persona SET ced_per='$ced_per', pno_per='$pno_per', sno_per='$sno_per', apa_per='$apa_per', ama_per='$ama_per', 
+				te1_per='$te1_per', te2_per='$te2_per', fna_per='$fna_per', id_loc='$id_loc' 
 				WHERE persona.id_per='$id_per'";
-		$objDatos->ejecutar($sql);
-		$objDatos->crerrarconexion();
-	}
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+    }
+
+    //    METODOS CARLOS AJILA
+    //Modificar datos de persona
+//    public function c_modificar_persona(
+//    $id_per, $id_loc, $ced_per, $pno_per, $sno_per, $apa_per, $ama_per, $fna_per, $te1_per, $te2_per, $sex_per, $est_per) {
+//        $objDatos = new clsDatos();
+//        $sql = "UPDATE persona SET est_per='$est_per' WHERE id_per='$id_per'";
+//        echo $sql;
+//        $objDatos->ejecutar($sql);
+//        $objDatos->crerrarconexion();
+//    }
+    public function c_modificar_perfil_persona($id_per, $ced_per, $pno_per, $sno_per, $apa_per, $ama_per, $te1_per, $te2_per, $fna_per, $id_loc) {
+        $objDatos = new clsDatos();
+        $sql = "UPDATE persona SET ced_per='$ced_per', pno_per='$pno_per', sno_per='$sno_per', apa_per='$apa_per', ama_per='$ama_per', 
+				te1_per='$te1_per', te2_per='$te2_per', fna_per='$fna_per', id_loc='$id_loc' 
+				WHERE persona.id_per='$id_per'";
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+    }
+
+    //modificar prueba persona
+	public function modif_persona($ced_per,$pno_per,$id_per)
+	{
+        $objDatos = new clsDatos();
+        $sql = "UPDATE persona SET ced_per='$ced_per', pno_per='$pno_per' WHERE id_per='$id_per'";
+        echo $sql;
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+    }
 
 }
 

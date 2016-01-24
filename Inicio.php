@@ -8,6 +8,13 @@
 <title>SIGEV</title>
 </head>
 
+<script language="javascript">
+$(document).ready(function(){
+	$('#txtnusuario').val('');
+	$('#txtpass').val('');
+});
+</script>
+
 <body class="imagenfondo">
 <div id="diviniciosesion">
 	<form method="POST" name="FormInicioSesion" id="FormInicioSesion" action="Contralador/Cvalidar_usuario.php" enctype="multipart/form-data"> 

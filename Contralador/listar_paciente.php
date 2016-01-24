@@ -30,6 +30,8 @@ do {
 				<td>' . $arre[$i]['sex_per'] . '</td>
                                 <td><input type="hidden" name="hd_idper' . $i . '" id="hd_idper' . $i . '" value="' . $arre[$i]["id_per"] . '"/><a href="javascript:eliminarPaciente(' . $arre[$i]['id_per'] . ');">Eliminar</a></td>
                                 <td><input type="hidden" name="hd_idper' . $i . '" id="hd_idper' . $i . '" value="' . $arre[$i]["id_per"] . '"/><a href="javascript:c_modificarPaciente(' . $arre[$i]['id_per'].');">Modificar</a></td>
+                                <td><input type="hidden" name="Cod_Per" id="Cod_Per" value="'.$arre[$i]["id_per"] . '"/></td>
+                                    
 		 	</tr>';
     $i++;
     $contador++;

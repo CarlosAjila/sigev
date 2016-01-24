@@ -55,6 +55,7 @@ if(isset($_POST['editar_perfil']))
 	$ama_per=$_POST['txtamaterno'];
 	$te1_per=$_POST['txtte1'];
 	$te2_per=$_POST['txtte2'];
+	$id_loc=$_POST['id_loc'];
 	/*Datos de usuario*/
 	$fot_usu=$_POST['ruta_imagen'];
 	$id_usu=$_POST['id_usu'];
@@ -63,14 +64,14 @@ if(isset($_POST['editar_perfil']))
 	$con_usu=$_POST['txtpass'];
 	
 	$objpersona=new clsPersona("","","","","","","","","","","");
-	$objpersona->editar_perfil_persona($id_per,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$te1_per,$te2_per,$fna_per);
+	$objpersona->editar_perfil_persona($id_per,$ced_per,$pno_per,$sno_per,$apa_per,$ama_per,$te1_per,$te2_per,$fna_per,$id_loc);
 	//$objpersona->editar_perfil_persona('7','0705212968','CCarlos','Alberto','Ajila','Moreira','2944787','0990325687','2012-01-16');
 	
 	$objusuario=new clsUsuario("","","","","","","","");
 	$objusuario->editar_perfil_usuario($id_usu,$ema_usu,$nus_usu,$con_usu,$fot_usu);
 	//$objusuario->editar_perfil_usuario('7','karlos@gmail.com','Carlos','123456');
 	
-	$mensaje="Cuenta de usuario editada con éxito";
+	$mensaje="Cuenta de usuario editada con éxito. Para que se adjudiquen los cambios debe cerrar sesión";
 	$salidaJson = array("mensaje" => $mensaje);
 	echo json_encode($salidaJson);
 }

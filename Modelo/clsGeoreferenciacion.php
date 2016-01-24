@@ -59,7 +59,7 @@ class clsGeoreferenciacion {
     public function insertar($lat_geo,$lon_geo) {
         $id_geo="";
         $objDatos = new clsDatos();
-        $sql = "INSERT INTO georeferenciacion (lat_geo, lon_geo) VALUES ('$lat_geo','$lon_geo')";
+        $sql = "INSERT INTO georeferenciacion (lat_geo, lon_geo) VALUES ('$lon_geo','$lat_geo')";
         $id_geo=$objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
         return $id_geo;

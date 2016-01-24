@@ -17,9 +17,11 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script> 
 <!--Librerias para el uso de Jquery 1.11.3-->
+<link type="text/css" rel="stylesheet" href="../../Vista/css/estilo.css" />
 <link rel="stylesheet" type="text/css" href="../../jquery-ui-1.10.4.custom/css/smoothness/jquery-ui-1.10.4.custom.css" />
 <script src="../../jquery-1.11.3/jquery-1.11.3.js"></script>
 <script src="../../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+<script src="../../Validaciones/Validacion.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -41,10 +43,11 @@
             <nav class="menu">
                 <a href="#" style="font-size:18px;" class="icon-inicio">Inicio</a>
                 <a href="../Paciente/Listar.php" style="font-size:18px;" class="icon-iniciar-sesion">Paciente</a>
+                <a href="../Paciente/Reporte_lista_caso_paciente.php" style="font-size:18px;" class="icon-iniciar-sesion">Reportes</a>
                 <a href="#" onclick="ubicacion()" style="font-size:18px;">Ubicacion</a>
                 <a href="#" onclick="nuevo_paciente(1)" style="font-size:18px;">Registrar Paciente</a>
                 <a href="#" onclick="nuevo_marcador(1)" style="font-size:18px;">Punto de partida</a>
-                <a href="#" onclick="drawLine()" style="font-size:18px;">Ruta</a>
+                <a href="#" onclick="drawLine(3)" style="font-size:18px;">Ruta</a>
             </nav>
         </div>
     </header>

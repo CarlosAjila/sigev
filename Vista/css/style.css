@@ -1,0 +1,161 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color:#fff;
+
+    font-family:Arial, Helvetica, sans-serif;
+    color: #000;
+    font-size: 12px;
+}
+
+fieldset {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border: 1px solid #999;
+}
+fieldset ul {
+    margin:0px;
+    padding:0px;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+fieldset ul li {
+    display: table-cell;
+    list-style: none;
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    text-align: center;
+    vertical-align:middle;
+    border-radius: 5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border: 1px solid #999;
+    border: 1px solid #ccc;
+}
+
+label, input { cursor: pointer;}
+
+legend {
+    font-weight: bold;
+    text-transform:uppercase;
+    padding: 0px 10px;
+}
+
+
+/***** check-box *****/
+
+/* estilo 01 */
+input[type=checkbox].check_01 {display: none;}
+input[type=checkbox].check_01 + label { 
+    background: #fff; 
+    display: inline-block; 
+    width: 82px; 
+    height: 24px; 
+    background: url(../../Vista/css/img/check_01.png) 0px 0px no-repeat; 
+    text-indent: -1000em; 
+}
+
+input[type=checkbox].check_01:checked + label { background: url(../../Vista/css/img/check_01.png) 0px -24px no-repeat;}
+
+/* estilo 02 */
+li.check_02 { width: auto;}
+li.check_02 br { margin-bottom: 10px;}
+label.check_02 { float: left; font-weight: bold; padding-right: 10px;}
+input[type=checkbox].check_02 {display: none;}
+input[type=checkbox].check_02 + label { 
+    background: #fff; 
+    display: inline-block; 
+    width: 16px; 
+    height: 16px; 
+    background: url(../../Vista/css/img/check_02.png) 0px 0px no-repeat; 
+    text-indent: -1000em; 
+}
+
+input[type=checkbox].check_02:checked + label { background: url(../../Vista/css/img/check_02.png) 0px -16px no-repeat;}
+
+/* estilo 03 */
+input[type=checkbox].check_03 {display: none;}
+input[type=checkbox].check_03 + label { 
+    background: #fff; 
+    display: inline-block; 
+    width: 160px; 
+    height: 45px; 
+    background: url(../../Vista/css/img/check_03.png) 0px 0px no-repeat; 
+    text-indent: -1000em; 
+}
+
+input[type=checkbox].check_03:checked + label { background: url(../../Vista/css/img/check_03.png) 0px -45px no-repeat;}
+
+
+/***** radio-box *****/
+
+/* radio-box grupo 01*/
+/*li.radio_01 { width: auto;}
+
+li.radio_01 input[type=radio] { display: none;}
+li.radio_01 input[type=radio] + label { 
+        color: #000; 
+        display: block; 
+        float: left;
+        width: auto; 
+        height: 58px;
+        text-indent: -1000em;
+}
+
+li.radio_01 input[type=radio].primero + label 			{ background: url(../../Vista/css/img/radio_01.png) 0px 0px no-repeat; width: 185px; }
+li.radio_01 input[type=radio].primero:checked + label 	{ background: url(../../Vista/css/img/radio_01.png) 0px -58px no-repeat; }
+
+li.radio_01 input[type=radio].ultimo + label 			{ background: url(../../Vista/css/img/radio_01.png) 100% 0px no-repeat; width: 189px; }
+li.radio_01 input[type=radio].ultimo:checked + label 	{ background: url(../../Vista/css/img/radio_01.png) 100% -58px no-repeat; }
+
+ radio-box grupo 02
+li.radio_02 { width: auto;}
+
+li.radio_02 label { float: left; font-weight: bold; padding-right: 10px;}
+li.radio_02 input[type=radio] { display: none;}
+li.radio_02 input[type=radio] + label { 
+        color: #000; 
+        display: block; 
+        float: left;
+        width: 16px; 
+        height: 16px;
+        text-indent: -1000em;
+}
+
+li.radio_02 input[type=radio] + label 			{ background: url(../../Vista/css/img/radio_02.png) 0px 0px no-repeat;}
+li.radio_02 input[type=radio]:checked + label 	{ background: url(../../Vista/css/img/radio_02.png) 0px -16px no-repeat;}
+
+ radio-box grupo 03
+li.radio_03 { width: auto; background: #333;}
+
+li.radio_03 input[type=radio] { display: none;}
+li.radio_03 input[type=radio] + label { 
+        color: #000; 
+        display: block; 
+        float: left;
+        height: 38px;
+        width: 46px;
+        text-indent: -1000em;
+}*/
+
+/*li.radio_03 input[type=radio].check_01 + label 			{ background: url(../../Vista/css/img/radio_03.png) 0px 0px no-repeat;}
+li.radio_03 input[type=radio].check_01:checked + label 	{ background: url(../../Vista/css/img/radio_03.png) 0px -38px no-repeat;}
+
+li.radio_03 input[type=radio].check_02 + label 			{ background: url(../../Vista/css/img/radio_03.png) -46px 0px no-repeat;}
+li.radio_03 input[type=radio].check_02:checked + label 	{ background: url(../../Vista/css/img/radio_03.png) -46px -38px no-repeat;}
+
+li.radio_03 input[type=radio].check_03 + label 			{ background: url(../../Vista/css/img/radio_03.png) -92px 0px no-repeat;}
+li.radio_03 input[type=radio].check_03:checked + label 	{ background: url(../../Vista/css/img/radio_03.png) -92px -38px no-repeat;}
+
+li.radio_03 input[type=radio].check_04 + label 			{ background: url(../../Vista/css/img/radio_03.png) -138px 0px no-repeat;}
+li.radio_03 input[type=radio].check_04:checked + label 	{ background: url(../../Vista/css/img/radio_03.png) -138px -38px no-repeat;}
+
+li.radio_03 input[type=radio].check_05 + label 			{ background: url(../../Vista/css/img/radio_03.png) -184px 0px no-repeat;}
+li.radio_03 input[type=radio].check_05:checked + label 	{ background: url(../../Vista/css/img/radio_03.png) -184px -38px no-repeat;}*/

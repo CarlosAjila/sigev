@@ -15,7 +15,8 @@ $arreglo_pacientes=$objpaciente->listar_paciente();
 //<a href='javascript:trabajo_campo(".$arreglo_pacientes[$i]['longitud'].",".$arreglo_pacientes[$i]['latitud'].",".$arreglo_pacientes[$i]['id_pac'].",\".$arreglo_pacientes[$i]['id_pac'].\");'>Trabajo</a>
 $i=0;
 
-echo "<table class='tablaflotante'>
+echo "<div style='overflow:auto; height:150px; width:100%;'>
+		<table class='tablaflotante'>
 	  <tr>
 		  <td colspan='3' align='center' style='background-color:#036; color:#FFF; font-weight:bold;'>Lista de Casos</td>
 	  </tr>
@@ -33,5 +34,5 @@ echo "<table class='tablaflotante'>
 			 </tr>";
 		$i++;
 	}while($i<sizeof($arreglo_pacientes));
-echo "</table>";
+echo "</table></div>";
 ?>
