@@ -180,6 +180,29 @@ AND persona.id_per=usuario.id_per AND persona.id_loc=localizacion.id_loc AND per
         $objDatos->crerrarconexion();
     }
 
+	//Listar vigilantes
+    public function listar_visitadores($letra) {
+        $objDatos = new clsDatos();
+        $sql = "SELECT persona.id_per,ced_per,pno_per,sno_per,apa_per,ama_per,sex_per,nom_loc,id_usu,id_car,ffc_usu
+FROM persona,usuario,localizacion
+WHERE (pno_per LIKE '%$letra%' OR sno_per LIKE '%$letra%' OR apa_per LIKE '%$letra%' OR ama_per LIKE '%$letra%') 
+AND persona.id_per=usuario.id_per AND persona.id_loc=localizacion.id_loc AND usuario.id_car='3' AND persona.est_per='A'";
+        $datos_desordenados = $objDatos->consulta($sql);
+        while ($columna = $objDatos->arreglos($datos_desordenados)) {
+            $this->arreglo [] = array("id_per" => $columna['id_per'],
+                "ced_per" => $columna['ced_per'],
+                "nombre" => $columna['pno_per'] . " " . $columna['sno_per'],
+                "apellido" => $columna['apa_per'] . " " . $columna['ama_per'],
+                "sex_per" => $columna['sex_per'],
+                "nom_loc" => $columna['nom_loc'],
+                "id_usu" => $columna['id_usu'],
+                "id_car" => $columna['id_car'],
+                "ffc_usu" => $columna['ffc_usu']);
+        }
+        return($this->arreglo);
+    }
+	
+	
     //    METODOS CARLOS AJILA
     //Modificar datos de persona
 //    public function c_modificar_persona(

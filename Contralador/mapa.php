@@ -395,9 +395,9 @@ $(document).ready(function(){
                 <td align="center">
                     <select name="barrio" style="width:100%">
                         <option value="" selected="selected">Seleccione un barrio</option>
-                    <?php do{?>
+                    <?php while($barrios=mysqli_fetch_assoc($rs_barrios)){?>
                         <option value="<?php echo $barrios['lon_bar']?>,<?php echo $barrios['lat_bar']?>"><?php echo $barrios['nom_bar']?></option>
-                    <?php }while($barrios=mysqli_fetch_assoc($rs_barrios));?>
+                    <?php }?>
                     </select>
                 </td>
             </tr>

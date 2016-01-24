@@ -152,6 +152,22 @@ td
   -o-border-radius: 4px;
 
 }
+
+.imagenasignar
+{
+	background-image:url(../imagenes/asignar.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	width:50px;
+	height:55px;
+	cursor:pointer;
+	border:1px solid #000;
+	border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+
+}
 /*Fin de estilos para presentar usuario*/
 
 /*Estructura responsive*/

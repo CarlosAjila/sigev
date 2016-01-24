@@ -2,11 +2,6 @@
 require_once("../Modelo/clsPersona.php");
 require_once("../Modelo/clsUsuario.php");
 
-//$objpersona=new clsPersona("","","","","","","","","","","");
-//$objpersona->editar_perfil_persona('7','0705212968','Karlos','Alberto','Ajila','Moreira','2944787','0990325687','2012-01-16');
-	
-//$objusuario=new clsUsuario("","","","","","","","");
-//$objusuario->editar_perfil_usuario('7','karlos@gmail.com','Carlos','123456');
 $a=3;
 if(isset($_POST['save_usuario']))
 {

@@ -181,5 +181,14 @@ AND usuario.id_car=cargo.id_car AND persona.id_loc=localizacion.id_loc";
 		$objDatos->ejecutar($sql);
 		$objDatos->crerrarconexion();
 	}
+	
+	//Asignar casos a vigilantes
+	public function asignar_caso($id_pac,$id_usu,$tip_aca)
+	{
+		$objDatos = new clsDatos();
+		$sql = "INSERT INTO asigna_caso(id_pac,id_usu,tip_aca) VALUES('$id_pac','$id_usu','$tip_aca')";
+		$objDatos->ejecutar($sql);
+		$objDatos->crerrarconexion();
+	}
 }	
 ?>
