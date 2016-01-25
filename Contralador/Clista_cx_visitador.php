@@ -9,13 +9,14 @@ Versión: 0.1
 */
 require_once("../Modelo/clsPaciente.php");
 $objpaciente=new clsPaciente("","","","","","","","","","","","","");
+$id_usu=$_POST['id_usu'];
 //Obtencion del arreglo de pacientes
-$arreglo_pacientes=$objpaciente->listar_paciente();
+$arreglo_pacientes=$objpaciente->lista_casoos_x_visitador($id_usu);
 //variable para control del arreglo
-//<a href='javascript:trabajo_campo(".$arreglo_pacientes[$i]['longitud'].",".$arreglo_pacientes[$i]['latitud'].",".$arreglo_pacientes[$i]['id_pac'].");'>Trabajo</a>
+//<a href='javascript:trabajo_campo(".$arreglo_pacientes[$i]['longitud'].",".$arreglo_pacientes[$i]['latitud'].",".$arreglo_pacientes[$i]['id_pac'].",\".$arreglo_pacientes[$i]['id_pac'].\");'>Trabajo</a>
 $i=0;
 
-echo "<div style='overflow:auto; height:200px; width:100%;'>
+echo "<div style='overflow:auto; height:150px; width:100%;'>
 		<table class='tablaflotante'>
 	  <tr>
 		  <td colspan='3' align='center' style='background-color:#036; color:#FFF; font-weight:bold;'>Lista de Casos</td>
@@ -27,7 +28,7 @@ echo "<div style='overflow:auto; height:200px; width:100%;'>
 					<td>".$arreglo_pacientes[$i]["enfermedad"]."</td>
 					<td>
 						
-						
+						<a href='javascript:trabajo_campo(".$arreglo_pacientes[$i]['longitud'].",".$arreglo_pacientes[$i]['latitud'].",".$arreglo_pacientes[$i]['id_pac'].");'>Trabajo</a>
 						
 						<a href='javascript:buscar(".$arreglo_pacientes[$i]['longitud'].",".$arreglo_pacientes[$i]['latitud'].");'>Destino</a>
 					</td>

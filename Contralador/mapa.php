@@ -304,6 +304,17 @@ function trabajo_campo(longitud_caso,latitud_caso,id_pac)
 	//alert('Hola');
 	$('#id_pac').val(id_pac);
 	//$('#nombre_paciente').val(paciente);
+	
+	$.ajax({
+				type: 'POST',
+				url: '../../Contralador/CTrabajoCampoNombre.php',
+				data: 'id=' +id_pac,
+				success: function (datos) {
+					$('#nombre').html(datos);
+					return false;
+				}	
+			});
+	
 	$('#dialogotrabajocampo').dialog('open');
 	//map.addPopup(new  OpenLayers.Popup.FramedCloud("POPUP", 
 		//new OpenLayers.LonLat(lon2,lat2).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")),//Este parámetro corresponde a la ubicación en el mapa
@@ -334,16 +345,6 @@ function editar_perfil()
 	$('#dialogoperfil').dialog('open');
 }
 
-
-//funcion cerra sesion
-function cerrar_sesion(){
-					
-		<?php
-			session_destroy();
-			echo "location.href='../../Inicio.php'";
-		?>
-		
-}
 
 </script>
 
@@ -417,13 +418,13 @@ $(document).ready(function(){
         <tr>
             <td colspan="4" style="background-color:#036; color:#FFF;">Leyenda del mapa</td>
         </tr>
-        <tr style="background-color:#FFF;">
+        <tr style="background-color:#CCC;">
             <td><img src="../../imagenes/chikungunya.png" /></td>
             <td><img src="../../imagenes/dengue.png" /></td>
             <td><img src="../../imagenes/paludismo.png" /></td>
             <td><img src="../../imagenes/zika.png" /></td>
         </tr>
-        <tr style="background-color:#FFF;">
+        <tr style="background-color:#CCC;">
             <td width="80px">Chikungunya</td>
             <td width="80px">Dengue</td>
             <td width="80px">Paludismo</td>

@@ -138,7 +138,7 @@ function editar(){
         <input type="checkbox" id="menu-bar" />
         <label class="icon-menu" for="menu-bar"></label>
         <nav class="menu">
-        	<a href="Inicio.php" style="font-size:18px;" class="icon-inicio">Inicio</a>
+        	<a href="../Administrador/Inicio.php" style="font-size:18px;" class="icon-inicio">Inicio</a>
         </nav>
     </div>
 	</header>

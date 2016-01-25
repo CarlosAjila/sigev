@@ -292,16 +292,18 @@ AND paciente.id_pac NOT IN (SELECT asigna_caso.id_pac FROM asigna_caso)";
 	 //Funcion para presentar los casos que ya han sido asignados a un visitador
     public function lista_casoos_x_visitador($id_usu) {
         $objDatos = new clsDatos();
-        $sql = "SELECT paciente.id_pac,persona.pno_per,persona.sno_per,persona.apa_per,persona.ama_per,enfemedad.nom_enf,localizacion.nom_loc
-FROM paciente,persona,enfemedad,paciente_enfermedad,localizacion
+        $sql = "SELECT paciente.id_pac,persona.pno_per,persona.sno_per,persona.apa_per,persona.ama_per,enfemedad.nom_enf,localizacion.nom_loc,georeferenciacion.lat_geo,georeferenciacion.lon_geo
+FROM paciente,persona,enfemedad,paciente_enfermedad,localizacion,georeferenciacion
 WHERE paciente.id_per=persona.id_per AND paciente.id_pac=paciente_enfermedad.id_pac 
-AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A' AND persona.id_loc=localizacion.id_loc
+AND paciente_enfermedad.id_enf=enfemedad.id_enf AND paciente.est_pac='A' AND persona.id_loc=localizacion.id_loc AND paciente.id_geo=georeferenciacion.id_geo
 AND paciente.id_pac IN (SELECT id_pac FROM asigna_caso WHERE asigna_caso.id_usu='$id_usu')";
         $datos_desordenados = $objDatos->consulta($sql);
         while ($columna = $objDatos->arreglos($datos_desordenados)) {
             $this->arreglo [] = array("paciente" => $columna['pno_per'] . ' ' .$columna['sno_per'] . ' ' .$columna['apa_per'] . ' ' . $columna['ama_per'],
                 "enfermedad" => $columna['nom_enf'],
 				"sector" => $columna['nom_loc'],
+				"longitud" => $columna['lat_geo'],
+				"latitud" => $columna['lon_geo'],
                 "id_pac" => $columna['id_pac']);
         }
         return($this->arreglo);

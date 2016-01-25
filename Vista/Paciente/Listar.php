@@ -115,7 +115,7 @@ if (isset($Cod_Per)) {
     <body>
         <form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="form91" id="form91">
             <header>
-                <div id="conte" class="contenedor">
+                <div>
 
 
                     <h1><img src="../../imagenes/lbanner-05.png" class="logo" /></h1>

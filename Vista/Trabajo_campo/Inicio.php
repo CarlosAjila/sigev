@@ -38,7 +38,16 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#flotante').load('../../Contralador/Clista_paciente.php');
+		//$('#flotante').load('../../Contralador/Clista_paciente.php');
+		$.ajax({
+		type: 'POST',
+		url: '../../Contralador/Clista_cx_visitador.php',
+		data: 'id_usu='+<?php echo $_SESSION['id_usu']?>,
+		success: function (casos) {
+			$('#flotante').html(casos);
+			return false;
+		}
+	});
 				
 	});
 		
@@ -183,7 +192,7 @@ $(document).ready(function(){
            
             <nav class="menu">
                 <a href="#" style="font-size:18px;" class="icon-inicio">Inicio</a>
-                <a href="Listar.php" target="_new" >Trabajos de Campo</a>
+                <a href="Listar.php" target="_new" style="font-size:18px;">Trabajos de Campo</a>
                 <a href="#" onclick="ubicacion()" style="font-size:18px;">Ubicacion</a>
                 <a href="#" onclick="nuevo_marcador(1)" style="font-size:18px;">Punto de partida</a>
                 <a href="#" onclick="drawLine(1)" style="font-size:18px;">Ruta</a>
@@ -192,7 +201,7 @@ $(document).ready(function(){
         </div>
     </header>
 	<div id="map"> 
-</div>
+	</div>
     
     <div id="dialogoformulario" title="Registro de Pacientes" style="display:none;">
         <form method="POST" action="<? echo $_SERVER['PHP_SELF'];?>" name="FormRegistroP" id="FormRegistroP" enctype="multipart/form-data">
@@ -341,7 +350,7 @@ $(document).ready(function(){
     <div id="flotante">
     
     </div> 	          							
-   
+</div>   
 </body>
 </html>
 

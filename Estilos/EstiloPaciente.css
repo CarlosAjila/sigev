@@ -9,7 +9,7 @@
 	position:absolute;
 	top:55px;
 	left:81%;
-	width:230px;
+	width:250px;
 	height:200px;
 	z-index:5;
 }
@@ -54,7 +54,7 @@
 	font-size:12px;
 	opacity: 0.8;
 	text-align:center;
-	background-color:#FFF;
+	background-color:#CCC;
 }
 
 .tablaleyenda

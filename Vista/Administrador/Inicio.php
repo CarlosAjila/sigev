@@ -91,11 +91,12 @@ $('#txtfna').datepicker(opciones_datepicker);
                 <a href="#" style="font-size:18px;" class="icon-inicio">Inicio</a>
                 <a href="../Usuario/Listar.php" style="font-size:18px;" class="icon-iniciar-sesion">Usuarios</a>
                 <a href="../Visitadores/Listar.php" style="font-size:18px;" class="icon-iniciar-sesion">Visitadores</a>
+                <a href="../Trabajo_campo/Listar_adm.php" style="font-size:18px;" class="icon-iniciar-sesion">Trabajos de campo</a>
                 <a href="#" onclick="ubicacion()" style="font-size:18px;">Ubicacion</a>
-                <a href="#" onclick="nuevo_paciente(1)" style="font-size:18px;">Registrar Paciente</a>
                 <a href="#" onclick="nuevo_marcador(1)" style="font-size:18px;">Punto de partida</a>
                 <a href="#" onclick="drawLine(2)" style="font-size:18px;">Ruta</a>
                 <a href="#" onclick="editar_perfil()" style="font-size:18px;">Perfil</a>
+                <a href="../../cerrar_sesion.php" style="font-size:18px;">Cerrar sesión</a>
             </nav>
         </div>
     </header>

@@ -80,7 +80,7 @@ header{
 	top:0;
 	left:0;
 	z-index:1;
-	background-color:#036;
+	background-color:#999;
 }
 h1{
 	float:left;
@@ -117,7 +117,7 @@ header label{
 
 .menu a{
 	display:block;
-	color:#FFF;
+	color:#036;
 	height:50px;
 	text-decoration:none;
 	padding:15px;
@@ -126,7 +126,7 @@ header label{
 }
 
 .menu a:hover{
-	color:#999;
+	color:#1070CF;
 }
 
 #menu-bar{
