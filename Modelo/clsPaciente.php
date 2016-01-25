@@ -309,15 +309,12 @@ AND paciente.id_pac IN (SELECT id_pac FROM asigna_caso WHERE asigna_caso.id_usu=
 
     //    METODOS CARLOS AJILA
     //Modificar datos de persona
-    public function c_modificar_paciente(
-    $id_pec, $id_geo, $id_per, $oex_pac, $fre_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fat_pac, $fis_pac, $est_pac) {
+    public function c_modificar_paciente( 
+            $id_pac,$oex_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fat_pac, $fis_pac) {
         $objDatos = new clsDatos();
         $sql = "UPDATE paciente
-			SET (
-                          id_geo = '$id_geo',
-			  id_per = '$id_per',
+			SET 
 			  oex_pac = '$oex_pac',
-			  fre_pac = '$fre_pac',
 			  cas_pac = '$cas_pac',
 			  dir_pac = '$dir_pac',
 			  ref_pac = '$ref_pac',
@@ -325,9 +322,9 @@ AND paciente.id_pac IN (SELECT id_pac FROM asigna_caso WHERE asigna_caso.id_usu=
 			  dof_pac = '$dof_pac',
 			  emi_pac = '$emi_pac',
 			  fat_pac = '$fat_pac',
-			  fis_pac = '$fis_pac',
-			  est_pac = '$est_pac') 
-                          WHERE id_per='$id_pec';";
+			  fis_pac = '$fis_pac' 
+                          WHERE id_pac='$id_pac';";
+        echo $sql;
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }

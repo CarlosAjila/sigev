@@ -69,17 +69,16 @@ class clsPaciente_enfermedad {
     }
 
     //Modificar datos de usuario
-    public function modificar() {
+    public function c_modificar_enfermedad_paciente($id_pae,$id_enf) {
         $objDatos = new clsDatos();
         $sql = "update paciente_enfermedad
-                set id_pae '$this->id_pae',
-                id_pac '$this->id_pac',
-                id_enf '$this->id_enf',
-                est_pae '$this->est_pae'
-                where id_pae '$this->id_pae';";
+                set id_enf '$id_enf',
+                where id_pae '$id_pae';";
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }
+    
+  
 
     //Dar de baja a usuario
     public function dar_baja() {

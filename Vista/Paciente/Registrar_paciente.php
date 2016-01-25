@@ -2,6 +2,10 @@
 $rs_localidades = ejecutar_sentencia(
         "SELECT * FROM enfemedad"); //Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
 $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la variable $localidad recibimos un arreglo con el resultado de la consulta
+
+$valores_Expac = array("LABORATORIO", "CLINICA", "HOSPITAL", "SUBCENTRO DE SALUD", "CENTRO PARTICULAR", "OTRO"); //VALORES TIPO DE MAQUINARIA
+$valores_Caspac = array("PRESUNTIVO", "CONFIRMADO"); //VALORES TIPO DE MAQUINARIA
+$valores_Ofipac = array("DOCENTE", "ESTUDIANTE", "INGENIERO", "MÉDICO", "ALBAÑIL", "OTRO"); //VALORES TIPO DE MAQUINARIA
 ?>
 
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
@@ -376,18 +380,16 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
 
         <tr>
             <td style="padding:2px;">
-
-<!--<input type="text" name="txtexpac" id="txtexpac" placeholder="Lugar donde se realizó el exámen" style="border:1px solid #000; width:100%;" value=""/>-->
-                <select name="cbExpac" id="cbExpac" >
-                    <option value="" selected>Lugar donde se realizó el exámen</option>
-                    <option value="Laboratorio">Laboratorio</option>
-                    <option value="Clínica">Clinica</option>
-                    <option value="Hospital">Hospital</option>
-                    <option value="Subcentro de salud">Subcentro de salud</option>
-                    <option value="Centro Particula">Centro Particula</option>
-                    <option value="Otros">Otros</option>
+                    <select name="txtexpac"id="txtexpac"> ';
+                        
+                    <?php
+                    $i=0;
+                    do {
+                        echo '<option value="' . $valores_Expac[$i] . '">' . $valores_Expac[$i] . '</option>';
+                        $i++;
+                    } while ($i < sizeof($valores_Expac));
+                    ?>
                 </select>
-                <input type="hidden" name="txtexpac" id="txtexpac" value="" />
             </td>
             <td style="padding:2px;">
                 <select name="id_enf" id="id_enf">
@@ -396,13 +398,16 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
                         <option value="<?php echo $localidad["id_enf"]; ?>"><?php echo $localidad["nom_enf"]; ?></option>
                     <?php } while ($localidad = mysqli_fetch_assoc($rs_localidades)) ?>
                 </select>
-
-                <select name="cbOpciones" id="cbOpciones" >
-                    <option value="" selected>Tipo de Caso</option>
-                    <option value="Presuntivos">Presuntivos</option>
-                    <option value="Presuntivos">Confirmados</option>
+                
+                    <select name="txtcaspac"id="txtcaspac"> ';
+                    <?php
+                    $j=0;
+                    do {
+                        echo '<option value="' . $valores_Caspac[$j] . '">' . $valores_Caspac[$j] . '</option>';
+                        $j++;
+                    } while ($j < sizeof($valores_Caspac));
+                    ?>
                 </select>
-                <input type="hidden" name="txtcaspac" id="txtcaspac" value="" />
             </td>
         </tr>
         <tr>
@@ -411,17 +416,15 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
         </tr>
         <tr>
             <td style="padding:2px;">
-                <!--<input type="text" name="txtofipac" id="txtofipac" placeholder="Ocupacion" style="border:1px solid #000; width:100%;" value=""/>-->
-                <select name="cbofipac" id="cbExpac" >
-                    <option value="" selected>Seleccione Ocupacion</option>
-                    <option value="Docente">Docente</option>
-                    <option value="Estudiante">Estudiante</option>
-                    <option value="Ingeniero">Ingeniero</option>
-                    <option value="Médico">Médico</option>
-                    <option value="Albañil">Albañil</option>
-                    <option value="Otros">Otros</option>
+                   <select name="txtofipac"id="txtofipac"> ';
+                    <?php
+                    $k=0;
+                    do {
+                        echo '<option value="' . $valores_Ofipac[$k] . '">' . $valores_Ofipac[$k] . '</option>';
+                        $k++;
+                    } while ($k < sizeof($valores_Ofipac));
+                    ?>
                 </select>
-                <input type="hidden" name="txtofipac" id="txtofipac" value="" />
             </td>
             <td style="padding:2px;"><input type="text" name="txtdofpac" id="txtdofpac" placeholder="Direccion Trabajo" style="border:1px solid #000; width:100%;" value=""/></td>
         </tr>

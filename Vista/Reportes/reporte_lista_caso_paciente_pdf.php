@@ -25,7 +25,8 @@ if ($casoPaciente == "Todos") {
     $sqlWhere = " WHERE pac.cas_pac = '$casoPaciente'";
 }
 
-$rs_localidades = ejecutar_sentencia("SELECT per.ced_per, per.pno_per, per.sno_per, per.apa_per, per.ama_per, enf.nom_enf, enf.pri_enf, pac.fre_pac, pac.cas_pac
+$rs_localidades = ejecutar_sentencia("SELECT per.ced_per, per.pno_per, per.sno_per, 
+    per.apa_per, per.ama_per, enf.nom_enf, enf.pri_enf, DATE_FORMAT(pac.fre_pac,'%d/%m/%Y') as fecha, pac.cas_pac
         FROM persona per 
         INNER JOIN paciente pac ON per.id_per = pac.id_per 
         INNER JOIN paciente_enfermedad pae ON pae.id_pac = pac.id_pac 
@@ -41,15 +42,18 @@ $codigoHTML = '
 <title>REPORTE DE CASOS PACIENTE</title>
 </head>
 <body>
- <header>
-            <div id="conte" class="contenedor">
-                <h1><img src="../imagenes/lbanner-05.png" class="logo" /></h1>
-                 <label class="icon-menu" for="menu-bar"></label>
-            </div>
- </header>
+
   <section class="cuerpo">
-        <table width="100%" class="tabla">
+        <table width="100%">
+                <tr> 
+                    <td colspan="7" align = "center">
+                    <img src="../../imagenes/lbanner-05.png" style = "width:200px; height:80px;"/>
+                    </td>
+                </tr>
                 <tr>
+                    <td colspan="7" style="background-color:#036; color:#FFF; font-weight:bold;" font-size:34px; align="center">DATOS DE PACIENTES</td>
+                </tr>
+                <tr style="background-color:#036; color:#FFF; font-weight:bold;">
                     <th class="encabezadolista">CEDULA</th>
                     <th class="encabezadolista">NOMBRE</th>
                     <th class="encabezadolista">APELLIDO</th>
@@ -60,13 +64,13 @@ $codigoHTML = '
                 </tr>';
 while ($res = mysqli_fetch_assoc($rs_localidades)) {
     $codigoHTML.='	
-                <tr>
+                <tr font-size:12px;>
                         <td>' . $res['ced_per'] . '</td>
-                        <td>' . $res['pno_per'] . " " . $res['sno_per'] . '</td>
-                        <td>' . $res['apa_per'] . " " . $res['ama_per'] . '</td>
+                        <td>' . $res['pno_per'] . '</td>
+                        <td>' . $res['apa_per'] . '</td>
                         <td>' . $res['nom_enf'] . '</td>
                         <td>' . $res['pri_enf'] . '</td>
-                        <td>' . $res['fre_pac'] . '</td>										
+                        <td>' . $res['fecha'] . '</td>										
                         <td>' . $res['cas_pac'] . '</td>										
                 </tr>';
 }

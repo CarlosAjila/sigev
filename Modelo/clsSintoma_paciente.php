@@ -87,11 +87,20 @@ class clsSintoma_paciente {
     }
 
     //Modificar datos de usuario
-    public function modificar() {
+    public function c_modificar_sintomas_paciente($id_spa,$id_sin) {
         $objDatos = new clsDatos();
-        $sql = "UPDATE sintoma_paciente SET id_spa = '$this->id_spa',
-                id_pae = '$this->id_pae', id_sin = '$this->id_sin', est_spa = '$this->est_spa'
-                WHERE id_spa = '$this->id_spa';";
+        $sql = "UPDATE sintoma_paciente "
+                . "SET  id_sin = '$id_sin'
+                WHERE id_spa = '$id_spa';";
+        $objDatos->ejecutar($sql);
+        $objDatos->crerrarconexion();
+    }
+    
+    public function c_modificar_enfermedad_paciente($id_pae,$id_enf) {
+        $objDatos = new clsDatos();
+        $sql = "update paciente_enfermedad
+                set id_enf '$id_enf',
+                where id_pae '$id_pae';";
         $objDatos->ejecutar($sql);
         $objDatos->crerrarconexion();
     }

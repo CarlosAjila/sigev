@@ -59,8 +59,9 @@ if (isset($_POST['save_paciente'])) {
 
     $arregloCHK = $_POST['chk'];
     $numm = count($arregloCHK);
-    $obsSintoma_paciente = new clsSintoma_paciente();
+
     for ($n = 0; $n < $numm; $n++) {
+        $obsSintoma_paciente = new clsSintoma_paciente();
         $obsSintoma_paciente->insertar($id_pae, $arregloCHK[$n]);
     }
     $mensaje = "Paciente registrado con éxito";
@@ -72,9 +73,10 @@ if (isset($_POST['modificar_paciente'])) {
 //	$id_per=$_POST['id_per'];
 //	$cedula=$_POST['txtcedula'];
 //	$pnombre=$_POST['txtpnombre'];
-	
-    $id_per=$_POST['id_per'];
+
+    $id_per = $_POST['id_per'];
     $id_loc = $_POST['id_loc'];
+    $id_pac = $_POST['id_pac'];
     $ced_per = $_POST['txtcedula'];
     $fna_per = $_POST['txtfn'];
     $pno_per = $_POST['txtpnombre'];
@@ -86,19 +88,30 @@ if (isset($_POST['modificar_paciente'])) {
     $sex_per = $_POST['sex_per'];
     $estado = "A";
 
+    $oex_pac = $_POST['txtexpac']; //lugar en el cual se realizó los exámenes
+    $fre_pac = $_POST['fre_pac']; //lugar en el cual se realizó los exámenes
+    $cas_pac = $_POST['txtcaspac']; //
+    $dir_pac = $_POST['txtdirpac'];
+    $ref_pac = $_POST['txtrefpac']; //
+    $ofi_pac = $_POST['txtofipac']; //
+    $dof_pac = $_POST['txtdofpac'];
+    $emi_pac = $_POST['txtemipac']; //
+    $fat_pac = $_POST['txfatpac'];
+    $fis_pac = $_POST['txfispac'];
+    $est_pac = "A";
+
+    // Datos de Paciente Enfermedad
+    $id_enf = $_POST['id_enf'];
+
 //    echo $cedula . $pnombre . $id_per;
 //   $objpersona->modif_persona($cedula,$pnombre,$id_per);
     $objpersona->c_modificar_perfil_persona(
-            $id_per, 
-            $ced_per, 
-            $pno_per, 
-            $sno_per, 
-            $apa_per, 
-            $ama_per, 
-            $te1_per, 
-            $te2_per, 
-            $fna_per, 
-            $id_loc);
+            $id_per, $ced_per, $pno_per, $sno_per, $apa_per, $ama_per, $te1_per, $te2_per, $fna_per, $id_loc);
+
+    $objPaciente = new clsPaciente(
+            $id_geo, $oex_pac, $fre_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fat_pac, $fis_pac, $est_pac);
+    $objPaciente->c_modificar_paciente($id_pac, $oex_pac, $cas_pac, $dir_pac, $ref_pac, $ofi_pac, $dof_pac, $emi_pac, $fat_pac, $fis_pac);
+
     $mensaje = "Paciente modificado con éxito";
     $salidaJson = array("mensaje" => $mensaje);
     echo json_encode($salidaJson);

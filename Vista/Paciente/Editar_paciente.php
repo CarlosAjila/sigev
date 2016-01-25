@@ -21,8 +21,9 @@ function ejecutar_sentencia($query) {
 
 $id = $_POST['id'];
 $rs_localidades = ejecutar_sentencia(
-"SELECT per.id_per,
-per.id_loc,
+        "SELECT per.id_per,
+loc.id_loc,
+loc.nom_loc,
 per.ced_per,
 per.pno_per,
 per.sno_per,
@@ -35,7 +36,7 @@ per.sex_per,
 per.est_per,
 pac.id_pac,
 pac.id_geo,
-pac.id_per,
+pac.id_pac,
 pac.oex_pac,
 pac.fre_pac,
 pac.cas_pac,
@@ -46,12 +47,46 @@ pac.dof_pac,
 pac.emi_pac,
 pac.fat_pac,
 pac.fis_pac,
-pac.est_pac
+pac.est_pac,
+penf.id_enf,
+enf.nom_enf,
+paenf.id_pae
 FROM persona per 
 INNER JOIN paciente pac ON per.id_per = pac.id_per 
 INNER JOIN georeferenciacion geo ON geo.id_geo = pac.id_geo
+INNER JOIN paciente_enfermedad penf ON penf.id_pac = pac.id_pac
+INNER JOIN enfemedad enf ON enf.id_enf = penf.id_enf
+INNER JOIN localizacion loc ON loc.id_loc = per.id_loc
+INNER JOIN paciente_enfermedad paenf ON paenf.id_pac = pac.id_pac
 WHERE per.id_per = '" . $id . "'"); //Mediante esta línea, llamamos a la función ejecutar_sentencia, la cual requiere como parámetro la sentencia sql
 $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la variable $localidad recibimos un arreglo con el resultado de la consulta
+
+
+$valores_Expac = array("LABORATORIO", "CLINICA", "HOSPITAL", "SUBCENTRO DE SALUD", "CENTRO PARTICULAR", "OTRO"); //VALORES TIPO DE MAQUINARIA
+$valores_Caspac = array("PRESUNTIVO", "CONFIRMADO"); //VALORES TIPO DE MAQUINARIA
+$valores_Ofipac = array("DOCENTE", "ESTUDIANTE", "INGENIERO", "MÉDICO", "ALBAÑIL", "OTRO"); //VALORES TIPO DE MAQUINARIA
+$i =0;
+echo '<script language="javascript">'
+. '$(document).ready(function(){';
+echo '$("#id_enf").val("'.$localidad ["id_enf"].'")';
+echo '})</script>';
+
+echo '<script language="javascript">'
+. '$(document).ready(function(){';
+echo '$("#txtexpac").val("'.$localidad ["oex_pac"].'")';
+echo '})</script>';
+
+echo '<script language="javascript">'
+. '$(document).ready(function(){';
+echo '$("#txtcaspac").val("'.$localidad ["cas_pac"].'")';
+echo '})</script>';
+
+echo '<script language="javascript">'
+. '$(document).ready(function(){';
+echo '$("#txtofipac").val("'.$localidad ["ofi_pac"].'")';
+echo '})</script>';
+
+
 ?>
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -60,24 +95,24 @@ $localidad = mysqli_fetch_assoc($rs_localidades); //Mediante esta línea en la v
 
 <script language="javascript">
 //Para el manejo de fechas
-var opciones_datepicker = {changeYear: true,
-	dateFormat: "yy-mm-dd",
-	monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-	dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-	dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-	yearRange: "1950:2050"
-};
-$(document).ready(function (e) {
-	$('#txtfn').datepicker(opciones_datepicker);
-	$('#txtfrepac').datepicker(opciones_datepicker);
-	$('#txfatpac').datepicker(opciones_datepicker);
-	$('#txfispac').datepicker(opciones_datepicker);
-});</script>
+    var opciones_datepicker = {changeYear: true,
+        dateFormat: "yy-mm-dd",
+        monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+        yearRange: "1950:2050"
+    };
+    $(document).ready(function (e) {
+        $('#txtfn').datepicker(opciones_datepicker);
+        $('#txtfrepac').datepicker(opciones_datepicker);
+        $('#txfatpac').datepicker(opciones_datepicker);
+        $('#txfispac').datepicker(opciones_datepicker);
+    });</script>
 
 <script language="javascript">
     $(document).ready(function () {
         $('#btmodificar').click(function (e) {
-            
+
             var ruta = "../../Contralador/PacienteController.php";
             $.ajax({
                 url: ruta,
@@ -89,8 +124,8 @@ $(document).ready(function (e) {
                     alert(data.mensaje);
                 }
             });
-			alert("Edición exitosa");
-			location.reload();
+            alert("Edición exitosa");
+            location.reload();
         });
     });
 </script>
@@ -362,12 +397,20 @@ $(document).ready(function (e) {
             $('#txtcaspac').val(seleccion);
         });
     });
-    $(document).on('ready', function () {
-        $('#cbExpac').change(function () {
-            var seleccion = $('#cbExpac option:selected').text();
-            $('#txtexpac').val(seleccion);
-        });
-    });
+//    $(document).on('ready', function () {
+//        $('#cbExpac').change(function () {
+//            var seleccion = $('#cbExpac option:selected').text();
+//            $('#txtexpac').val(seleccion);
+//        });
+//    });
+
+//$(document).ready(function(){';
+//echo '$("#txtexpac").val("'.$localidad ["fis_pac"].'")';
+//echo '});
+
+
+
+
     $(document).on('ready', function () {
         $('#cbofipac').change(function () {
             var seleccion = $('#cbofipac option:selected').text();
@@ -383,9 +426,11 @@ $(document).ready(function (e) {
             <td colspan="2" style="background-color:#036; color:#FFF; font-weight:bold;">Datos de Paciente</td>
         </tr>
         <tr>
-            <input type="text" name="id_per" id="id_per" value="<?php echo $localidad ["id_per"] ?>" />
-            <td style="padding:2px;"><input type="text" name="txtcedula" id="txtcedula" placeholder="Número de cédula" style="border:1px solid #000; width:100%;" onkeypress="return validar_num(event)" value="<?php echo $localidad ["ced_per"] ?>" maxlength="10"/></td>
-            <td style="padding:2px;"><input type="text" name="txtfn" id="txtfn" placeholder="Fecha de nacimiento" style="border:1px solid #000; width:100%;" readonly="readonly" value="<?php echo $localidad ["fna_per"] ?>"/></td>
+        <input type="hidden" name="id_per" id="id_per" value="<?php echo $localidad ["id_per"] ?>" />
+        <input type="hidden" name="fre_pac" id="fre_pac" value="<?php echo $localidad ["fre_pac"] ?>" />
+        <input type="hidden" name="id_pac" id="fre_pac" value="<?php echo $localidad ["id_pac"] ?>" />
+        <td style="padding:2px;"><input type="text" name="txtcedula" id="txtcedula" placeholder="Número de cédula" style="border:1px solid #000; width:100%;" onkeypress="return validar_num(event)" value="<?php echo $localidad ["ced_per"] ?>" maxlength="10"/></td>
+        <td style="padding:2px;"><input type="text" name="txtfn" id="txtfn" placeholder="Fecha de nacimiento" style="border:1px solid #000; width:100%;" readonly="readonly" value="<?php echo $localidad ["fna_per"] ?>"/></td>
         </tr>
         <tr>
             <td style="padding:2px;"><input type="text" name="txtpnombre" id="txtpnombre" placeholder="Primer nombre" style="border:1px solid #000; width:100%;" onkeypress="return validar(event)" value="<?php echo $localidad ["pno_per"] ?>"/></td>
@@ -405,46 +450,59 @@ $(document).ready(function (e) {
 
         <tr>
             <td style="padding:2px;" colspan="2">
-                <input type="text" name="txtlocalidad" id="txtlocalidad" placeholder="Ingrese el nombre de su Barrio" style="border:1px solid #000; width:100%;" value="<?php echo $localidad ["id_loc"] ?>"/>
+                <input type="text" name="txtlocalidad" id="txtlocalidad" placeholder="Ingrese el nombre de su Barrio" style="border:1px solid #000; width:100%;" value="<?php echo $localidad ["nom_loc"] ?>"/>
                 <input type="hidden" name="id_loc" id="id_loc" value="<?php echo $localidad ["id_loc"] ?>" />
             </td>
         </tr>
         <tr>
             <td style="padding:2px;" colspan="2">Sexo:   
-                <input type="radio" name="sex_per" id="sex_per" value="M"> Masculino 
-                <input type="radio" name="sex_per" id="sex_per" value="F"> Femenino
+<!--                <input type="radio" name="sex_per" id="sex_per" value="M"> Masculino 
+                <input type="radio" name="sex_per" id="sex_per" value="F"> Femenino-->
+                	<?php
+					if($localidad ["sex_per"] == "M"){	
+						echo '<input type="radio" name="sex_per" id="sex_per" value="M" checked = "checked"> Masculino';
+						echo '<input type="radio" name="sex_per" id="sex_per" value="F"> Femenino';
+					}
+					else{
+						echo '<input type="radio" name="sex_per" id="sex_per" value="M"> Masculino';
+						echo '<input type="radio" name="sex_per" id="sex_per" value="F" checked = "checked"> Femenino';
+					}
+				?>
             </td>
         </tr>
 
         <tr>
             <td style="padding:2px;">
-
-<!--<input type="text" name="txtexpac" id="txtexpac" placeholder="Lugar donde se realizó el exámen" style="border:1px solid #000; width:100%;" value=""/>-->
-                <select name="cbExpac" id="cbExpac" >
-                    <option value="" selected>Lugar donde se realizó el exámen</option>
-                    <option value="Laboratorio">Laboratorio</option>
-                    <option value="Clínica">Clinica</option>
-                    <option value="Hospital">Hospital</option>
-                    <option value="Subcentro de salud">Subcentro de salud</option>
-                    <option value="Centro Particula">Centro Particula</option>
-                    <option value="Otros">Otros</option>
+                <select name="txtexpac"id="txtexpac"> ';
+                    <?php
+                    do {
+                        echo '<option value="' . $valores_Expac[$i] . '">' . $valores_Expac[$i] . '</option>';
+                        $i++;
+                    } while ($i < sizeof($valores_Expac));
+                    ?>
                 </select>
-                <input type="hidden" name="txtexpac" id="txtexpac" value="" />
             </td>
             <td style="padding:2px;">
                 <select name="id_enf" id="id_enf">
-                    <option value="" selected>Seleccione una enfermedad</option>
-                    <?php do { ?>
-                        <option value="<?php echo $localidad["id_enf"]; ?>"><?php echo $localidad["nom_enf"]; ?></option>
-                    <?php } while ($localidad = mysqli_fetch_assoc($rs_localidades)) ?>
-                </select>
+                    <?php 
+                    $rs_enfermedad = ejecutar_sentencia(
+                                "SELECT * FROM enfemedad");
+                        $localidad_enfermedad = mysqli_fetch_assoc($rs_enfermedad);
 
-                <select name="cbOpciones" id="cbOpciones" >
-                    <option value="" selected>Tipo de Caso</option>
-                    <option value="Presuntivos">Presuntivos</option>
-                    <option value="Presuntivos">Confirmados</option>
+                    do { ?>
+                        <option value="<?php echo $localidad_enfermedad["id_enf"]; ?>"><?php echo $localidad_enfermedad["nom_enf"]; ?></option>
+                    <?php } while ($localidad_enfermedad = mysqli_fetch_assoc($rs_enfermedad)) ?>
                 </select>
-                <input type="hidden" name="txtcaspac" id="txtcaspac" value="" />
+                
+                  <select name="txtcaspac"id="txtcaspac"> ';
+                    <?php
+                    $j=0;
+                    do {
+                        echo '<option value="' . $valores_Caspac[$j] . '">' . $valores_Caspac[$j] . '</option>';
+                        $j++;
+                    } while ($j < sizeof($valores_Caspac));
+                    ?>
+                </select>
             </td>
         </tr>
         <tr>
@@ -453,17 +511,15 @@ $(document).ready(function (e) {
         </tr>
         <tr>
             <td style="padding:2px;">
-                <!--<input type="text" name="txtofipac" id="txtofipac" placeholder="Ocupacion" style="border:1px solid #000; width:100%;" value=""/>-->
-                <select name="cbofipac" id="cbExpac" >
-                    <option value="" selected>Seleccione Ocupacion</option>
-                    <option value="Docente">Docente</option>
-                    <option value="Estudiante">Estudiante</option>
-                    <option value="Ingeniero">Ingeniero</option>
-                    <option value="Médico">Médico</option>
-                    <option value="Albañil">Albañil</option>
-                    <option value="Otros">Otros</option>
+                 <select name="txtofipac"id="txtofipac"> ';
+                    <?php
+                    $k=0;
+                    do {
+                        echo '<option value="' . $valores_Ofipac[$k] . '">' . $valores_Ofipac[$k] . '</option>';
+                        $k++;
+                    } while ($k < sizeof($valores_Ofipac));
+                    ?>
                 </select>
-                <input type="hidden" name="txtofipac" id="txtofipac" value="" />
             </td>
             <td style="padding:2px;"><input type="text" name="txtdofpac" id="txtdofpac" placeholder="Direccion Trabajo" style="border:1px solid #000; width:100%;" value="<?php echo $localidad ["dof_pac"] ?>"/></td>
         </tr>
@@ -485,13 +541,31 @@ $(document).ready(function (e) {
                     <?php
                     $rs_localidades = ejecutar_sentencia("SELECT id_sin, nom_sin FROM sintoma WHERE est_sin= 'A'");
                     $sintomas = mysqli_fetch_assoc($rs_localidades);
-                    ?>
-
-                    <?php
+                    $rs_localidades_sin_pac_enf = ejecutar_sentencia("SELECT * FROM sintoma_paciente WHERE id_pae = '".$localidad ["id_pae"]."'");
+                    $sin_pac_enf = mysqli_fetch_assoc($rs_localidades_sin_pac_enf);
+                    $c=0;
                     do {
+                             $vector[$c] = $sin_pac_enf['id_sin'];
+                             $c++;
+                    } while ($sin_pac_enf = mysqli_fetch_assoc($rs_localidades_sin_pac_enf));
+                    
+                    do {
+                        $activar = 0;
+                        for($f=0;$f<$c;$f++){
+                            if($sintomas["id_sin"] == $vector[$f]){
+                                $activar=1;
+                            }
+                        } 
+                        if($activar==1){
                         ?>
-                        <input type="checkbox" name="chk[]"  value="<?php echo $sintomas["id_sin"]; ?>"><?php echo $sintomas["nom_sin"]; ?></br>
-                    <?php } while ($sintomas = mysqli_fetch_assoc($rs_localidades));
+                        <input type="checkbox"  name="chk[]"  value="<?php echo $sintomas["id_sin"]; ?>"  checked="checked"/><?php echo $sintomas["nom_sin"]; ?></br>
+                    <?php 
+                        }else{
+                    ?>  
+                        <input type="checkbox"  name="chk[]"  value="<?php echo $sintomas["id_sin"]; ?>"><?php echo $sintomas["nom_sin"]; ?></br>
+                    <?php 
+                        }
+                    } while ($sintomas = mysqli_fetch_assoc($rs_localidades));
                     ?>
                 </div>    
             </td>
@@ -500,7 +574,7 @@ $(document).ready(function (e) {
     <table width="100%">
         <tr>
             <td>&nbsp;</td><td>&nbsp;</td>
-            <td align="center" style="padding:2px;"><input type="button" name="btmodificar" id="btmodificar" value="MODIFICAR"/></td>
+            <td align="center" style="padding:2px;"><input type="submit" name="btmodificar" id="btmodificar" value="MODIFICAR"/></td>
             <td>&nbsp;</td><td>&nbsp;</td>
             <td align="center" style="padding:2px;"><input type="button" name="btcancelar" id="btcancelar" class="imagencancelar"/></td>
             <td>&nbsp;</td><td>&nbsp;</td>
