@@ -473,7 +473,7 @@ echo '})</script>';
 
         <tr>
             <td style="padding:2px;">
-                <select name="txtexpac"id="txtexpac"> ';
+                <select name="txtexpac"id="txtexpac"> 
                     <?php
                     do {
                         echo '<option value="' . $valores_Expac[$i] . '">' . $valores_Expac[$i] . '</option>';
@@ -494,7 +494,7 @@ echo '})</script>';
                     <?php } while ($localidad_enfermedad = mysqli_fetch_assoc($rs_enfermedad)) ?>
                 </select>
                 
-                  <select name="txtcaspac"id="txtcaspac"> ';
+                  <select name="txtcaspac"id="txtcaspac">
                     <?php
                     $j=0;
                     do {
@@ -511,7 +511,7 @@ echo '})</script>';
         </tr>
         <tr>
             <td style="padding:2px;">
-                 <select name="txtofipac"id="txtofipac"> ';
+                 <select name="txtofipac"id="txtofipac"> 
                     <?php
                     $k=0;
                     do {
@@ -574,7 +574,7 @@ echo '})</script>';
     <table width="100%">
         <tr>
             <td>&nbsp;</td><td>&nbsp;</td>
-            <td align="center" style="padding:2px;"><input type="submit" name="btmodificar" id="btmodificar" value="MODIFICAR"/></td>
+            <td align="center" style="padding:2px;"><input type="button" name="btmodificar" id="btmodificar" value="MODIFICAR"/></td>
             <td>&nbsp;</td><td>&nbsp;</td>
             <td align="center" style="padding:2px;"><input type="button" name="btcancelar" id="btcancelar" class="imagencancelar"/></td>
             <td>&nbsp;</td><td>&nbsp;</td>
